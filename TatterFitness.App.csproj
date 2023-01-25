@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\TatterFitness.Models\TatterFitness.Models.csproj" />
+	  <ProjectReference Include="shared\TatterFitness.Models\TatterFitness.Models.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
