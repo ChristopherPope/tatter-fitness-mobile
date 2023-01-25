@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup x:Class="TatterFitness.App.Controls.Popups.NotesEntryPopup"
+           xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+           xmlns:popups="clr-namespace:TatterFitness.App.Controls.Popups"
+           x:DataType="popups:NotesEntryPopup">
+
+    <Border StrokeShape="Rectangle"
+            Style="{StaticResource PopupWindowBorder}">
+        <VerticalStackLayout Style="{StaticResource PopupWindow}">
+            <Label Style="{StaticResource PopupTitle}"
+                   Text="{Binding Title}" />
+
+            <BoxView Style="{StaticResource PopupDivider}" />
+
+            <Label Style="{StaticResource PopupPrompt}"
+                   Text="{Binding Prompt}" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Editor Margin="10,0,10,10"
+                        AutoSize="TextChanges"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},
+                                                          Light={StaticResource WindowBackgroundColorPrimary}}"
+                        HorizontalOptions="Fill"
+                        MinimumHeightRequest="250"
+                        Text="{Binding Notes}"
+                        TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                    Light={StaticResource TextColorPrimary}}"
+                        VerticalOptions="Fill" />
+            </Grid>
+
+            <HorizontalStackLayout Style="{StaticResource PopupButtonGroup}">
+                <Button Clicked="CancelButtonPressed"
+                        Style="{StaticResource PopupButton}"
+                        Text="Cancel" />
+
+                <Button Clicked="OkButtonPressed"
+                        Style="{StaticResource PopupButton}"
+                        Text="Ok" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</mct:Popup>
+
+

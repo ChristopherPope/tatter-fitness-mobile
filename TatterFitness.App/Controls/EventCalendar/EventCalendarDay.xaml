@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<VerticalStackLayout
+    x:Class="TatterFitness.App.Controls.EventCalendar.EventCalendarDay"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:TatterFitness.App.ViewModels.History.EventCalendar"
+    Padding="0"
+    x:DataType="vm:EventCalendarDayViewModel"
+    BackgroundColor="Transparent">
+    <VerticalStackLayout.GestureRecognizers>
+        <TapGestureRecognizer
+            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:EventCalendarViewModelBase}}, Path=DayClickedCommand}"
+            CommandParameter="{Binding EventId}" />
+    </VerticalStackLayout.GestureRecognizers>
+
+    <VerticalStackLayout.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="DayOfMonth"
+                BasedOn="{StaticResource LabelSmall}"
+                TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkSecondary}, Light={StaticResource TextColorSecondary}}" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsSelectedMonth}"
+                        TargetType="Label"
+                        Value="True">
+                        <Setter Property="FontAttributes" Value="Bold" />
+                        <Setter Property="FontSize" Value="Medium" />
+                        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary}, Light={StaticResource TextColorPrimary}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </VerticalStackLayout.Resources>
+
+    <Label
+        Style="{StaticResource DayOfMonth}"
+        Text="{Binding DayOfMonth}" />
+
+
+    <Label
+        FontFamily="FAS"
+        HorizontalOptions="Center"
+        IsVisible="{Binding HasEvent}"
+        Text="{Static fontAwesome:FontAwesomeIcons.Dumbbell}"
+        TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkSecondary},
+                                    Light={StaticResource TextColorSecondary}}"
+        VerticalOptions="Center" />
+</VerticalStackLayout>

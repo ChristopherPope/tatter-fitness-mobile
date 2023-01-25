@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="TatterFitness.App.Controls.EventCalendar.EventCalendar"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:evtControls="clr-namespace:TatterFitness.App.Controls.EventCalendar"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:TatterFitness.App.ViewModels.History.EventCalendar"
+    x:DataType="vm:EventCalendarViewModelBase"
+    ColumnSpacing="0"
+    RowSpacing="0">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="DayOfWeekLabel"
+                BasedOn="{StaticResource LabelMedium}"
+                TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource CardTextColorDarkSecondary}, Light={StaticResource CardTextColorSecondary}}" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style
+                x:Key="DayOfWeekBox"
+                TargetType="Border">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource CardTextColorDarkSecondary}, Light={StaticResource CardTextColorSecondary}}" />
+            </Style>
+        </ResourceDictionary>
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+
+    <CarouselView
+        Grid.Row="0"
+        Grid.Column="0"
+        CurrentItemChangedCommand="{Binding YearChangedCommand}"
+        CurrentItemChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=CurrentItem}"
+        HorizontalOptions="Center"
+        ItemsSource="{Binding Years}">
+        <CarouselView.ItemTemplate>
+            <DataTemplate>
+                <Border
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    Stroke="Black"
+                    StrokeShape="RoundRectangle 5,5,5,5"
+                    StrokeThickness="2">
+                    <Label
+                        Padding="5"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource CardTextColorDarkSecondary},
+                                                          Light={StaticResource CardTextColorSecondary}}"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding .}"
+                        TextColor="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary},
+                                                    Light={StaticResource CardTextColorPrimary}}"
+                        VerticalOptions="Center" />
+                </Border>
+            </DataTemplate>
+        </CarouselView.ItemTemplate>
+    </CarouselView>
+
+    <CarouselView
+        Grid.Row="1"
+        Grid.Column="0"
+        CurrentItemChangedCommand="{Binding MonthChangedCommand}"
+        CurrentItemChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}"
+        HorizontalOptions="Start"
+        ItemsSource="{Binding MonthNames}">
+        <CarouselView.ItemTemplate>
+            <DataTemplate>
+                <Border
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    Stroke="Black"
+                    StrokeShape="RoundRectangle 5,5,5,5"
+                    StrokeThickness="2">
+                    <Label
+                        Padding="5"
+                        BackgroundColor="{AppThemeBinding Dark={StaticResource CardTextColorDarkSecondary},
+                                                          Light={StaticResource CardTextColorSecondary}}"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource LabelLarge}"
+                        Text="{Binding .}"
+                        TextColor="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary},
+                                                    Light={StaticResource CardTextColorPrimary}}"
+                        VerticalOptions="Center" />
+                </Border>
+            </DataTemplate>
+        </CarouselView.ItemTemplate>
+    </CarouselView>
+
+    <ActivityIndicator
+        Grid.Row="2"
+        Grid.Column="0"
+        IsRunning="{Binding IsBusy}"
+        IsVisible="{Binding IsBusy}" />
+
+    <Grid
+        Grid.Row="2"
+        Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="S" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="1"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="M" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="2"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="T" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="3"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="W" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="4"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="T" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="5"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="F" />
+        </Border>
+        <Border
+            Grid.Row="0"
+            Grid.Column="6"
+            Style="{StaticResource DayOfWeekBox}">
+            <Label
+                Style="{StaticResource DayOfWeekLabel}"
+                Text="S" />
+        </Border>
+
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="0"
+            BindingContext="{Binding Day1}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="1"
+            BindingContext="{Binding Day2}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="2"
+            BindingContext="{Binding Day3}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="3"
+            BindingContext="{Binding Day4}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="4"
+            BindingContext="{Binding Day5}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="5"
+            BindingContext="{Binding Day6}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="1"
+            Grid.Column="6"
+            BindingContext="{Binding Day7}" />
+
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="0"
+            BindingContext="{Binding Day8}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="1"
+            BindingContext="{Binding Day9}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="2"
+            BindingContext="{Binding Day10}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="3"
+            BindingContext="{Binding Day11}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="4"
+            BindingContext="{Binding Day12}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="5"
+            BindingContext="{Binding Day13}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="2"
+            Grid.Column="6"
+            BindingContext="{Binding Day14}" />
+
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="0"
+            BindingContext="{Binding Day15}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="1"
+            BindingContext="{Binding Day16}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="2"
+            BindingContext="{Binding Day17}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="3"
+            BindingContext="{Binding Day18}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="4"
+            BindingContext="{Binding Day19}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="5"
+            BindingContext="{Binding Day20}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="3"
+            Grid.Column="6"
+            BindingContext="{Binding Day21}" />
+
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="0"
+            BindingContext="{Binding Day22}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="1"
+            BindingContext="{Binding Day23}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="2"
+            BindingContext="{Binding Day24}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="3"
+            BindingContext="{Binding Day25}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="4"
+            BindingContext="{Binding Day26}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="5"
+            BindingContext="{Binding Day27}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="4"
+            Grid.Column="6"
+            BindingContext="{Binding Day28}" />
+
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="0"
+            BindingContext="{Binding Day29}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="1"
+            BindingContext="{Binding Day30}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="2"
+            BindingContext="{Binding Day31}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="3"
+            BindingContext="{Binding Day32}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="4"
+            BindingContext="{Binding Day33}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="5"
+            BindingContext="{Binding Day34}" />
+        <evtControls:EventCalendarDay
+            Grid.Row="5"
+            Grid.Column="6"
+            BindingContext="{Binding Day35}" />
+    </Grid>
+</Grid>

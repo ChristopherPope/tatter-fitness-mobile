@@ -1,0 +1,545 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase
+    x:Class="TatterFitness.App.Views.Workouts.WorkoutExerciseView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:TatterFitness.App.Controls"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:TatterFitness.Models;assembly=TatterFitness.Models"
+    xmlns:views="clr-namespace:TatterFitness.App.Views"
+    xmlns:vm="clr-namespace:TatterFitness.App.ViewModels.Workouts"
+    x:DataType="vm:WorkoutExerciseViewModel"
+    x:TypeArguments="vm:WorkoutExerciseViewModel"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},
+                                      Light={StaticResource WindowBackgroundColorPrimary}}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="SetNumBackground">
+                #ECEA6A
+            </Color>
+            <Color x:Key="SetNumBackgroundDark">
+                #3A3A3C
+            </Color>
+
+            <Style
+                x:Key="MetricsGrid"
+                TargetType="Grid">
+                <Setter Property="Margin" Value="3,0,0,0" />
+                <Setter Property="RowSpacing" Value="0" />
+                <Setter Property="ColumnSpacing" Value="5" />
+            </Style>
+
+            <Style
+                x:Key="MetricTitle"
+                TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary}, Light={StaticResource TextColorPrimary}}" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+
+            <Style
+                x:Key="SetNumberBorder"
+                TargetType="Border">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Margin" Value="0,0,0,10" />
+                <Setter Property="StrokeThickness" Value="2" />
+                <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary}, Light={StaticResource CardTextColorPrimary}}" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 40,40,40,40" />
+
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsCompleted}"
+                        TargetType="Border"
+                        Value="True">
+                        <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource SetNumBackgroundDark}, Light={StaticResource SetNumBackground}}" />
+
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style
+                x:Key="SetNumber"
+                TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary}, Light={StaticResource CardTextColorPrimary}}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsCompleted}"
+                        TargetType="Label"
+                        Value="True">
+                        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource CardBackgroundColorDarkPrimary}, Light={StaticResource CardBackgroundColorPrimary}}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <VerticalStackLayout Spacing="5">
+
+            <Label
+                FontSize="Title"
+                Text="{Binding ExerciseName}"
+                TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                            Light={StaticResource TextColorPrimary}}" />
+
+            <Label
+                FontSize="Micro"
+                Text="{Binding ModNames}"
+                TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkSecondary},
+                                            Light={StaticResource TextColorSecondary}}" />
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <controls:TotalEffort
+            Grid.Row="0"
+            WorkoutExercise="{Binding WorkoutExercise}" />
+
+        <ActivityIndicator
+            Grid.Row="1"
+            Grid.Column="0"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}" />
+
+        <StackLayout
+            Grid.Row="1"
+            Orientation="Vertical">
+            <CarouselView
+                x:Name="SetsList"
+                EmptyView="No sets, create a new set."
+                IndicatorView="indicatorView"
+                ItemsSource="{Binding SetVms}"
+                Position="{Binding Position}"
+                PositionChangedCommand="{Binding PositionChangedCommand}"
+                PositionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="5"
+                            x:DataType="vm:SetViewModel">
+                            <Frame Style="{x:StaticResource Card}">
+                                <StackLayout Orientation="Vertical">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Style="{StaticResource SetNumberBorder}">
+                                            <StackLayout
+                                                Margin="0,5,0,5"
+                                                HorizontalOptions="Center"
+                                                Orientation="Horizontal">
+                                                <Label
+                                                    Style="{StaticResource SetNumber}"
+                                                    Text="{Binding SetNumber, StringFormat='Set {0}'}" />
+                                                <Label
+                                                    Style="{StaticResource SetNumber}"
+                                                    Text="{Binding TotalSets, StringFormat=' of {0}'}" />
+                                            </StackLayout>
+                                        </Border>
+
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            IsVisible="{Binding DoShowRepsAndWeight}"
+                                            Style="{StaticResource MetricsGrid}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Weight (lbs)" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding Weight}" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Margin="0,0,0,10"
+                                                FontFamily="FAS"
+                                                HorizontalTextAlignment="Center"
+                                                Style="{StaticResource LabelLarge}"
+                                                Text="{Static fontAwesome:FontAwesomeIcons.Times}"
+                                                TextColor="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary},
+                                                                            Light={StaticResource CardTextColorPrimary}}"
+                                                VerticalOptions="End" />
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Reps" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding Reps}"
+                                                    MinimumWidthRequest="35" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="3"
+                                                Margin="35,0,0,0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Volume (lbs)" />
+
+                                                <Label
+                                                    Margin="0,10,0,0"
+                                                    FontSize="Medium"
+                                                    HorizontalTextAlignment="End"
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="{Binding Volume, StringFormat='{0:N0}'}"
+                                                    VerticalOptions="Start" />
+                                            </StackLayout>
+                                        </Grid>
+
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            IsVisible="{Binding DoShowDurationAndWeight}"
+                                            Style="{StaticResource MetricsGrid}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Duration (secs)1" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding DurationInSeconds}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Weight (lbs)" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding Weight}" />
+                                            </StackLayout>
+                                        </Grid>
+
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            IsVisible="{Binding DoShowRepsOnly}"
+                                            Style="{StaticResource MetricsGrid}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Reps" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding Reps}" />
+                                            </StackLayout>
+                                        </Grid>
+
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            IsVisible="{Binding DoShowCardio}"
+                                            Style="{StaticResource MetricsGrid}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Duration (secs)" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding DurationInSeconds}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Miles" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding MilesDistance}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Machine Intensity" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding MachineIntensity}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Machine Watts" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding MachineWatts}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Max BPM" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding MaxBpm}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Calories" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding Calories}" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                Orientation="Vertical">
+                                                <Label
+                                                    Style="{StaticResource MetricTitle}"
+                                                    Text="Machine Incline" />
+
+                                                <controls:MetricInput
+                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
+                                                    MetricModifiedCommandParameter="{Binding .}"
+                                                    MetricValue="{Binding MachineIncline}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <IndicatorView
+                x:Name="indicatorView"
+                Margin="0,0,0,240"
+                HorizontalOptions="Center"
+                IndicatorColor="LightGray"
+                IndicatorsShape="Square"
+                SelectedIndicatorColor="DarkGray" />
+        </StackLayout>
+
+        <StackLayout
+            Grid.Row="2"
+            Style="{StaticResource BottomToolbar}">
+            <Button
+                Command="{Binding AddSetCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="Set">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Command="{Binding DeleteSetCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="Set">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Trash}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Command="{Binding ViewHistoryCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="History">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAR"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Eye}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Command="{Binding SelectModsCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="Mods">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Tasks}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Command="{Binding EditNotesCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="Notes">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.StickyNote}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Command="{Binding Calculate531Command}"
+                IsVisible="{Binding DoShow531Button}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="531">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Calculator}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Button
+                Command="{Binding CompleteSetCommand}"
+                IsVisible="{Binding DoShowCompleteSetButton}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="Complete">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Check}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+        </StackLayout>
+    </Grid>
+</views:ContentPageBase>

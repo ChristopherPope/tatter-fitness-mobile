@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase
+    x:Class="TatterFitness.App.Views.Workouts.WorkoutView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:TatterFitness.App.Controls"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:TatterFitness.Models;assembly=TatterFitness.Models"
+    xmlns:views="clr-namespace:TatterFitness.App.Views"
+    xmlns:vm="clr-namespace:TatterFitness.App.ViewModels.Workouts"
+    x:DataType="vm:WorkoutViewModel"
+    x:TypeArguments="vm:WorkoutViewModel"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},
+                                      Light={StaticResource WindowBackgroundColorPrimary}}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ExerciseEffortGrid" TargetType="Grid">
+                <Setter Property="Margin" Value="3,0,0,0" />
+            </Style>
+
+            <Style x:Key="ExerciseEffortValue" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary}, Light={StaticResource TextColorTertiary}}" />
+                <Setter Property="FontSize" Value="Micro" />
+            </Style>
+
+            <Style x:Key="ExerciseEffortTitle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary}, Light={StaticResource TextColorPrimary}}" />
+                <Setter Property="FontSize" Value="Micro" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0"
+                FontSize="Title"
+                Text="{Binding Title}"
+                VerticalOptions="Center" />
+
+            <Button
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0"
+                Command="{Binding RenameWorkoutCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                VerticalOptions="Start">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.Pen}"
+                        Size="15"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Style="{StaticResource LabelMicro}"
+                Text="Workout" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <controls:TotalEffort Grid.Row="0" WorkoutExercises="{Binding WorkoutExercises}" />
+
+        <CollectionView
+            x:Name="ExercisesList"
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsLayout="VerticalList"
+            ItemsSource="{Binding ExerciseVms}"
+            SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5" x:DataType="vm:WorkoutCardViewModel">
+                        <Frame Style="{x:StaticResource Card}">
+                            <StackLayout Orientation="Vertical">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Row="0" Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Margin="0,0,10,0"
+                                            HorizontalTextAlignment="Start"
+                                            Style="{StaticResource LabelMedium}"
+                                            Text="{Binding ExerciseName}"
+                                            TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
+                                                                        Light={StaticResource TextColorTertiary}}"
+                                            VerticalTextAlignment="End" />
+
+
+                                        <controls:ExerciseEffort
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            WorkoutExercise="{Binding WorkoutExercise}"
+                                            HorizontalOptions="End" />
+                                    </Grid>
+
+                                    <Button
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding Source={x:Reference ExercisesList}, Path=BindingContext.ShowContextMenuCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontFamily="FAS"
+                                        HorizontalOptions="End"
+                                        Style="{StaticResource LabelMedium}"
+                                        Text="{Static fontAwesome:FontAwesomeIcons.EllipsisV}"
+                                        TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
+                                                                    Light={StaticResource TextColorTertiary}}" />
+                                </Grid>
+
+                                <Label
+                                    IsVisible="{Binding DoShowModNames}"
+                                    Style="{StaticResource LabelMicro}"
+                                    Text="{Binding ModNames}"
+                                    TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                                Light={StaticResource TextColorPrimary}}" />
+                                <ProgressBar
+                                    Margin="0,0,25,0"
+                                    Progress="{Binding SetsCompletedPercent}"
+                                    ProgressColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},
+                                                                    Light={StaticResource WindowBackgroundColorPrimary}}" />
+
+                                <Label
+                                    Style="{StaticResource LabelSmall}"
+                                    Text="{Binding SetsCompletedTitle}"
+                                    TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                                Light={StaticResource TextColorPrimary}}" />
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference ExercisesList}, Path=BindingContext.PerformWorkoutCommand}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </StackLayout.GestureRecognizers>
+
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout Grid.Row="2" Style="{StaticResource BottomToolbar}">
+            <Button
+                Command="{Binding AddRemoveExercisesCommand}"
+                Style="{StaticResource BottomToolbarButton}"
+                Text="Exercises">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="FAS"
+                        Glyph="{x:Static fontAwesome:FontAwesomeIcons.List}"
+                        Size="20"
+                        Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                Light={StaticResource TextColorPrimary}}" />
+                </Button.ImageSource>
+            </Button>
+        </StackLayout>
+    </Grid>
+</views:ContentPageBase>
