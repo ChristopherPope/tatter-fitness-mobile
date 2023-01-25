@@ -6,13 +6,13 @@
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
-		<RootNamespace>TatterFitness.App</RootNamespace>
+		<RootNamespace>TatterFitness.Mobile</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>TatterFitness.App</ApplicationTitle>
+		<ApplicationTitle>TatterFitness.Mobile</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>org.thepopes.tatterfitness</ApplicationId>
@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="shared\TatterFitness.Models\TatterFitness.Models.csproj" />
+	  <ProjectReference Include="..\shared\TatterFitness.Models\TatterFitness.Models.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
