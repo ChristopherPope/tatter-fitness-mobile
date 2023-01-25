@@ -9,6 +9,8 @@ So why is it called TatterFitness? Because my son is the one who started me on w
 
 ## ExerciseHistory <a name="exercise-history"></a>
 
-<img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/ExerciseHistory/ExerciseHistory_Cardio_Dark.png?raw=true))" style="width:200px;height:433px;">
+<img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/ExerciseHistory/ExerciseHistory_Cardio_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark cardio exercise history">
+
+<img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/ExerciseHistory/ExerciseHistory_Cardio_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light cardio exercise history">
 
 
