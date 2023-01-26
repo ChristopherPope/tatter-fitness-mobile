@@ -5,3 +5,5 @@ I started TF as an Ionic project, re-wrote it as Xamarin, and finally re-wrote i
 So why is it called TatterFitness? Because my son is the one who started me on working out and we bought him a kitten when he was younger whom he named Tatter. 
 
 [Screen Shots](Screen%20Shots/readme.md)
+
+TF communicates with a [REST API]() I wrote which in turn uses a SQL Server database. 

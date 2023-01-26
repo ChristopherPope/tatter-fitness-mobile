@@ -9,6 +9,7 @@
   - [Routines](#routines)
   - [Selection Dialogs](#selection-dialogs)
 
+
 ## Exercise History <a name="exercise-history"></a>
 
 | Cardio (Dark) | Cardio (Light) | Duration and Weight (Dark) | Duration and WeightCardio (Light) |
