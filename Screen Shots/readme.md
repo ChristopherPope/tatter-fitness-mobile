@@ -6,6 +6,8 @@
   - [Workout History](#workout-history)
   - [Workout Exercise ](#workout-exercise-)
   - [Workout](#workout)
+  - [Routines](#routines)
+  - [Selection Dialogs](#selection-dialogs)
 
 ## Exercise History <a name="exercise-history"></a>
 
@@ -39,4 +41,16 @@
 | Dark | Light |
 |---------------|----------------|
 | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Workout/Workout_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark workout history"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Workout/Workout_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light workout history"> 
+
+## Routines<a name="routine"></a>
+
+| Edit Routine Dark | Edit Routine Light | Show Routines Dark | Show Routines Light |
+|---------------|----------------|---------------|----------------|
+| <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Routines/EditRoutine_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark edit routine"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Routines/EditRoutine_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light edit routine"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Routines/ShowRoutines_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark show routines"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Routines/ShowRoutines_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light show routines">
+
+## Selection Dialogs<a name="selection-dialogs"></a>
+
+| Select Exercises Dark | Select Exercises Light | Select Mods Dark | Select Mods Light |
+|---------------|----------------|---------------|----------------|
+| <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Selects/SelectExercises_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark select exercises"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Selects/SelectExercises_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light select exercises"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Selects/SelectMods_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark select mods"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Selects/SelectMods_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light select mods">
 
