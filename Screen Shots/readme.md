@@ -36,7 +36,7 @@
 
 ## Workout<a name="workout"></a>
 
-| Drak | Light |
+| Dark | Light |
 |---------------|----------------|
 | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Workout/Workout_Dark.png?raw=true))" style="width:200px;height:433px;" alt="Dark workout history"> | <img src="https://github.com/ChristopherPope/tatter-fitness-mobile/blob/main/Screen%20Shots/Workout/Workout_Light.png?raw=true))" style="width:200px;height:433px;" alt="Light workout history"> 
 
