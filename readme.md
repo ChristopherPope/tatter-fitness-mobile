@@ -4,4 +4,4 @@ I started TF as an Ionic project, re-wrote it as Xamarin, and finally re-wrote i
 
 So why is it called TatterFitness? Because my son is the one who started me on working out and we bought him a kitten when he was younger whom he named Tatter. 
 
-<a href=screen%20shots/readme.md>Screen Shots</a>
+<a href=[screen%20shots/readme.md](https://github.com/ChristopherPope/tatter-fitness-mobile/tree/main/Screen%20Shots#readme)>Screen Shots</a>
