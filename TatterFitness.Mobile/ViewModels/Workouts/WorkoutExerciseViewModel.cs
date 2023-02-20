@@ -253,13 +253,18 @@ namespace TatterFitness.App.ViewModels.Workouts
         {
             try
             {
-                if (! setVm.IsCompleted)
+                if (!setVm.IsCompleted)
                 {
                     return;
                 }
 
                 var updatedSet = await setsApi.Update(setVm.Set);
                 setVm.Set.Id = updatedSet.Id;
+
+                // todo: Look at Messenger - https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/messenger
+                //var tempWorkoutExercise = WorkoutExercise;
+                //WorkoutExercise = null;
+                //WorkoutExercise = tempWorkoutExercise;
             }
             catch (Exception ex)
             {
@@ -303,6 +308,16 @@ namespace TatterFitness.App.ViewModels.Workouts
             }
         }
 
+        partial void OnPositionChanged(int value)
+        {
+            logger.Info($"OnPositionChanged({value})");
+        }
+
+        partial void OnPositionChanging(int value)
+        {
+            logger.Info($"OnPositionChanging({value})");
+        }
+
         private async Task CreateWorkout()
         {
             WorkoutExercise.Sets.Clear();
@@ -312,7 +327,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             WorkoutExercise.Sets.AddRange(SetVms.Select(vm => vm.Set).OrderBy(s => s.SetNumber));
             WorkoutExercise.Sets.ForEach(set => set.WorkoutExerciseId = WorkoutExercise.Id);
         }
-        
+
         [RelayCommand]
         private async Task ViewHistory()
         {
@@ -332,6 +347,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         {
             try
             {
+                logger.Info($"PositionChanged({position})");
                 currentPosition = position;
                 SetButtonAvailability();
             }
