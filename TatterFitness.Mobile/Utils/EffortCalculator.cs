@@ -22,6 +22,8 @@ namespace TatterFitness.App.Utils
 
         private IEnumerable<WorkoutExercise> workoutExercises;
 
+        private IEnumerable<WorkoutExerciseSet> sets = Enumerable.Empty<WorkoutExerciseSet>();
+
         public void Calculate(WorkoutExercise exercise)
         {
             Calculate(new List<WorkoutExercise> { exercise });
@@ -42,6 +44,18 @@ namespace TatterFitness.App.Utils
         public void Calculate(IEnumerable<WorkoutExercise> workoutExercises)
         {
             this.workoutExercises = workoutExercises;
+            CalculateRepsAndWeightVolume();
+            CalculateRepsOnly();
+            CalculateDurationAndWeightVolume();
+            CalculateDurationAndWeightDurationInSeconds();
+            CalculateCardioMiles();
+            CalculateCardioDurationInSeconds();
+            CalculateCardioBpm();
+        }
+
+        public void Calculate(IEnumerable<WorkoutExerciseSet> sets)
+        {
+            this.sets = sets;
             CalculateRepsAndWeightVolume();
             CalculateRepsOnly();
             CalculateDurationAndWeightVolume();
@@ -86,7 +100,7 @@ namespace TatterFitness.App.Utils
             var cardioSets = GetSets(ExerciseTypes.Cardio);
             var bpm = cardioSets.Sum(s => s.MaxBpm);
 
-            if (cardioSets.Count() > 0)
+            if (cardioSets.Any())
             {
                 CBpm = bpm / cardioSets.Count();
             }
@@ -98,9 +112,8 @@ namespace TatterFitness.App.Utils
 
         private IEnumerable<WorkoutExerciseSet> GetSets(ExerciseTypes exerciseType)
         {
-            return workoutExercises
-                .Where(ex => ex.ExerciseType == exerciseType)
-                .SelectMany(ex => ex.Sets)
+            return sets
+                .Where(s => s.ExerciseType == exerciseType)
                 .Where(s => s.Id > 0)
                 .ToList();
         }
