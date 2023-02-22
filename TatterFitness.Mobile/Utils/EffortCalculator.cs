@@ -1,5 +1,4 @@
 ﻿using TatterFitness.Models.Enums;
-using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.Utils
@@ -20,38 +19,7 @@ namespace TatterFitness.App.Utils
 
         public int CBpm { get; private set; }
 
-        private IEnumerable<WorkoutExercise> workoutExercises;
-
         private IEnumerable<WorkoutExerciseSet> sets = Enumerable.Empty<WorkoutExerciseSet>();
-
-        public void Calculate(WorkoutExercise exercise)
-        {
-            Calculate(new List<WorkoutExercise> { exercise });
-        }
-
-        public void Calculate(ExerciseHistory exerciseHistory)
-        {
-            Calculate(new List<WorkoutExercise>
-            {
-                new WorkoutExercise
-                {
-                    ExerciseType = exerciseHistory.ExerciseType,
-                    Sets = exerciseHistory.Sets.ToList()
-                }
-            });
-        }
-
-        public void Calculate(IEnumerable<WorkoutExercise> workoutExercises)
-        {
-            this.workoutExercises = workoutExercises;
-            CalculateRepsAndWeightVolume();
-            CalculateRepsOnly();
-            CalculateDurationAndWeightVolume();
-            CalculateDurationAndWeightDurationInSeconds();
-            CalculateCardioMiles();
-            CalculateCardioDurationInSeconds();
-            CalculateCardioBpm();
-        }
 
         public void Calculate(IEnumerable<WorkoutExerciseSet> sets)
         {

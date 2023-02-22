@@ -107,8 +107,18 @@
                                     <controls:ExerciseEffort
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        AverageBpm="{Binding TotalEffort.AverageBpm}"
+                                        CDuration="{Binding TotalEffort.TotalCDuration}"
+                                        CMiles="{Binding TotalEffort.TotalCMiles}"
+                                        DWDuration="{Binding TotalEffort.TotalDWDuration}"
+                                        DWVolume="{Binding TotalEffort.TotalDWVolume}"
                                         HorizontalOptions="End"
-                                        WorkoutExercise="{Binding WorkoutExercise}" />
+                                        IsCardioGridVisible="{Binding IsCardioGridVisible}"
+                                        IsDurationAndWeightGridVisible="{Binding IsDurationAndWeightGridVisible}"
+                                        IsRepsAndWeightGridVisible="{Binding IsRepsAndWeightGridVisible}"
+                                        IsRepsOnlyGridVisible="{Binding IsRepsOnlyGridVisible}"
+                                        ROReps="{Binding TotalEffort.TotalROReps}"
+                                        RWVolume="{Binding TotalEffort.TotalRWVolume}" />
 
                                     <Button
                                         Grid.Column="2"
