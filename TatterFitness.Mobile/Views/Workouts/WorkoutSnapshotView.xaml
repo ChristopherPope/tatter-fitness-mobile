@@ -58,7 +58,13 @@
         </Grid.RowDefinitions>
 
         <controls:TotalEffort
-            Grid.Row="0" />
+            Grid.Row="0"
+            CDuration="{Binding TotalEffort.TotalCDuration}"
+            CMiles="{Binding TotalEffort.TotalCMiles}"
+            DWDuration="{Binding TotalEffort.TotalDWDuration}"
+            DWVolume="{Binding TotalEffort.TotalDWVolume}"
+            ROReps="{Binding TotalEffort.TotalROReps}"
+            RWVolume="{Binding TotalEffort.TotalRWVolume}" />
 
         <CollectionView
             x:Name="ExercisesList"

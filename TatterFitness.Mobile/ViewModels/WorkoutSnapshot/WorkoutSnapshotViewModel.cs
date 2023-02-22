@@ -6,6 +6,7 @@ using TatterFitness.App.Interfaces.Services.API;
 using TatterFitness.App.Interfaces.Services.ContextMenu;
 using TatterFitness.App.NavData;
 using TatterFitness.App.Views.History;
+using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.ViewModels.WorkoutSnapshot
@@ -31,11 +32,14 @@ namespace TatterFitness.App.ViewModels.WorkoutSnapshot
         [ObservableProperty]
         private ObservableCollection<WorkoutExerciseSet> sets = new();
 
+        public TotalEffortViewModel TotalEffort { get; private set; }
 
-        public WorkoutSnapshotViewModel(ILoggingService logger, IWorkoutsApiService workoutsApi, IWorkoutSnapshotContextMenuService contextMenu) : base(logger)
+
+        public WorkoutSnapshotViewModel(ILoggingService logger, IWorkoutsApiService workoutsApi, IWorkoutSnapshotContextMenuService contextMenu, TotalEffortViewModel totalEffort) : base(logger)
         {
             this.workoutsApi = workoutsApi;
             this.contextMenu = contextMenu;
+            TotalEffort = totalEffort;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -65,6 +69,8 @@ namespace TatterFitness.App.ViewModels.WorkoutSnapshot
             {
                 Sets.Add(set);
             }
+
+            TotalEffort.ShowTotalEffort(sets);
         }
 
         [RelayCommand]
