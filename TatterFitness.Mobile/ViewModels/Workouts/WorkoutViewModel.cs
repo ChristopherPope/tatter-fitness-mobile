@@ -41,7 +41,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         private readonly IWorkoutExercisesApiService workoutExercisesApi;
 
         [ObservableProperty]
-        private EffortViewModel totalEffort;
+        private TotalEffortViewModel totalEffort;
 
         [ObservableProperty]
         private ObservableCollection<WorkoutCardViewModel> exerciseVms = new();
@@ -59,7 +59,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             IModsSelectorModal modsSelectorModal,
             IExercisesSelectorModal exercisesSelectorModal,
             IWorkoutExerciseContextMenuService contextMenu,
-            EffortViewModel totalEffort)
+            TotalEffortViewModel totalEffort)
             : base(logger)
         {
             this.workoutsApi = workoutsApi;
@@ -96,16 +96,6 @@ namespace TatterFitness.App.ViewModels.Workouts
 
             await PopulateWorkoutExercises(routine.Exercises);
             totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets));
-        }
-
-        public override Task RefreshView()
-        {
-            foreach (var vm in exerciseVms)
-            {
-                vm.RefreshView();
-            }
-
-            return Task.CompletedTask;
         }
 
         private async Task PopulateWorkoutExercises(IEnumerable<RoutineExercise> routineExercises)

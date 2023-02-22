@@ -50,7 +50,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         private WorkoutExercise workoutExercise;
 
         [ObservableProperty]
-        private EffortViewModel totalEffort;
+        private TotalEffortViewModel totalEffort;
 
         private WorkoutExerciseSet CurrentSet => WorkoutExercise.Sets[currentPosition];
         private SetViewModel CurrentSetVm => SetVms[currentPosition];
@@ -61,7 +61,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             IWorkoutExercisesApiService workoutExercisesApi,
             IWorkoutExerciseModifiersApiService modsApi,
             IWorkoutExerciseSetsApiService setsApi,
-            EffortViewModel totalEffort)
+            TotalEffortViewModel totalEffort)
             : base(logger)
         {
             this.workoutExercisesApi = workoutExercisesApi;
@@ -253,6 +253,7 @@ namespace TatterFitness.App.ViewModels.Workouts
                 }
 
                 FormModNames();
+                WeakReferenceMessenger.Default.Send(new ExerciseModsChangedMessage(WorkoutExercise));
             }
             catch (Exception ex)
             {

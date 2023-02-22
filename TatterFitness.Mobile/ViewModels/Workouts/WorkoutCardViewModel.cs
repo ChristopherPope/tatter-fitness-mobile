@@ -16,6 +16,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         IRecipient<CompletedSetMetricsChangedMessage>,
         IRecipient<SetAddedMessage>,
         IRecipient<SetDeletedMessage>,
+        IRecipient<ExerciseModsChangedMessage>,
         IRecipient<SetCompletedMessage>
     {
         private readonly IWorkoutExerciseModifiersApiService modsSvc;
@@ -23,7 +24,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         private readonly IModsSelectorModal modsSelectorModal;
 
         [ObservableProperty]
-        private EffortViewModel totalEffort;
+        private TotalEffortViewModel totalEffort;
 
         [ObservableProperty]
         private WorkoutExercise workoutExercise;
@@ -67,11 +68,12 @@ namespace TatterFitness.App.ViewModels.Workouts
             : base(logger)
         {
             WorkoutExercise = workoutExercise;
-            this.totalEffort = new EffortViewModel();
+            totalEffort = new TotalEffortViewModel();
             this.mapper = mapper;
             this.modsSelectorModal = modsSelectorModal;
             this.modsSvc = modsSvc;
 
+            WeakReferenceMessenger.Default.Register(this as IRecipient<ExerciseModsChangedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetAddedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
@@ -83,21 +85,14 @@ namespace TatterFitness.App.ViewModels.Workouts
             return CompletedSets.Any();
         }
 
-        public override Task RefreshView()
-        {
-            CalculateSetsCompleted();
-            FormModNames();
-
-            var we = WorkoutExercise;
-            WorkoutExercise = null;
-            WorkoutExercise = we;
-
-            return Task.CompletedTask;
-        }
-
         public async Task SelectMods()
         {
             await modsSelectorModal.ShowModal(WorkoutExercise.Mods.Select(m => m.ExerciseModifierId), OnSelectModsModalClosed);
+        }
+
+        public void Receive(ExerciseModsChangedMessage message)
+        {
+            FormModNames();
         }
 
         public void Receive(CompletedSetMetricsChangedMessage message)
@@ -140,6 +135,8 @@ namespace TatterFitness.App.ViewModels.Workouts
             {
                 await AddModifiers(modsToAdd);
                 await RemoveModifiers(modsToRemove);
+
+                WeakReferenceMessenger.Default.Send(new ExerciseModsChangedMessage(WorkoutExercise));
             }
             catch (Exception ex)
             {
