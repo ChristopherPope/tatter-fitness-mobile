@@ -4,7 +4,7 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels
 {
-    public partial class TotalEffortViewModel : ObservableObject
+    public partial class EffortViewModel : ObservableObject
     {
         [ObservableProperty]
         private string totalRWVolume;
@@ -24,7 +24,10 @@ namespace TatterFitness.Mobile.ViewModels
         [ObservableProperty]
         private string totalCMiles;
 
-        public TotalEffortViewModel()
+        [ObservableProperty]
+        private string averageBpm;
+
+        public EffortViewModel()
         {
             ShowTotalEffort(Enumerable.Empty<WorkoutExerciseSet>());
         }
@@ -43,6 +46,7 @@ namespace TatterFitness.Mobile.ViewModels
             TotalDWVolume = effortFormatter.DWVolume;
             TotalCDuration = effortFormatter.CDuration;
             TotalCMiles = effortFormatter.CMiles;
+            AverageBpm = effortFormatter.CBpm;
         }
     }
 }

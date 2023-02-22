@@ -44,6 +44,19 @@ public partial class TotalEffort : Grid
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay);
 
+    public readonly static BindableProperty AverageBpmProperty = BindableProperty.Create(
+        propertyName: nameof(AverageBpm),
+        returnType: typeof(string),
+        declaringType: typeof(TotalEffort),
+        defaultValue: null,
+        defaultBindingMode: BindingMode.OneWay);
+
+    public string AverageBpm
+    {
+        get { return (string)GetValue(AverageBpmProperty); }
+        set { SetValue(AverageBpmProperty, value); }
+    }
+
     public string RWVolume
     {
         get { return (string)GetValue(RWVolumeProperty); }
@@ -112,6 +125,9 @@ public partial class TotalEffort : Grid
         else if (propertyName == CMilesProperty.PropertyName)
         {
             cMiles.Text = CMiles;
+        }
+        else if (propertyName == AverageBpmProperty.PropertyName)
+        {
         }
     }
 }

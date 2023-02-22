@@ -1,18 +1,29 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using TatterFitness.App.Interfaces.Services;
 using TatterFitness.App.Interfaces.Services.API;
 using TatterFitness.App.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.Messages;
+using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.ViewModels.Workouts
-{ 
-    public partial class WorkoutCardViewModel : ViewModelBase
+{
+    public partial class WorkoutCardViewModel :
+        ViewModelBase,
+        IRecipient<CompletedSetMetricsChangedMessage>,
+        IRecipient<SetAddedMessage>,
+        IRecipient<SetDeletedMessage>,
+        IRecipient<SetCompletedMessage>
     {
         private readonly IWorkoutExerciseModifiersApiService modsSvc;
         private readonly IMapper mapper;
         private readonly IModsSelectorModal modsSelectorModal;
+
+        [ObservableProperty]
+        private EffortViewModel totalEffort;
 
         [ObservableProperty]
         private WorkoutExercise workoutExercise;
@@ -21,10 +32,19 @@ namespace TatterFitness.App.ViewModels.Workouts
         public bool doShowModNames;
 
         [ObservableProperty]
-        private string modNames;
+        public bool isCardioGridVisible;
 
         [ObservableProperty]
-        private string durationInSecondsEffort;
+        public bool isRepsAndWeightGridVisible;
+
+        [ObservableProperty]
+        public bool isRepsOnlyGridVisible;
+
+        [ObservableProperty]
+        public bool isDurationAndWeightGridVisible;
+
+        [ObservableProperty]
+        private string modNames;
 
         [ObservableProperty]
         private string exerciseName;
@@ -47,9 +67,15 @@ namespace TatterFitness.App.ViewModels.Workouts
             : base(logger)
         {
             WorkoutExercise = workoutExercise;
+            this.totalEffort = new EffortViewModel();
             this.mapper = mapper;
             this.modsSelectorModal = modsSelectorModal;
             this.modsSvc = modsSvc;
+
+            WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetAddedMessage>);
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
         }
 
         public bool HasCompletedSets()
@@ -74,11 +100,36 @@ namespace TatterFitness.App.ViewModels.Workouts
             await modsSelectorModal.ShowModal(WorkoutExercise.Mods.Select(m => m.ExerciseModifierId), OnSelectModsModalClosed);
         }
 
+        public void Receive(CompletedSetMetricsChangedMessage message)
+        {
+            UpdateMetrics();
+        }
+
+        public void Receive(SetCompletedMessage message)
+        {
+            UpdateMetrics();
+        }
+
+        public void Receive(SetAddedMessage message)
+        {
+            UpdateMetrics();
+        }
+
+        public void Receive(SetDeletedMessage message)
+        {
+            UpdateMetrics();
+        }
+
         protected override Task PerformLoadViewData()
         {
             CalculateSetsCompleted();
             ExerciseName = WorkoutExercise.ExerciseName;
             FormModNames();
+
+            IsCardioGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.Cardio;
+            IsRepsOnlyGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.RepsOnly;
+            IsRepsAndWeightGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.RepsAndWeight;
+            IsDurationAndWeightGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.DurationAndWeight;
 
             return Task.CompletedTask;
         }
@@ -110,9 +161,9 @@ namespace TatterFitness.App.ViewModels.Workouts
         private void CalculateSetsCompleted()
         {
             var setsCompleted = CompletedSets.Count();
-            SetsCompletedTitle = $"{setsCompleted} of {WorkoutExercise.Sets.Count()} Sets Completed";
+            SetsCompletedTitle = $"{setsCompleted} of {WorkoutExercise.Sets.Count} Sets Completed";
 
-            SetsCompletedPercent = Convert.ToDouble(setsCompleted) / Convert.ToDouble(WorkoutExercise.Sets.Count());
+            SetsCompletedPercent = Convert.ToDouble(setsCompleted) / Convert.ToDouble(WorkoutExercise.Sets.Count);
         }
 
         private async Task AddModifiers(IEnumerable<ExerciseModifier> modifiers)
@@ -148,6 +199,12 @@ namespace TatterFitness.App.ViewModels.Workouts
             }
 
             FormModNames();
+        }
+
+        private void UpdateMetrics()
+        {
+            totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+            CalculateSetsCompleted();
         }
     }
 }

@@ -84,7 +84,7 @@ namespace TatterFitness.App.Extensions
             builder.Services.AddTransient<ExerciseHistoryViewModel>();
             builder.Services.AddTransient<WorkoutEventViewModel>();
             builder.Services.AddTransient<WorkoutSnapshotViewModel>();
-            builder.Services.AddTransient<TotalEffortViewModel>();
+            builder.Services.AddTransient<EffortViewModel>();
 
             return builder;
         }

@@ -41,7 +41,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         private readonly IWorkoutExercisesApiService workoutExercisesApi;
 
         [ObservableProperty]
-        private TotalEffortViewModel totalEffort;
+        private EffortViewModel totalEffort;
 
         [ObservableProperty]
         private ObservableCollection<WorkoutCardViewModel> exerciseVms = new();
@@ -59,7 +59,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             IModsSelectorModal modsSelectorModal,
             IExercisesSelectorModal exercisesSelectorModal,
             IWorkoutExerciseContextMenuService contextMenu,
-            TotalEffortViewModel totalEffort)
+            EffortViewModel totalEffort)
             : base(logger)
         {
             this.workoutsApi = workoutsApi;

@@ -50,7 +50,7 @@ namespace TatterFitness.App.ViewModels.Workouts
         private WorkoutExercise workoutExercise;
 
         [ObservableProperty]
-        private TotalEffortViewModel totalEffort;
+        private EffortViewModel totalEffort;
 
         private WorkoutExerciseSet CurrentSet => WorkoutExercise.Sets[currentPosition];
         private SetViewModel CurrentSetVm => SetVms[currentPosition];
@@ -61,7 +61,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             IWorkoutExercisesApiService workoutExercisesApi,
             IWorkoutExerciseModifiersApiService modsApi,
             IWorkoutExerciseSetsApiService setsApi,
-            TotalEffortViewModel totalEffort)
+            EffortViewModel totalEffort)
             : base(logger)
         {
             this.workoutExercisesApi = workoutExercisesApi;
@@ -201,6 +201,8 @@ namespace TatterFitness.App.ViewModels.Workouts
                 {
                     setVm.TotalSets = WorkoutExercise.Sets.Count;
                 }
+
+                WeakReferenceMessenger.Default.Send(new SetAddedMessage(newSet));
             }
             catch (Exception ex)
             {
@@ -364,6 +366,8 @@ namespace TatterFitness.App.ViewModels.Workouts
                 RenumberSets();
                 totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
                 SetButtonAvailability();
+
+                WeakReferenceMessenger.Default.Send(new SetDeletedMessage(setVm.Set));
             }
             catch (Exception ex)
             {
