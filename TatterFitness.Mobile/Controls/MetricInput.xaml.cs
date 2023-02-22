@@ -1,26 +1,14 @@
-using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.ComponentModel;
-using TatterFitness.App.Interfaces.Services;
 using TatterFitness.App.NavData;
 using TatterFitness.App.Views;
+using TatterFitness.Mobile.Messages;
+using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.Controls;
 
 public partial class MetricInput : Entry, INotifyPropertyChanged
 {
-    public readonly static BindableProperty MetricModifiedCommandProperty = BindableProperty.Create(
-        propertyName: nameof(MetricModifiedCommand),
-        returnType: typeof(IAsyncRelayCommand),
-        declaringType: typeof(MetricInput),
-        defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay);
-
-    public readonly static BindableProperty MetricModifiedCommandParameterProperty = BindableProperty.Create(
-        propertyName: nameof(MetricModifiedCommandParameter),
-        returnType: typeof(object),
-        declaringType: typeof(MetricInput),
-        defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay);
 
     public readonly static BindableProperty MetricValueProperty = BindableProperty.Create(
         propertyName: nameof(MetricValue),
@@ -29,30 +17,17 @@ public partial class MetricInput : Entry, INotifyPropertyChanged
         defaultValue: null,
         defaultBindingMode: BindingMode.TwoWay);
 
-    public IAsyncRelayCommand MetricModifiedCommand
+    public readonly static BindableProperty SetProperty = BindableProperty.Create(
+        propertyName: nameof(Set),
+        returnType: typeof(WorkoutExerciseSet),
+        declaringType: typeof(MetricInput),
+        defaultValue: null,
+        defaultBindingMode: BindingMode.TwoWay);
+
+    public WorkoutExerciseSet Set
     {
-        get
-        {
-            return (IAsyncRelayCommand)GetValue(MetricModifiedCommandProperty);
-        }
-
-        set
-        {
-            SetValue(MetricModifiedCommandProperty, value);
-        }
-    }
-
-    public object MetricModifiedCommandParameter
-    {
-        get
-        {
-            return GetValue(MetricModifiedCommandParameterProperty);
-        }
-
-        set
-        {
-            SetValue(MetricModifiedCommandParameterProperty, value);
-        }
+        get { return (WorkoutExerciseSet)GetValue(SetProperty); }
+        set { SetValue(SetProperty, value); }
     }
 
     public double MetricValue
@@ -64,7 +39,7 @@ public partial class MetricInput : Entry, INotifyPropertyChanged
 
         set
         {
-            if (! originalValue.HasValue)
+            if (!originalValue.HasValue)
             {
                 originalValue = value;
             }
@@ -97,21 +72,24 @@ public partial class MetricInput : Entry, INotifyPropertyChanged
     {
         if (!IsDirty)
         {
-            return; 
+            return;
         }
 
         try
         {
-            if (MetricModifiedCommand != null)
+            if (Set.Id > 0)
             {
-                await MetricModifiedCommand.ExecuteAsync(MetricModifiedCommandParameter);
+                WeakReferenceMessenger.Default.Send(new CompletedSetMetricsChangedMessage(Set));
             }
 
             originalValue = MetricValue;
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(ex);
+            var error = $"{ex.Message}{Environment.NewLine}";
+            error += FormatCallStack(ex);
+            var navData = new ErrorViewNavData(error);
+            await Shell.Current.GoToAsync(nameof(ErrorView), true, navData.ToNavDataDictionary());
         }
     }
 
@@ -129,14 +107,6 @@ public partial class MetricInput : Entry, INotifyPropertyChanged
         {
             Text = MetricValue.ToString();
         }
-    }
-
-    private async Task HandleExceptionAsync(Exception ex)
-    {
-        var error = $"{ex.Message}{Environment.NewLine}";
-        error += FormatCallStack(ex);
-        var navData = new ErrorViewNavData(error);
-        await Shell.Current.GoToAsync(nameof(ErrorView), true, navData.ToNavDataDictionary());
     }
 
     private string FormatCallStack(Exception ex)

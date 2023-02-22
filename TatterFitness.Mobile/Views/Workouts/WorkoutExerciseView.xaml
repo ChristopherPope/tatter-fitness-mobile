@@ -107,7 +107,12 @@
 
         <controls:TotalEffort
             Grid.Row="0"
-            WorkoutExercise="{Binding WorkoutExercise}" />
+            CDuration="{Binding TotalEffort.TotalCDuration}"
+            CMiles="{Binding TotalEffort.TotalCMiles}"
+            DWDuration="{Binding TotalEffort.TotalDWDuration}"
+            DWVolume="{Binding TotalEffort.TotalDWVolume}"
+            ROReps="{Binding TotalEffort.TotalROReps}"
+            RWVolume="{Binding TotalEffort.TotalRWVolume}" />
 
         <ActivityIndicator
             Grid.Row="1"
@@ -185,9 +190,8 @@
                                                     Text="Weight (lbs)" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding Weight}" />
+                                                    MetricValue="{Binding Weight}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <Label
@@ -211,10 +215,9 @@
                                                     Text="Reps" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
                                                     MetricValue="{Binding Reps}"
-                                                    MinimumWidthRequest="35" />
+                                                    MinimumWidthRequest="35"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -259,9 +262,8 @@
                                                     Text="Duration (secs)1" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding DurationInSeconds}" />
+                                                    MetricValue="{Binding DurationInSeconds}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -273,9 +275,8 @@
                                                     Text="Weight (lbs)" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding Weight}" />
+                                                    MetricValue="{Binding Weight}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
                                         </Grid>
 
@@ -301,9 +302,8 @@
                                                     Text="Reps" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding Reps}" />
+                                                    MetricValue="{Binding Reps}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
                                         </Grid>
 
@@ -333,9 +333,8 @@
                                                     Text="Duration (secs)" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding DurationInSeconds}" />
+                                                    MetricValue="{Binding DurationInSeconds}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -347,9 +346,8 @@
                                                     Text="Miles" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding MilesDistance}" />
+                                                    MetricValue="{Binding MilesDistance}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -361,9 +359,8 @@
                                                     Text="Machine Intensity" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding MachineIntensity}" />
+                                                    MetricValue="{Binding MachineIntensity}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -375,9 +372,8 @@
                                                     Text="Machine Watts" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding MachineWatts}" />
+                                                    MetricValue="{Binding MachineWatts}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -389,9 +385,8 @@
                                                     Text="Max BPM" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding MaxBpm}" />
+                                                    MetricValue="{Binding MaxBpm}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -403,9 +398,8 @@
                                                     Text="Calories" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding Calories}" />
+                                                    MetricValue="{Binding Calories}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -417,9 +411,8 @@
                                                     Text="Machine Incline" />
 
                                                 <controls:MetricInput
-                                                    MetricModifiedCommand="{Binding Source={x:Reference SetsList}, Path=BindingContext.MetricModifiedCommand}"
-                                                    MetricModifiedCommandParameter="{Binding .}"
-                                                    MetricValue="{Binding MachineIncline}" />
+                                                    MetricValue="{Binding MachineIncline}"
+                                                    Set="{Binding Set}" />
                                             </StackLayout>
                                         </Grid>
                                     </Grid>

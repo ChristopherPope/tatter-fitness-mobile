@@ -5,7 +5,6 @@ using TatterFitness.App.Interfaces.Services;
 using TatterFitness.App.Interfaces.Services.API;
 using TatterFitness.App.Interfaces.Services.ContextMenu;
 using TatterFitness.App.NavData;
-using TatterFitness.App.Utils;
 using TatterFitness.App.Views.History;
 using TatterFitness.Models.Workouts;
 
@@ -28,6 +27,10 @@ namespace TatterFitness.App.ViewModels.WorkoutSnapshot
 
         [ObservableProperty]
         private ObservableCollection<WorkoutSnapshotCardViewModel> cardVms = new();
+
+        [ObservableProperty]
+        private ObservableCollection<WorkoutExerciseSet> sets = new();
+
 
         public WorkoutSnapshotViewModel(ILoggingService logger, IWorkoutsApiService workoutsApi, IWorkoutSnapshotContextMenuService contextMenu) : base(logger)
         {
@@ -56,6 +59,12 @@ namespace TatterFitness.App.ViewModels.WorkoutSnapshot
             }
 
             WorkoutExercises = workout.Exercises;
+
+            var sets = WorkoutExercises.SelectMany(we => we.Sets);
+            foreach (var set in sets)
+            {
+                Sets.Add(set);
+            }
         }
 
         [RelayCommand]

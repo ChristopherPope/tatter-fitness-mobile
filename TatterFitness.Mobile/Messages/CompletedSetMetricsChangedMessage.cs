@@ -3,9 +3,9 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.Messages
 {
-    public class SetMetricChangedMessage : ValueChangedMessage<WorkoutExerciseSet>
+    public class CompletedSetMetricsChangedMessage : ValueChangedMessage<WorkoutExerciseSet>
     {
-        public SetMetricChangedMessage(WorkoutExerciseSet set)
+        public CompletedSetMetricsChangedMessage(WorkoutExerciseSet set)
             : base(set)
         {
         }

@@ -9,7 +9,6 @@ using TatterFitness.App.Services;
 using TatterFitness.App.Services.API;
 using TatterFitness.App.Services.ContextMenu;
 using TatterFitness.App.Services.SelectorModals;
-using TatterFitness.App.Utils;
 using TatterFitness.App.ViewModels;
 using TatterFitness.App.ViewModels.History.EventCalendar;
 using TatterFitness.App.ViewModels.History.ExHistory;
@@ -23,6 +22,7 @@ using TatterFitness.App.Views.History;
 using TatterFitness.App.Views.Routines;
 using TatterFitness.App.Views.Select;
 using TatterFitness.App.Views.Workouts;
+using TatterFitness.Mobile.ViewModels;
 
 namespace TatterFitness.App.Extensions
 {
@@ -84,6 +84,7 @@ namespace TatterFitness.App.Extensions
             builder.Services.AddTransient<ExerciseHistoryViewModel>();
             builder.Services.AddTransient<WorkoutEventViewModel>();
             builder.Services.AddTransient<WorkoutSnapshotViewModel>();
+            builder.Services.AddTransient<TotalEffortViewModel>();
 
             return builder;
         }

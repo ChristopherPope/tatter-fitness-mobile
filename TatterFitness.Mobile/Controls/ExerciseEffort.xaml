@@ -5,12 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid.Resources>
         <ResourceDictionary>
-            <Style x:Key="ExerciseEffortGrid" TargetType="Grid">
+            <Style
+                x:Key="ExerciseEffortGrid"
+                TargetType="Grid">
                 <Setter Property="HorizontalOptions" Value="End" />
                 <Setter Property="VerticalOptions" Value="Start" />
             </Style>
 
-            <Style x:Key="ExerciseEffortTitle" TargetType="Label">
+            <Style
+                x:Key="ExerciseEffortTitle"
+                TargetType="Label">
                 <Setter Property="VerticalOptions" Value="End" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary}, Light={StaticResource TextColorTertiary}}" />
                 <Setter Property="FontSize" Value="Micro" />
@@ -23,7 +27,9 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary}, Light={StaticResource TextColorPrimary}}" />
             </Style>
 
-            <Style x:Key="ExerciseEffortValue" TargetType="Label">
+            <Style
+                x:Key="ExerciseEffortValue"
+                TargetType="Label">
                 <Setter Property="VerticalOptions" Value="End" />
                 <Setter Property="Margin" Value="5,0,3,0" />
                 <Setter Property="FontAttributes" Value="Bold" />
@@ -42,7 +48,9 @@
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
 
-    <Grid x:Name="rwEffortGrid" Style="{StaticResource ExerciseEffortGrid}">
+    <Grid
+        x:Name="rwEffortGrid"
+        Style="{StaticResource ExerciseEffortGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -68,7 +76,9 @@
             Text="lbs." />
     </Grid>
 
-    <Grid x:Name="roEffortGrid" Style="{StaticResource ExerciseEffortGrid}">
+    <Grid
+        x:Name="roEffortGrid"
+        Style="{StaticResource ExerciseEffortGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -89,7 +99,9 @@
             Style="{StaticResource ExerciseEffortValue}" />
     </Grid>
 
-    <Grid x:Name="dwEffortGrid" Style="{StaticResource ExerciseEffortGrid}">
+    <Grid
+        x:Name="dwEffortGrid"
+        Style="{StaticResource ExerciseEffortGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -128,7 +140,9 @@
             Text="lbs." />
     </Grid>
 
-    <Grid x:Name="cEffortGrid" Style="{StaticResource ExerciseEffortGrid}">
+    <Grid
+        x:Name="cEffortGrid"
+        Style="{StaticResource ExerciseEffortGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />

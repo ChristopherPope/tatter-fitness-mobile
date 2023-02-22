@@ -16,18 +16,24 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="ExerciseEffortGrid" TargetType="Grid">
+            <Style
+                x:Key="ExerciseEffortGrid"
+                TargetType="Grid">
                 <Setter Property="Margin" Value="3,0,0,0" />
             </Style>
 
-            <Style x:Key="ExerciseEffortValue" TargetType="Label">
+            <Style
+                x:Key="ExerciseEffortValue"
+                TargetType="Label">
                 <Setter Property="VerticalOptions" Value="End" />
                 <Setter Property="HorizontalOptions" Value="End" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary}, Light={StaticResource TextColorTertiary}}" />
                 <Setter Property="FontSize" Value="Micro" />
             </Style>
 
-            <Style x:Key="ExerciseEffortTitle" TargetType="Label">
+            <Style
+                x:Key="ExerciseEffortTitle"
+                TargetType="Label">
                 <Setter Property="VerticalOptions" Value="End" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary}, Light={StaticResource TextColorPrimary}}" />
                 <Setter Property="FontSize" Value="Micro" />
@@ -87,7 +93,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <controls:TotalEffort Grid.Row="0" WorkoutExercises="{Binding WorkoutExercises}" />
+        <controls:TotalEffort
+            Grid.Row="0"
+            CDuration="{Binding TotalEffort.TotalCDuration}"
+            CMiles="{Binding TotalEffort.TotalCMiles}"
+            DWDuration="{Binding TotalEffort.TotalDWDuration}"
+            DWVolume="{Binding TotalEffort.TotalDWVolume}"
+            ROReps="{Binding TotalEffort.TotalROReps}"
+            RWVolume="{Binding TotalEffort.TotalRWVolume}" />
 
         <CollectionView
             x:Name="ExercisesList"
@@ -99,7 +112,9 @@
             SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="5" x:DataType="vm:WorkoutCardViewModel">
+                    <Grid
+                        Padding="5"
+                        x:DataType="vm:WorkoutCardViewModel">
                         <Frame Style="{x:StaticResource Card}">
                             <StackLayout Orientation="Vertical">
                                 <Grid>
@@ -112,7 +127,9 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid
+                                        Grid.Row="0"
+                                        Grid.Column="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
@@ -137,8 +154,8 @@
                                         <controls:ExerciseEffort
                                             Grid.Row="0"
                                             Grid.Column="1"
-                                            WorkoutExercise="{Binding WorkoutExercise}"
-                                            HorizontalOptions="End" />
+                                            HorizontalOptions="End"
+                                            WorkoutExercise="{Binding WorkoutExercise}" />
                                     </Grid>
 
                                     <Button
@@ -187,7 +204,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout Grid.Row="2" Style="{StaticResource BottomToolbar}">
+        <StackLayout
+            Grid.Row="2"
+            Style="{StaticResource BottomToolbar}">
             <Button
                 Command="{Binding AddRemoveExercisesCommand}"
                 Style="{StaticResource BottomToolbarButton}"

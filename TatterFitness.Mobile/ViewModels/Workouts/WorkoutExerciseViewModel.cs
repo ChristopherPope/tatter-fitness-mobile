@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using TatterFitness.App.Controls.Popups;
 using TatterFitness.App.Interfaces.Services;
@@ -10,13 +11,15 @@ using TatterFitness.App.Interfaces.Services.SelectorModals;
 using TatterFitness.App.Models.Popups;
 using TatterFitness.App.NavData;
 using TatterFitness.App.Views.History;
+using TatterFitness.Mobile.Messages;
+using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.ViewModels.Workouts
 {
-    public partial class WorkoutExerciseViewModel : ViewModelBase, IQueryAttributable
+    public partial class WorkoutExerciseViewModel : ViewModelBase, IQueryAttributable, IRecipient<CompletedSetMetricsChangedMessage>
     {
         private readonly IWorkoutExercisesApiService workoutExercisesApi;
         private readonly IWorkoutExerciseModifiersApiService modsApi;
@@ -46,6 +49,9 @@ namespace TatterFitness.App.ViewModels.Workouts
         [ObservableProperty]
         private WorkoutExercise workoutExercise;
 
+        [ObservableProperty]
+        private TotalEffortViewModel totalEffort;
+
         private WorkoutExerciseSet CurrentSet => WorkoutExercise.Sets[currentPosition];
         private SetViewModel CurrentSetVm => SetVms[currentPosition];
 
@@ -54,7 +60,8 @@ namespace TatterFitness.App.ViewModels.Workouts
             IModsSelectorModal modsSelectorModal,
             IWorkoutExercisesApiService workoutExercisesApi,
             IWorkoutExerciseModifiersApiService modsApi,
-            IWorkoutExerciseSetsApiService setsApi)
+            IWorkoutExerciseSetsApiService setsApi,
+            TotalEffortViewModel totalEffort)
             : base(logger)
         {
             this.workoutExercisesApi = workoutExercisesApi;
@@ -62,6 +69,9 @@ namespace TatterFitness.App.ViewModels.Workouts
             this.setsApi = setsApi;
             this.mapper = mapper;
             this.modsSelectorModal = modsSelectorModal;
+            this.totalEffort = totalEffort;
+
+            WeakReferenceMessenger.Default.Register(this);
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -81,8 +91,8 @@ namespace TatterFitness.App.ViewModels.Workouts
             Title = WorkoutExercise.ExerciseName;
             FormModNames();
             CreateSetVms();
-
             SetButtonAvailability();
+            totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
 
             return Task.CompletedTask;
         }
@@ -249,30 +259,6 @@ namespace TatterFitness.App.ViewModels.Workouts
         }
 
         [RelayCommand]
-        private async Task MetricModified(SetViewModel setVm)
-        {
-            try
-            {
-                if (!setVm.IsCompleted)
-                {
-                    return;
-                }
-
-                var updatedSet = await setsApi.Update(setVm.Set);
-                setVm.Set.Id = updatedSet.Id;
-
-                // todo: Look at Messenger - https://learn.microsoft.com/en-us/dotnet/communitytoolkit/mvvm/messenger
-                //var tempWorkoutExercise = WorkoutExercise;
-                //WorkoutExercise = null;
-                //WorkoutExercise = tempWorkoutExercise;
-            }
-            catch (Exception ex)
-            {
-                await HandleExceptionAsync(ex);
-            }
-        }
-
-        [RelayCommand]
         private async Task CompleteSet()
         {
             try
@@ -282,11 +268,15 @@ namespace TatterFitness.App.ViewModels.Workouts
                     await CreateWorkout();
                 }
 
-                var newSet = await setsApi.Create(CurrentSet);
-                mapper.Map(newSet, CurrentSet);
-                CurrentSetVm.IsCompleted = true;
+                var updatedSet = await setsApi.Create(CurrentSet);
+                var exerciseType = CurrentSet.ExerciseType;
+                mapper.Map(updatedSet, CurrentSet);
+                CurrentSet.ExerciseType = exerciseType;
+
+                WeakReferenceMessenger.Default.Send(new SetCompletedMessage(updatedSet));
+                totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
                 SetButtonAvailability();
-                UpdateTotalEffort();
+                CurrentSetVm.IsCompleted = true;
 
                 if (WorkoutExercise.Sets.Count == 1)
                 {
@@ -372,7 +362,7 @@ namespace TatterFitness.App.ViewModels.Workouts
                 WorkoutExercise.Sets.Remove(setVm.Set);
 
                 RenumberSets();
-                UpdateTotalEffort();
+                totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
                 SetButtonAvailability();
             }
             catch (Exception ex)
@@ -391,13 +381,6 @@ namespace TatterFitness.App.ViewModels.Workouts
             }
         }
 
-        private void UpdateTotalEffort()
-        {
-            var holdWorkoutExercise = WorkoutExercise;
-            WorkoutExercise = null;
-            WorkoutExercise = holdWorkoutExercise;
-        }
-
         private void SetButtonAvailability()
         {
             DoShow531Button = WorkoutExercise.ExerciseType == ExerciseTypes.RepsAndWeight && !SetVms.Any(vm => vm.IsCompleted);
@@ -405,6 +388,27 @@ namespace TatterFitness.App.ViewModels.Workouts
             DoShowCompleteSetButton = (SetVms.Any() &&
                 (!CurrentSetVm.IsCompleted) &&
                 (currentPosition == 0 || SetVms[currentPosition - 1].IsCompleted));
+        }
+
+        public void Receive(CompletedSetMetricsChangedMessage message)
+        {
+            var set = message.Value;
+            if (set.Id < 1)
+            {
+                return;
+            }
+
+            var exerciseType = set.ExerciseType;
+            var asyncResult = Task.Run(async () =>
+            {
+                return await setsApi.Update(set);
+            });
+
+            var updatedSet = asyncResult.Result;
+            mapper.Map(updatedSet, set);
+            set.ExerciseType = exerciseType;
+
+            totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
         }
     }
 }

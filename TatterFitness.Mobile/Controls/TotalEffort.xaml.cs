@@ -1,48 +1,83 @@
-using System.Collections.ObjectModel;
-using TatterFitness.App.Utils;
-using TatterFitness.Models.Workouts;
-
 namespace TatterFitness.App.Controls;
 
 public partial class TotalEffort : Grid
 {
-    public readonly static BindableProperty WorkoutExercisesProperty = BindableProperty.Create(
-        propertyName: nameof(WorkoutExercises),
-        returnType: typeof(IEnumerable<WorkoutExercise>),
+    public readonly static BindableProperty RWVolumeProperty = BindableProperty.Create(
+        propertyName: nameof(RWVolume),
+        returnType: typeof(string),
         declaringType: typeof(TotalEffort),
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay);
 
-    public readonly static BindableProperty SetsProperty = BindableProperty.Create(
-        propertyName: nameof(Sets),
-        returnType: typeof(ObservableCollection<WorkoutExerciseSet>),
+    public readonly static BindableProperty RORepsProperty = BindableProperty.Create(
+        propertyName: nameof(ROReps),
+        returnType: typeof(string),
         declaringType: typeof(TotalEffort),
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay);
 
-    public readonly static BindableProperty WorkoutExerciseProperty = BindableProperty.Create(
-        propertyName: nameof(WorkoutExercise),
-        returnType: typeof(WorkoutExercise),
+    public readonly static BindableProperty DWDurationProperty = BindableProperty.Create(
+        propertyName: nameof(DWDuration),
+        returnType: typeof(string),
         declaringType: typeof(TotalEffort),
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay);
 
-    public IEnumerable<WorkoutExercise> WorkoutExercises
+    public readonly static BindableProperty DWVolumeProperty = BindableProperty.Create(
+        propertyName: nameof(DWVolume),
+        returnType: typeof(string),
+        declaringType: typeof(TotalEffort),
+        defaultValue: null,
+        defaultBindingMode: BindingMode.OneWay);
+
+    public readonly static BindableProperty CDurationProperty = BindableProperty.Create(
+        propertyName: nameof(CDuration),
+        returnType: typeof(string),
+        declaringType: typeof(TotalEffort),
+        defaultValue: null,
+        defaultBindingMode: BindingMode.OneWay);
+
+    public readonly static BindableProperty CMilesProperty = BindableProperty.Create(
+        propertyName: nameof(CMiles),
+        returnType: typeof(string),
+        declaringType: typeof(TotalEffort),
+        defaultValue: null,
+        defaultBindingMode: BindingMode.OneWay);
+
+    public string RWVolume
     {
-        get { return (IEnumerable<WorkoutExercise>)GetValue(WorkoutExercisesProperty); }
-        set { SetValue(WorkoutExercisesProperty, value); }
+        get { return (string)GetValue(RWVolumeProperty); }
+        set { SetValue(RWVolumeProperty, value); }
     }
 
-    public ObservableCollection<WorkoutExerciseSet> Sets
+    public string ROReps
     {
-        get { return (ObservableCollection<WorkoutExerciseSet>)GetValue(SetsProperty); }
-        set { SetValue(SetsProperty, value); }
+        get { return (string)GetValue(RORepsProperty); }
+        set { SetValue(RORepsProperty, value); }
     }
 
-    public WorkoutExercise WorkoutExercise
+    public string DWDuration
     {
-        get { return (WorkoutExercise)GetValue(WorkoutExerciseProperty); }
-        set { SetValue(WorkoutExerciseProperty, value); }
+        get { return (string)GetValue(DWDurationProperty); }
+        set { SetValue(DWDurationProperty, value); }
+    }
+
+    public string DWVolume
+    {
+        get { return (string)GetValue(DWVolumeProperty); }
+        set { SetValue(DWVolumeProperty, value); }
+    }
+
+    public string CDuration
+    {
+        get { return (string)GetValue(CDurationProperty); }
+        set { SetValue(CDurationProperty, value); }
+    }
+
+    public string CMiles
+    {
+        get { return (string)GetValue(CMilesProperty); }
+        set { SetValue(CMilesProperty, value); }
     }
 
     public TotalEffort()
@@ -54,56 +89,29 @@ public partial class TotalEffort : Grid
     {
         base.OnPropertyChanged(propertyName);
 
-        if ((propertyName == WorkoutExercisesProperty.PropertyName && WorkoutExercises != null) ||
-            (propertyName == WorkoutExerciseProperty.PropertyName && WorkoutExercise != null))
+        if (propertyName == RWVolumeProperty.PropertyName)
         {
-            CalculateEffort();
+            rwVolume.Text = RWVolume;
         }
-    }
-
-    private void CalculateEffort()
-    {
-        var effortCalculator = new EffortCalculator();
-        if (WorkoutExercise == null)
+        else if (propertyName == RORepsProperty.PropertyName)
         {
-            effortCalculator.Calculate(WorkoutExercises);
+            roReps.Text = ROReps;
         }
-        else
+        else if (propertyName == DWDurationProperty.PropertyName)
         {
-            effortCalculator.Calculate(WorkoutExercise);
+            dwDuration.Text = DWDuration;
         }
-
-        var effortFormatter = new EffortFormatter();
-        effortFormatter.FormatEffort(effortCalculator);
-
-        rwVolume.Text = effortFormatter.RWVolume;
-        roReps.Text = effortFormatter.ROReps;
-        dwDuration.Text = effortFormatter.DWDuration;
-        dwVolume.Text = effortFormatter.DWVolume;
-        cDuration.Text = effortFormatter.CDuration;
-        cMiles.Text = effortFormatter.CMiles;
-    }
-
-    private void CalculateEffortOnSets()
-    {
-        var effortCalculator = new EffortCalculator();
-        if (WorkoutExercise == null)
+        else if (propertyName == DWVolumeProperty.PropertyName)
         {
-            effortCalculator.Calculate(WorkoutExercises);
+            dwVolume.Text = DWVolume;
         }
-        else
+        else if (propertyName == CDurationProperty.PropertyName)
         {
-            effortCalculator.Calculate(WorkoutExercise);
+            cDuration.Text = CDuration;
         }
-
-        var effortFormatter = new EffortFormatter();
-        effortFormatter.FormatEffort(effortCalculator);
-
-        rwVolume.Text = effortFormatter.RWVolume;
-        roReps.Text = effortFormatter.ROReps;
-        dwDuration.Text = effortFormatter.DWDuration;
-        dwVolume.Text = effortFormatter.DWVolume;
-        cDuration.Text = effortFormatter.CDuration;
-        cMiles.Text = effortFormatter.CMiles;
+        else if (propertyName == CMilesProperty.PropertyName)
+        {
+            cMiles.Text = CMiles;
+        }
     }
 }

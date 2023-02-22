@@ -57,7 +57,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <controls:TotalEffort Grid.Row="0" WorkoutExercises="{Binding WorkoutExercises}" />
+        <controls:TotalEffort
+            Grid.Row="0" />
 
         <CollectionView
             x:Name="ExercisesList"
@@ -69,10 +70,14 @@
             SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="5" x:DataType="vm:WorkoutSnapshotCardViewModel">
+                    <Grid
+                        Padding="5"
+                        x:DataType="vm:WorkoutSnapshotCardViewModel">
                         <Frame Style="{x:StaticResource Card}">
                             <StackLayout Orientation="Vertical">
-                                <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid
+                                    Grid.Row="0"
+                                    Grid.Column="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
@@ -131,7 +136,10 @@
                                     <CollectionView ItemsSource="{Binding SetSummaries}">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
-                                                <Label x:DataType="models:SetSummary"  Style="{StaticResource LabelMedium}" Text="{Binding Summary}" />
+                                                <Label
+                                                    x:DataType="models:SetSummary"
+                                                    Style="{StaticResource LabelMedium}"
+                                                    Text="{Binding Summary}" />
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
                                     </CollectionView>

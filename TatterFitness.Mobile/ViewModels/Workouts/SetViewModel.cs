@@ -119,7 +119,5 @@ namespace TatterFitness.App.ViewModels.Workouts
             DoShowCardio = exerciseType == ExerciseTypes.Cardio;
             DoShowRepsOnly = exerciseType == ExerciseTypes.RepsOnly;
         }
-
-        
     }
 }

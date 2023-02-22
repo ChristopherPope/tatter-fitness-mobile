@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using TatterFitness.App.Controls.Popups;
 using TatterFitness.App.Interfaces.Services;
@@ -13,13 +14,19 @@ using TatterFitness.App.NavData;
 using TatterFitness.App.Utils;
 using TatterFitness.App.Views.History;
 using TatterFitness.App.Views.Workouts;
+using TatterFitness.Mobile.Messages;
+using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.ViewModels.Workouts
 {
-    public partial class WorkoutViewModel : ViewModelBase, IQueryAttributable
+    public partial class WorkoutViewModel :
+        ViewModelBase,
+        IQueryAttributable,
+        IRecipient<CompletedSetMetricsChangedMessage>,
+        IRecipient<SetCompletedMessage>
     {
         private int routineId;
         private Workout workout;
@@ -34,10 +41,13 @@ namespace TatterFitness.App.ViewModels.Workouts
         private readonly IWorkoutExercisesApiService workoutExercisesApi;
 
         [ObservableProperty]
+        private TotalEffortViewModel totalEffort;
+
+        [ObservableProperty]
         private ObservableCollection<WorkoutCardViewModel> exerciseVms = new();
 
         [ObservableProperty]
-        private IEnumerable<WorkoutExercise> workoutExercises;
+        private ObservableCollection<WorkoutExerciseSet> sets = new();
 
         public WorkoutViewModel(ILoggingService logger,
             IWorkoutsApiService workoutsApi,
@@ -48,7 +58,8 @@ namespace TatterFitness.App.ViewModels.Workouts
             IWorkoutExerciseSetsApiService setsApi,
             IModsSelectorModal modsSelectorModal,
             IExercisesSelectorModal exercisesSelectorModal,
-            IWorkoutExerciseContextMenuService contextMenu)
+            IWorkoutExerciseContextMenuService contextMenu,
+            TotalEffortViewModel totalEffort)
             : base(logger)
         {
             this.workoutsApi = workoutsApi;
@@ -60,6 +71,10 @@ namespace TatterFitness.App.ViewModels.Workouts
             this.modsSelectorModal = modsSelectorModal;
             this.exercisesSelectorModal = exercisesSelectorModal;
             this.contextMenu = contextMenu;
+            this.totalEffort = totalEffort;
+
+            WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -80,7 +95,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             Title = workout.Name;
 
             await PopulateWorkoutExercises(routine.Exercises);
-            CalculateEffort();
+            totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets));
         }
 
         public override Task RefreshView()
@@ -90,13 +105,7 @@ namespace TatterFitness.App.ViewModels.Workouts
                 vm.RefreshView();
             }
 
-            CalculateEffort();
             return Task.CompletedTask;
-        }
-
-        private void CalculateEffort()
-        {
-            WorkoutExercises = exerciseVms.Select(vm => vm.WorkoutExercise);
         }
 
         private async Task PopulateWorkoutExercises(IEnumerable<RoutineExercise> routineExercises)
@@ -115,10 +124,9 @@ namespace TatterFitness.App.ViewModels.Workouts
                     Sequence = sequence++,
                     ExerciseName = routineExercise.ExerciseName,
                     ExerciseType = routineExercise.ExerciseType,
-                    //Sets = (mostRecentWorkoutExercise == null ? GetDefaultSets(routineExercise.ExerciseType) : GetSetsFromWorkoutExercise(mostRecentWorkoutExercise, routineExercise.ExerciseType)),
                     Sets = GetDefaultSets(routineExercise.ExerciseType),
 
-                    Mods = (mostRecentWorkoutExercise == null ? Enumerable.Empty<WorkoutExerciseModifier>().ToList() :  GetModsFromWorkoutExercise(mostRecentWorkoutExercise))
+                    Mods = (mostRecentWorkoutExercise == null ? Enumerable.Empty<WorkoutExerciseModifier>().ToList() : GetModsFromWorkoutExercise(mostRecentWorkoutExercise))
                 };
 
                 var cardVm = new WorkoutCardViewModel(logger, modsSelectorModal, modsApi, mapper, workoutExercise);
@@ -351,6 +359,16 @@ namespace TatterFitness.App.ViewModels.Workouts
         {
             var navData = new ExerciseHistoryNavData(cardVm.WorkoutExercise.ExerciseId);
             await Shell.Current.GoToAsync(nameof(ExerciseHistoryView), true, navData.ToNavDataDictionary());
+        }
+
+        public void Receive(CompletedSetMetricsChangedMessage message)
+        {
+            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets)));
+        }
+
+        public void Receive(SetCompletedMessage message)
+        {
+            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets)));
         }
     }
 }
