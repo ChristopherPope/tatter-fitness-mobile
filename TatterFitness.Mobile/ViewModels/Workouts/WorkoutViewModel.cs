@@ -129,6 +129,7 @@ namespace TatterFitness.App.ViewModels.Workouts
                     Mods = (mostRecentWorkoutExercise == null ? Enumerable.Empty<WorkoutExerciseModifier>().ToList() : GetModsFromWorkoutExercise(mostRecentWorkoutExercise))
                 };
 
+                workout.Exercises.Add(workoutExercise);
                 var cardVm = new WorkoutCardViewModel(logger, modsSelectorModal, modsApi, mapper, workoutExercise);
                 await cardVm.LoadViewData();
                 ExerciseVms.Add(cardVm);
@@ -248,7 +249,9 @@ namespace TatterFitness.App.ViewModels.Workouts
         {
             try
             {
-                var requiredExerciseIds = ExerciseVms.Where(vm => vm.HasCompletedSets()).Select(vm => vm.WorkoutExercise.ExerciseId);
+                var requiredExerciseIds = workout.Exercises
+                    .Where(e => e.Sets.Any(s => s.Id > 0))
+                    .Select(e => e.ExerciseId);
                 await exercisesSelectorModal.ShowModal(exerciseVms.Select(vm => vm.WorkoutExercise.ExerciseId), requiredExerciseIds, ExercisesModalClosed);
             }
             catch (Exception ex)
@@ -363,12 +366,12 @@ namespace TatterFitness.App.ViewModels.Workouts
 
         public void Receive(CompletedSetMetricsChangedMessage message)
         {
-            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets)));
+            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
         }
 
         public void Receive(SetCompletedMessage message)
         {
-            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets)));
+            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
         }
     }
 }
