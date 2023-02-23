@@ -1,0 +1,26 @@
+﻿using TatterFitness.Models.Workouts;
+
+namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
+{
+    public partial class DurationAndWeightSetViewModel : BaseSetViewModel
+    {
+        public double Weight
+        {
+            get => Set.Weight;
+            set => SetProperty(Set.Weight, value, Set, (set, val) => set.Weight = val);
+        }
+
+        public int DurationInSeconds
+        {
+            get => Set.DurationInSeconds;
+            set => SetProperty(Set.DurationInSeconds, value, Set, (set, val) => set.DurationInSeconds = val);
+        }
+
+        public DurationAndWeightSetViewModel(WorkoutExerciseSet set, int totalSets)
+            : base(set, totalSets)
+        {
+            Weight = set.Weight;
+            DurationInSeconds = set.DurationInSeconds;
+        }
+    }
+}
