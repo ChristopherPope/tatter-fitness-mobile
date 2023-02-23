@@ -11,7 +11,6 @@ using TatterFitness.App.Interfaces.Services.ContextMenu;
 using TatterFitness.App.Interfaces.Services.SelectorModals;
 using TatterFitness.App.Models.Popups;
 using TatterFitness.App.NavData;
-using TatterFitness.App.Utils;
 using TatterFitness.App.Views.History;
 using TatterFitness.App.Views.Workouts;
 using TatterFitness.Mobile.Messages;
@@ -338,7 +337,6 @@ namespace TatterFitness.App.ViewModels.Workouts
         {
             try
             {
-                StopWatch.GetInstance(logger).Start("Open workout exercise");
                 var navData = new WorkoutExerciseNavData(cardVm.WorkoutExercise);
                 await Shell.Current.GoToAsync(nameof(WorkoutExerciseView), true, navData.ToNavDataDictionary());
             }
