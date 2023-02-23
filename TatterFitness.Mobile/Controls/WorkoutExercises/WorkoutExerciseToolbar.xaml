@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    x:Class="TatterFitness.App.Controls.WorkoutExercises.WorkoutExerciseToolbar"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
+    Style="{StaticResource BottomToolbar}">
+
+    <Button
+        x:Name="addSetButton"
+        Clicked="OnAddSet"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="Set">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Plus}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+
+    <Button
+        x:Name="deleteSetButton"
+        Clicked="OnDeleteSet"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="Set">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Trash}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+
+    <Button
+        x:Name="viewHistoryButton"
+        Clicked="OnViewHistory"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="History">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAR"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Eye}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+
+    <Button
+        x:Name="selectModsButton"
+        Clicked="OnSelectMods"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="Mods">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Tasks}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+
+    <Button
+        x:Name="editNotesbutton"
+        Clicked="OnEditNotes"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="Notes">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.StickyNote}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+
+    <Button
+        x:Name="calculate531Button"
+        Clicked="OnCalculate531"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="531">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Calculator}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+
+    <Button
+        x:Name="completeSetButton"
+        Clicked="OnCompleteSet"
+        Style="{StaticResource BottomToolbarButton}"
+        Text="Complete">
+        <Button.ImageSource>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Check}"
+                Size="20"
+                Color="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                        Light={StaticResource TextColorPrimary}}" />
+        </Button.ImageSource>
+    </Button>
+</StackLayout>

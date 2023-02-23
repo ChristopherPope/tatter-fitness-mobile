@@ -7,9 +7,9 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
 {
-    public partial class RepsOnlyWorkoutExerciseViewModel : BaseWorkoutExerciseViewModel<RepsOnlySetViewModel>
+    public partial class CardioWorkoutExerciseViewModel : BaseWorkoutExerciseViewModel<CardioSetViewModel>
     {
-        public RepsOnlyWorkoutExerciseViewModel(ILoggingService logger,
+        public CardioWorkoutExerciseViewModel(ILoggingService logger,
             IMapper mapper,
             IModsSelectorModal modsSelectorModal,
             IWorkoutExercisesApiService workoutExercisesApi,
@@ -20,10 +20,9 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
         {
         }
 
-        override protected RepsOnlySetViewModel CreateSetVm(WorkoutExerciseSet set, int totalSets)
+        override protected CardioSetViewModel CreateSetVm(WorkoutExerciseSet set, int totalSets)
         {
-            return new RepsOnlySetViewModel(set, totalSets);
+            return new CardioSetViewModel(set, totalSets);
         }
-
     }
 }

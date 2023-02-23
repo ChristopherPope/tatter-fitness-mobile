@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.Messaging;
-using System.ComponentModel;
 using TatterFitness.App.NavData;
 using TatterFitness.App.Views;
 using TatterFitness.Mobile.Messages;
@@ -7,7 +6,7 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.Controls;
 
-public partial class MetricInput : Entry, INotifyPropertyChanged
+public partial class MetricInput : Entry
 {
 
     public readonly static BindableProperty MetricValueProperty = BindableProperty.Create(

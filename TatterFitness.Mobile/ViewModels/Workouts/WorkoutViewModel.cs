@@ -12,7 +12,7 @@ using TatterFitness.App.Interfaces.Services.SelectorModals;
 using TatterFitness.App.Models.Popups;
 using TatterFitness.App.NavData;
 using TatterFitness.App.Views.History;
-using TatterFitness.App.Views.Workouts;
+using TatterFitness.App.Views.Workouts.WorkoutExercises;
 using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
@@ -338,7 +338,16 @@ namespace TatterFitness.App.ViewModels.Workouts
             try
             {
                 var navData = new WorkoutExerciseNavData(cardVm.WorkoutExercise);
-                await Shell.Current.GoToAsync(nameof(WorkoutExerciseView), true, navData.ToNavDataDictionary());
+                var viewName = cardVm.WorkoutExercise.ExerciseType switch
+                {
+                    ExerciseTypes.Cardio => nameof(CardioWorkoutExerciseView),
+                    ExerciseTypes.RepsAndWeight => nameof(RepsAndWeightWorkoutExerciseView),
+                    ExerciseTypes.DurationAndWeight => nameof(DurationAndWeightWorkoutExerciseView),
+                    ExerciseTypes.RepsOnly => nameof(RepsOnlyWorkoutExerciseView),
+                    _ => string.Empty,
+                };
+
+                await Shell.Current.GoToAsync(viewName, true, navData.ToNavDataDictionary());
             }
             catch (Exception ex)
             {

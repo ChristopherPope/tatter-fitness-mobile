@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Border
+    x:Class="TatterFitness.App.Controls.WorkoutExercises.SetNumber"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesome="clr-namespace:FontAwesome"
+    Style="{StaticResource SetNumberBorder}">
+
+    <StackLayout
+        Margin="0,5,0,5"
+        HorizontalOptions="Center"
+        Orientation="Horizontal">
+        <Label
+            x:Name="setNumber"
+            Style="{StaticResource SetNumber}" />
+    </StackLayout>
+
+</Border>

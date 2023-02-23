@@ -16,12 +16,14 @@ using TatterFitness.App.ViewModels.Home;
 using TatterFitness.App.ViewModels.Routines;
 using TatterFitness.App.ViewModels.Select;
 using TatterFitness.App.ViewModels.Workouts;
+using TatterFitness.App.ViewModels.Workouts.WorkoutExercises;
 using TatterFitness.App.ViewModels.WorkoutSnapshot;
 using TatterFitness.App.Views;
 using TatterFitness.App.Views.History;
 using TatterFitness.App.Views.Routines;
 using TatterFitness.App.Views.Select;
 using TatterFitness.App.Views.Workouts;
+using TatterFitness.App.Views.Workouts.WorkoutExercises;
 using TatterFitness.Mobile.ViewModels;
 
 namespace TatterFitness.App.Extensions
@@ -63,10 +65,15 @@ namespace TatterFitness.App.Extensions
             builder.Services.AddTransient<SelectModsView>();
             builder.Services.AddTransient<WorkoutView>();
             builder.Services.AddTransient<SelectExercisesView>();
-            builder.Services.AddTransient<WorkoutExerciseView>();
             builder.Services.AddTransient<ExerciseHistoryView>();
             builder.Services.AddTransient<WorkoutEventView>();
             builder.Services.AddTransient<WorkoutSnapshotView>();
+
+            builder.Services.AddTransient<CardioWorkoutExerciseView>();
+            builder.Services.AddTransient<RepsAndWeightWorkoutExerciseView>();
+            builder.Services.AddTransient<RepsOnlyWorkoutExerciseView>();
+            builder.Services.AddTransient<DurationAndWeightWorkoutExerciseView>();
+
 
             return builder;
         }
@@ -80,11 +87,21 @@ namespace TatterFitness.App.Extensions
             builder.Services.AddTransient<SelectModsViewModel>();
             builder.Services.AddTransient<SelectExercisesViewModel>();
             builder.Services.AddTransient<WorkoutViewModel>();
-            builder.Services.AddTransient<WorkoutExerciseViewModel>();
             builder.Services.AddTransient<ExerciseHistoryViewModel>();
             builder.Services.AddTransient<WorkoutEventViewModel>();
             builder.Services.AddTransient<WorkoutSnapshotViewModel>();
             builder.Services.AddTransient<TotalEffortViewModel>();
+
+            builder.Services.AddTransient<CardioSetViewModel>();
+            builder.Services.AddTransient<RepsAndWeightSetViewModel>();
+            builder.Services.AddTransient<RepsOnlySetViewModel>();
+            builder.Services.AddTransient<DurationAndWeightSetViewModel>();
+
+            builder.Services.AddTransient<CardioWorkoutExerciseViewModel>();
+            builder.Services.AddTransient<RepsOnlyWorkoutExerciseViewModel>();
+            builder.Services.AddTransient<RepsAndWeightWorkoutExerciseViewModel>();
+            builder.Services.AddTransient<DurationAndWeightWorkoutExerciseViewModel>();
+
 
             return builder;
         }

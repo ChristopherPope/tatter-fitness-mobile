@@ -101,6 +101,18 @@
 	  <MauiXaml Update="Controls\TotalEffort.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\WorkoutExercises\ShellTitle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\WorkoutExercises\SetNumber.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\WorkoutExercises\WorkoutExerciseToolbar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\WorkoutExercisesStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\TatterFitnessTheme.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -128,7 +140,16 @@
 	  <MauiXaml Update="Views\Select\SelectModsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\Workouts\WorkoutExerciseView.xaml">
+	  <MauiXaml Update="Views\Workouts\WorkoutExercises\DurationAndWeightWorkoutExerciseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Workouts\WorkoutExercises\RepsOnlyWorkoutExerciseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Workouts\WorkoutExercises\RepsAndWeightWorkoutExerciseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Workouts\WorkoutExercises\CardioWorkoutExerciseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Workouts\WorkoutSnapshotView.xaml">
@@ -137,6 +158,30 @@
 	  <MauiXaml Update="Views\Workouts\WorkoutView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Controls\WorkoutExercises\ShellTitle.xaml.cs">
+	    <DependentUpon>ShellTitle.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\WorkoutExercises\SetNumber.xaml.cs">
+	    <DependentUpon>SetNumber.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Controls\WorkoutExercises\WorkoutExerciseToolbar.xaml.cs">
+	    <DependentUpon>WorkoutExerciseToolbar.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Workouts\WorkoutExercises\DurationAndWeightWorkoutExerciseView.xaml.cs">
+	    <DependentUpon>DurationAndWeightWorkoutExerciseView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Workouts\WorkoutExercises\RepsOnlyWorkoutExerciseView.xaml.cs">
+	    <DependentUpon>RepsOnlyWorkoutExerciseView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Workouts\WorkoutExercises\RepsAndWeightWorkoutExerciseView.xaml.cs">
+	    <DependentUpon>RepsAndWeightWorkoutExerciseView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Workouts\WorkoutExercises\CardioWorkoutExerciseView.xaml.cs">
+	    <DependentUpon>CardioWorkoutExerciseView.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

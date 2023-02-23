@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Color x:Key="SetNumBackground">
+        #ECEA6A
+    </Color>
+    <Color x:Key="SetNumBackgroundDark">
+        #3A3A3C
+    </Color>
+
+    <Style
+        x:Key="MetricsGrid"
+        TargetType="Grid">
+        <Setter Property="Margin" Value="3,0,0,0" />
+        <Setter Property="RowSpacing" Value="0" />
+        <Setter Property="ColumnSpacing" Value="5" />
+    </Style>
+
+    <Style
+        x:Key="MetricTitle"
+        TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary}, Light={StaticResource TextColorPrimary}}" />
+        <Setter Property="FontSize" Value="Small" />
+        <Setter Property="VerticalOptions" Value="Start" />
+    </Style>
+
+    <Style
+        x:Key="SetNumberBorder"
+        TargetType="Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary}, Light={StaticResource CardTextColorPrimary}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 40,40,40,40" />
+
+        <Style.Triggers>
+            <DataTrigger
+                Binding="{Binding IsCompleted}"
+                TargetType="Border"
+                Value="True">
+                <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource SetNumBackgroundDark}, Light={StaticResource SetNumBackground}}" />
+
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="SetNumber"
+        TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary}, Light={StaticResource CardTextColorPrimary}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Style.Triggers>
+            <DataTrigger
+                Binding="{Binding IsCompleted}"
+                TargetType="Label"
+                Value="True">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource CardBackgroundColorDarkPrimary}, Light={StaticResource CardBackgroundColorPrimary}}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
