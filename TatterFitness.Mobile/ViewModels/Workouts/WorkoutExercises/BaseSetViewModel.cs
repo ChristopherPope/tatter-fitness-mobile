@@ -8,9 +8,10 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
     [INotifyPropertyChanged]
     public abstract partial class BaseSetViewModel :
         IRecipient<SetCompletedMessage>,
-        IRecipient<SetAddedMessage>,
-        IRecipient<SetDeletedMessage>
+        IRecipient<SetCountChangedMessage>
     {
+        protected readonly int exerciseId;
+
         [ObservableProperty]
         private bool isCompleted;
 
@@ -22,16 +23,16 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
 
         public WorkoutExerciseSet Set { get; set; }
 
-        public BaseSetViewModel(WorkoutExerciseSet set, int totalSets)
+        public BaseSetViewModel(int exerciseId, WorkoutExerciseSet set, int totalSets)
         {
+            this.exerciseId = exerciseId;
             Set = set;
             SetNumber = set.SetNumber;
             TotalSets = totalSets;
             IsCompleted = set.Id > 0;
 
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetAddedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCountChangedMessage>);
         }
 
         public void Receive(SetCompletedMessage message)
@@ -39,14 +40,12 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
             IsCompleted = Set.Id > 0;
         }
 
-        public void Receive(SetAddedMessage message)
+        public void Receive(SetCountChangedMessage message)
         {
-            TotalSets++;
-        }
-
-        public void Receive(SetDeletedMessage message)
-        {
-            TotalSets--;
+            if (message.Value.ExerciseId == exerciseId)
+            {
+                TotalSets = message.Value.SetCount;
+            }
         }
     }
 }

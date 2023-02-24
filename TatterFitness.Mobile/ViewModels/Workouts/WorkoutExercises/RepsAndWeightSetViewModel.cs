@@ -29,8 +29,8 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
                 Volume = Weight * Reps;
             }
         }
-        public RepsAndWeightSetViewModel(WorkoutExerciseSet set, int totalSets)
-            : base(set, totalSets)
+        public RepsAndWeightSetViewModel(int exerciseId, WorkoutExerciseSet set, int totalSets)
+            : base(exerciseId, set, totalSets)
         {
             Weight = set.Weight;
             Volume = set.Volume;

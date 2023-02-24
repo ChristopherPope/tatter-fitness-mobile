@@ -10,8 +10,8 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
             set => SetProperty(Set.RepCount, value, Set, (set, val) => set.RepCount = val);
         }
 
-        public RepsOnlySetViewModel(WorkoutExerciseSet set, int totalSets)
-            : base(set, totalSets)
+        public RepsOnlySetViewModel(int exerciseId, WorkoutExerciseSet set, int totalSets)
+            : base(exerciseId, set, totalSets)
         {
             Reps = set.RepCount;
         }

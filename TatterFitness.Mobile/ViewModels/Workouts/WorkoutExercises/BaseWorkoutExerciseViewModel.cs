@@ -12,6 +12,7 @@ using TatterFitness.App.Models.Popups;
 using TatterFitness.App.NavData;
 using TatterFitness.App.Views.History;
 using TatterFitness.Mobile.Messages;
+using TatterFitness.Mobile.Messages.MessageArgs;
 using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
@@ -90,7 +91,7 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
             WorkoutExercise = navData.WorkoutExercise;
         }
 
-        abstract protected T CreateSetVm(WorkoutExerciseSet set, int totalSets);
+        abstract protected T CreateSetVm(int exerciseId, WorkoutExerciseSet set, int totalSets);
 
         protected override Task PerformLoadViewData()
         {
@@ -98,7 +99,7 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
             FormModNames();
             foreach (var set in WorkoutExercise.Sets)
             {
-                SetVms.Add(CreateSetVm(set, WorkoutExercise.Sets.Count));
+                SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, set, WorkoutExercise.Sets.Count));
             }
             SetButtonAvailability();
             totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
@@ -138,7 +139,7 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
                 SetVms.Clear();
                 foreach (var set in WorkoutExercise.Sets)
                 {
-                    SetVms.Add(CreateSetVm(set, WorkoutExercise.Sets.Count));
+                    SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, set, WorkoutExercise.Sets.Count));
                 }
 
                 IsBusy = false;
@@ -199,7 +200,11 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
                 newSet.WorkoutExerciseId = WorkoutExercise.Id;
                 WorkoutExercise.Sets.Add(newSet);
                 WeakReferenceMessenger.Default.Send(new SetAddedMessage(newSet));
-                SetVms.Add(CreateSetVm(newSet, WorkoutExercise.Sets.Count));
+
+                var args = new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count);
+                WeakReferenceMessenger.Default.Send(new SetCountChangedMessage(args));
+
+                SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, newSet, WorkoutExercise.Sets.Count));
             }
             catch (Exception ex)
             {
@@ -365,6 +370,9 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
                 SetButtonAvailability();
 
                 WeakReferenceMessenger.Default.Send(new SetDeletedMessage(setVm.Set));
+
+                var args = new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count);
+                WeakReferenceMessenger.Default.Send(new SetCountChangedMessage(args));
             }
             catch (Exception ex)
             {

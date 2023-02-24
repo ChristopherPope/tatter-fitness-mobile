@@ -20,9 +20,9 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
         {
         }
 
-        override protected RepsAndWeightSetViewModel CreateSetVm(WorkoutExerciseSet set, int totalSets)
+        override protected RepsAndWeightSetViewModel CreateSetVm(int exerciseId, WorkoutExerciseSet set, int totalSets)
         {
-            return new RepsAndWeightSetViewModel(set, totalSets);
+            return new RepsAndWeightSetViewModel(exerciseId, set, totalSets);
         }
 
     }

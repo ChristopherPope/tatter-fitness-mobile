@@ -46,8 +46,8 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
             set => SetProperty(Set.DurationInSeconds, value, Set, (set, val) => set.DurationInSeconds = val);
         }
 
-        public CardioSetViewModel(WorkoutExerciseSet set, int totalSets)
-            : base(set, totalSets)
+        public CardioSetViewModel(int exerciseId, WorkoutExerciseSet set, int totalSets)
+            : base(exerciseId, set, totalSets)
         {
             MachineWatts = set.MachineWatts;
             MilesDistance = set.MilesDistance;
