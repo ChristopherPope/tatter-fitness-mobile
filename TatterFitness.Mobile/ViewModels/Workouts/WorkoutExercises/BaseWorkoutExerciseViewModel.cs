@@ -194,12 +194,11 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
                 {
                     newSet = mapper.Map<WorkoutExerciseSet>(lastVm.Set);
                     newSet.Id = 0;
-                    newSet.SetNumber++;
+                    newSet.SetNumber = setVms.Count + 1;
                 }
 
                 newSet.WorkoutExerciseId = WorkoutExercise.Id;
                 WorkoutExercise.Sets.Add(newSet);
-                WeakReferenceMessenger.Default.Send(new SetAddedMessage(newSet));
 
                 var args = new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count);
                 WeakReferenceMessenger.Default.Send(new SetCountChangedMessage(args));
@@ -356,37 +355,29 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
         {
             try
             {
-                var setVm = CurrentSetVm;
-                SetVms.Remove(setVm);
-                if (setVm.IsCompleted)
+                var setVmToDelete = CurrentSetVm;
+                SetVms.Remove(setVmToDelete);
+                if (setVmToDelete.IsCompleted)
                 {
-                    await setsApi.Delete(setVm.Set.Id);
+                    await setsApi.Delete(setVmToDelete.Set.Id);
                 }
 
-                WorkoutExercise.Sets.Remove(setVm.Set);
+                WorkoutExercise.Sets.Remove(setVmToDelete.Set);
 
-                RenumberSets();
                 totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
                 SetButtonAvailability();
 
-                WeakReferenceMessenger.Default.Send(new SetDeletedMessage(setVm.Set));
+                WeakReferenceMessenger.Default.Send(
+                    new SetDeletedMessage(
+                        new SetDeletedArgs(WorkoutExercise.ExerciseId, setVmToDelete.SetNumber)));
 
-                var args = new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count);
-                WeakReferenceMessenger.Default.Send(new SetCountChangedMessage(args));
+                WeakReferenceMessenger.Default.Send(
+                    new SetCountChangedMessage(
+                        new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count)));
             }
             catch (Exception ex)
             {
                 await HandleExceptionAsync(ex);
-            }
-        }
-
-        private void RenumberSets()
-        {
-            var setNumber = 1;
-            foreach (var setVm in SetVms)
-            {
-                setVm.SetNumber = setNumber++;
-                setVm.TotalSets = WorkoutExercise.Sets.Count;
             }
         }
 

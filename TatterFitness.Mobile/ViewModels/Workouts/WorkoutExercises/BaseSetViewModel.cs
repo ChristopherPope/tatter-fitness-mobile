@@ -7,6 +7,7 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
 {
     [INotifyPropertyChanged]
     public abstract partial class BaseSetViewModel :
+        IRecipient<SetDeletedMessage>,
         IRecipient<SetCompletedMessage>,
         IRecipient<SetCountChangedMessage>
     {
@@ -31,8 +32,20 @@ namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
             TotalSets = totalSets;
             IsCompleted = set.Id > 0;
 
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetCountChangedMessage>);
+        }
+
+        public void Receive(SetDeletedMessage message)
+        {
+            if (message.Value.ExerciseId != exerciseId ||
+                message.Value.DeletedSetNumber > SetNumber)
+            {
+                return;
+            }
+
+            SetNumber--;
         }
 
         public void Receive(SetCompletedMessage message)

@@ -14,7 +14,7 @@ namespace TatterFitness.App.ViewModels.Workouts
     public partial class WorkoutCardViewModel :
         ViewModelBase,
         IRecipient<CompletedSetMetricsChangedMessage>,
-        IRecipient<SetAddedMessage>,
+        IRecipient<SetCountChangedMessage>,
         IRecipient<SetDeletedMessage>,
         IRecipient<ExerciseModsChangedMessage>,
         IRecipient<SetCompletedMessage>
@@ -75,7 +75,7 @@ namespace TatterFitness.App.ViewModels.Workouts
 
             WeakReferenceMessenger.Default.Register(this as IRecipient<ExerciseModsChangedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetAddedMessage>);
+            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCountChangedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
         }
@@ -105,7 +105,7 @@ namespace TatterFitness.App.ViewModels.Workouts
             UpdateMetrics();
         }
 
-        public void Receive(SetAddedMessage message)
+        public void Receive(SetCountChangedMessage message)
         {
             UpdateMetrics();
         }
