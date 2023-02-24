@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NodaTime;
-using NodaTime.TimeZones;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using TatterFitness.App.Interfaces.Services;
@@ -229,7 +228,7 @@ namespace TatterFitness.App.ViewModels.History.EventCalendar
         private void PopulateDayVm(EventCalendarDayViewModel dayVm, LocalDate forDay, Dictionary<LocalDate, int> dateToEventId)
         {
             dayVm.DayOfMonth = forDay.Day;
-            
+
             dateToEventId.TryGetValue(forDay, out int eventId);
             dayVm.EventId = eventId;
             dayVm.HasEvent = eventId > 0;

@@ -27,7 +27,8 @@ namespace TatterFitness.App.Services.API
             flurlClient = flurlClientFactory.Get("http://10.0.2.2:88/api/");
 #else
             //flurlClient = flurlClientFactory.Get("http://192.168.1.10:88/api/");
-            flurlClient = flurlClientFactory.Get("http://192.168.1.10/api/");
+            //flurlClient = flurlClientFactory.Get("http://192.168.1.10/api/");
+            flurlClient = flurlClientFactory.Get("http://10.0.2.2:88/api/"); // emulator
 #endif
         }
 

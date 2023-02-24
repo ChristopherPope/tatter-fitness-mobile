@@ -84,7 +84,6 @@ namespace TatterFitness.App.ViewModels.Workouts
 
         protected override async Task PerformLoadViewData()
         {
-            routineId = 1029;
             var routine = await routinesApi.Read(routineId);
             if (routine == null)
             {
