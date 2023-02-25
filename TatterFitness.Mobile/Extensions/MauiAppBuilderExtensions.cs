@@ -66,7 +66,7 @@ namespace TatterFitness.App.Extensions
             builder.Services.AddTransient<WorkoutView>();
             builder.Services.AddTransient<SelectExercisesView>();
             builder.Services.AddTransient<ExerciseHistoryView>();
-            builder.Services.AddTransient<WorkoutEventView>();
+            builder.Services.AddTransient<WorkoutCalendarView>();
             builder.Services.AddTransient<WorkoutSnapshotView>();
 
             builder.Services.AddTransient<CardioWorkoutExerciseView>();
@@ -88,7 +88,7 @@ namespace TatterFitness.App.Extensions
             builder.Services.AddTransient<SelectExercisesViewModel>();
             builder.Services.AddTransient<WorkoutViewModel>();
             builder.Services.AddTransient<ExerciseHistoryViewModel>();
-            builder.Services.AddTransient<WorkoutEventViewModel>();
+            builder.Services.AddTransient<WorkoutCalendarViewModel>();
             builder.Services.AddTransient<WorkoutSnapshotViewModel>();
             builder.Services.AddTransient<TotalEffortViewModel>();
 

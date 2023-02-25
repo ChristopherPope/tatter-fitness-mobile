@@ -120,7 +120,7 @@
 	  <MauiXaml Update="Views\History\ExerciseHistoryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\History\WorkoutEventView.xaml">
+	  <MauiXaml Update="Views\History\WorkoutCalendarView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\HomeView.xaml">
@@ -167,6 +167,9 @@
 	  </Compile>
 	  <Compile Update="Controls\WorkoutExercises\WorkoutExerciseToolbar.xaml.cs">
 	    <DependentUpon>WorkoutExerciseToolbar.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\History\WorkoutCalendarView.xaml.cs">
+	    <DependentUpon>WorkoutCalendarView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Workouts\WorkoutExercises\DurationAndWeightWorkoutExerciseView.xaml.cs">
 	    <DependentUpon>DurationAndWeightWorkoutExerciseView.xaml</DependentUpon>

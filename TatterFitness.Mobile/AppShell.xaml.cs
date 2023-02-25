@@ -18,7 +18,7 @@ namespace TatterFitness.App
             Routing.RegisterRoute(nameof(SelectModsView), typeof(SelectModsView));
             Routing.RegisterRoute(nameof(SelectExercisesView), typeof(SelectExercisesView));
             Routing.RegisterRoute(nameof(WorkoutView), typeof(WorkoutView));
-            Routing.RegisterRoute(nameof(WorkoutEventView), typeof(WorkoutEventView));
+            Routing.RegisterRoute(nameof(WorkoutCalendarView), typeof(WorkoutCalendarView));
             Routing.RegisterRoute(nameof(ExerciseHistoryView), typeof(ExerciseHistoryView));
             Routing.RegisterRoute(nameof(WorkoutSnapshotView), typeof(WorkoutSnapshotView));
 

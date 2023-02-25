@@ -7,7 +7,7 @@ using TatterFitness.App.Interfaces.Services.API;
 
 namespace TatterFitness.App.ViewModels.History.EventCalendar
 {
-    public partial class WorkoutEventViewModel : ViewModelBase
+    public partial class WorkoutCalendarViewModel : ViewModelBase
     {
         private readonly IHistoriesApiService historyApi;
 
@@ -23,7 +23,7 @@ namespace TatterFitness.App.ViewModels.History.EventCalendar
         [ObservableProperty]
         public ObservableCollection<SchedulerAppointment> workouts = new();
 
-        public WorkoutEventViewModel(ILoggingService logger, IHistoriesApiService historyApi)
+        public WorkoutCalendarViewModel(ILoggingService logger, IHistoriesApiService historyApi)
             : base(logger)
         {
             this.historyApi = historyApi;

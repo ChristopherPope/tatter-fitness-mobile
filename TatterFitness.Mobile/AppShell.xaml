@@ -128,7 +128,7 @@
 
         <ShellContent
             Title="Light"
-            ContentTemplate="{DataTemplate historyViews:WorkoutEventView}" />
+            ContentTemplate="{DataTemplate historyViews:WorkoutCalendarView}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Home">
