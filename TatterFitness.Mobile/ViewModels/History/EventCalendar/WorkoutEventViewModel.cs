@@ -10,7 +10,6 @@ namespace TatterFitness.App.ViewModels.History.EventCalendar
     public partial class WorkoutEventViewModel : ViewModelBase
     {
         private readonly IHistoriesApiService historyApi;
-        private bool isLoaded = false;
 
         [ObservableProperty]
         private DateTime minDateTime = DateTime.Now;
@@ -37,9 +36,8 @@ namespace TatterFitness.App.ViewModels.History.EventCalendar
             IsBusy = true;
             var allEventsInterval = await historyApi.ReadFirstAndLastWorkoutDates();
             MinDateTime = allEventsInterval.InclusiveFrom.Date;
-            IsBusy = false;
-            isLoaded = true;
             MaxDateTime = allEventsInterval.InclusiveTo.Date;
+            IsBusy = false;
         }
 
         //protected override async Task ProcessDayClicked(int eventId)
