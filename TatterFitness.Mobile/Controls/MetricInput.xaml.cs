@@ -8,7 +8,6 @@ namespace TatterFitness.App.Controls;
 
 public partial class MetricInput : Entry
 {
-
     public readonly static BindableProperty MetricValueProperty = BindableProperty.Create(
         propertyName: nameof(MetricValue),
         returnType: typeof(double),

@@ -1,53 +1,81 @@
-﻿using NodaTime;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Syncfusion.Maui.Scheduler;
+using System.Collections.ObjectModel;
 using TatterFitness.App.Interfaces.Services;
 using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Views.Workouts;
 
 namespace TatterFitness.App.ViewModels.History.EventCalendar
 {
-    public partial class WorkoutEventViewModel : EventCalendarViewModelBase
+    public partial class WorkoutEventViewModel : ViewModelBase
     {
         private readonly IHistoriesApiService historyApi;
+        private bool isLoaded = false;
 
-        public WorkoutEventViewModel(ILoggingService logger, IHistoriesApiService historyApi) : base(logger)
+        [ObservableProperty]
+        private DateTime minDateTime = DateTime.Now;
+
+        [ObservableProperty]
+        private DateTime maxDateTime = DateTime.Now;
+
+        [ObservableProperty]
+        private DateTime displayDate;
+
+        [ObservableProperty]
+        public ObservableCollection<SchedulerAppointment> workouts = new();
+
+        public WorkoutEventViewModel(ILoggingService logger, IHistoriesApiService historyApi)
+            : base(logger)
         {
             this.historyApi = historyApi;
             Title = "Workout History";
+            DisplayDate = DateTime.Now;
         }
 
-        protected override async Task ProcessDayClicked(int eventId)
+        protected override async Task PerformLoadViewData()
         {
-            var navData = new NavData.WorkoutSnapshotNavData(eventId);
-            await Shell.Current.GoToAsync(nameof(WorkoutSnapshotView), true, navData.ToNavDataDictionary());
+            IsBusy = true;
+            var allEventsInterval = await historyApi.ReadFirstAndLastWorkoutDates();
+            MinDateTime = allEventsInterval.InclusiveFrom.Date;
+            IsBusy = false;
+            isLoaded = true;
+            MaxDateTime = allEventsInterval.InclusiveTo.Date;
         }
 
-        protected override async Task<DateInterval> GetAllEventsInterval()
+        //protected override async Task ProcessDayClicked(int eventId)
+        //{
+        //    var navData = new NavData.WorkoutSnapshotNavData(eventId);
+        //    await Shell.Current.GoToAsync(nameof(WorkoutSnapshotView), true, navData.ToNavDataDictionary());
+        //}
+
+        [RelayCommand]
+        private async void LoadWorkouts(object obj)
         {
-            var range = await historyApi.ReadFirstAndLastWorkoutDates();
-
-            return new DateInterval(LocalDate.FromDateTime(range.InclusiveFrom.Value), LocalDate.FromDateTime(range.InclusiveTo.Value));
-        }
-
-        protected override async Task<Dictionary<LocalDate, int>> LoadEvents(DateInterval interval)
-        {
-            var events = await historyApi.ReadWorkoutEvents(interval.Start.ToDateTimeUnspecified(), interval.End.ToDateTimeUnspecified());
-
-            var eventLookup = new Dictionary<LocalDate, int>();
-            foreach (var ev in events) 
+            if (obj is not SchedulerQueryAppointmentsEventArgs eventArgs)
             {
-                if (ev.EventId == 0)
-                {
-                    continue;
-                }
-
-                var date = LocalDate.FromDateTime(ev.EventDate);
-                if (!eventLookup.ContainsKey(date))
-                {
-                    eventLookup.Add(date, ev.EventId);
-                }
+                return;
             }
 
-            return eventLookup;
+            IsBusy = true;
+            var dates = eventArgs.VisibleDates.OrderBy(d => d).ToList();
+            var workouts = await historyApi.ReadWorkoutEvents(dates.First(), dates.Last());
+            var workoutEvents = new ObservableCollection<SchedulerAppointment>();
+            foreach (var workout in workouts)
+            {
+                var ev = new SchedulerAppointment
+                {
+                    IsAllDay = true,
+                    StartTime = workout.EventDate,
+                    EndTime = workout.EventDate.AddHours(1),
+                    Subject = "Workout",
+                    Background = new SolidColorBrush(Color.FromArgb("#FFFC571D"))
+                };
+
+                workoutEvents.Add(ev);
+            }
+
+            Workouts = workoutEvents;
+            IsBusy = false;
         }
     }
 }

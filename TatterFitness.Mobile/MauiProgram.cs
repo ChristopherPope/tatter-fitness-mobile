@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Syncfusion.Maui.Core.Hosting;
 using TatterFitness.App.Extensions;
 
 namespace TatterFitness.App
@@ -15,6 +16,7 @@ namespace TatterFitness.App
                 .RegisterViews()
                 .RegisterViewModels()
                 .RegisterEssentials()
+                .ConfigureSyncfusionCore()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

@@ -10,7 +10,7 @@ namespace TatterFitness.App.Views
         {
             ViewModel = viewModel;
             BindingContext = viewModel;
-            
+
             Appearing += OnViewAppearing;
             TaskScheduler.UnobservedTaskException += OnUnobservedException;
         }
