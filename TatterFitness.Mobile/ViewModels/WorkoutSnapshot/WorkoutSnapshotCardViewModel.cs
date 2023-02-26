@@ -8,6 +8,7 @@ using TatterFitness.App.Models;
 using TatterFitness.App.Models.Popups;
 using TatterFitness.App.Utils;
 using TatterFitness.Mobile.ViewModels;
+using TatterFitness.Models.Enums;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.App.ViewModels.WorkoutSnapshot
@@ -35,16 +36,7 @@ namespace TatterFitness.App.ViewModels.WorkoutSnapshot
         private bool doShowNotesButton = false;
 
         [ObservableProperty]
-        public bool isCardioGridVisible;
-
-        [ObservableProperty]
-        public bool isRepsAndWeightGridVisible;
-
-        [ObservableProperty]
-        public bool isRepsOnlyGridVisible;
-
-        [ObservableProperty]
-        public bool isDurationAndWeightGridVisible;
+        public ExerciseTypes exerciseType;
 
         [ObservableProperty]
         private ObservableCollection<SetSummary> setSummaries = new();
@@ -71,10 +63,7 @@ namespace TatterFitness.App.ViewModels.WorkoutSnapshot
             DoShowNotesButton = !string.IsNullOrEmpty(WorkoutExercise.Notes);
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
 
-            IsCardioGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.Cardio;
-            IsRepsOnlyGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.RepsOnly;
-            IsRepsAndWeightGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.RepsAndWeight;
-            IsDurationAndWeightGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.DurationAndWeight;
+            ExerciseType = WorkoutExercise.ExerciseType;
 
             return Task.CompletedTask;
         }

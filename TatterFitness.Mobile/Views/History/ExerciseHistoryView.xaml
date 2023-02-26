@@ -44,7 +44,9 @@
             ItemsSource="{Binding CardVms}"
             SelectionMode="None">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
+                <LinearItemsLayout
+                    ItemSpacing="15"
+                    Orientation="Vertical" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
@@ -101,8 +103,15 @@
                                 <controls:ExerciseEffort
                                     Grid.Row="1"
                                     Grid.Column="1"
+                                    AverageBpm="{Binding AverageBpm}"
+                                    CDuration="{Binding CDuration}"
+                                    CMiles="{Binding CMiles}"
+                                    DWDuration="{Binding DWDuration}"
+                                    DWVolume="{Binding DWVolume}"
                                     ExerciseHistory="{Binding ExerciseHistory}"
-                                    HorizontalOptions="End" />
+                                    ExerciseType="{Binding ExerciseType}"
+                                    ROReps="{Binding ROReps}"
+                                    RWVolume="{Binding RWVolume}" />
                             </Grid>
 
                             <Rectangle
@@ -142,7 +151,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout Grid.Row="1" Style="{StaticResource BottomToolbar}">
+        <StackLayout
+            Grid.Row="1"
+            Style="{StaticResource BottomToolbar}">
 
             <Button
                 Command="{Binding SelectExerciseCommand}"

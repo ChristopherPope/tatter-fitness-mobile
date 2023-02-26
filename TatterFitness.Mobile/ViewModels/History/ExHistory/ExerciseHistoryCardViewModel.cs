@@ -1,15 +1,14 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using TatterFitness.App.Controls.Popups;
 using TatterFitness.App.Interfaces.Services;
+using TatterFitness.App.Models;
 using TatterFitness.App.Models.Popups;
+using TatterFitness.App.Utils;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
-using TatterFitness.Models.Workouts;
-using System.Collections.ObjectModel;
-using TatterFitness.App.Utils;
-using TatterFitness.App.Models;
 
 namespace TatterFitness.App.ViewModels.History.ExHistory
 {
@@ -18,6 +17,35 @@ namespace TatterFitness.App.ViewModels.History.ExHistory
         private readonly ExerciseHistory exerciseHistory;
 
         public ExerciseHistory ExerciseHistory => exerciseHistory;
+
+        #region Set Metrics Properties
+        [ObservableProperty]
+        private string rWVolume;
+
+        [ObservableProperty]
+        private string dWVolume;
+
+        [ObservableProperty]
+        private string rOReps;
+
+        [ObservableProperty]
+        private string dWDuration;
+
+        [ObservableProperty]
+        private string dwVolume;
+
+        [ObservableProperty]
+        private string cDuration;
+
+        [ObservableProperty]
+        private string cMiles;
+
+        [ObservableProperty]
+        private string averageBpm;
+
+        [ObservableProperty]
+        private ExerciseTypes exerciseType;
+        #endregion
 
         [ObservableProperty]
         private bool doShowModNames = false;
@@ -48,7 +76,7 @@ namespace TatterFitness.App.ViewModels.History.ExHistory
             var setSummarizer = new SetSummariesMaker();
             foreach (var summary in setSummarizer.MakeSummaries(exerciseHistory.Sets, exerciseHistory.ExerciseType))
             {
-                setSummaries.Add(new SetSummary {  Summary = summary });
+                setSummaries.Add(new SetSummary { Summary = summary });
             }
 
             WorkoutName = $"{exerciseHistory.WorkoutName}";
@@ -56,8 +84,27 @@ namespace TatterFitness.App.ViewModels.History.ExHistory
             ModNames = String.Join(", ", exerciseHistory.Mods.Select(m => m.ModifierName).ToArray());
             DoShowModNames = !string.IsNullOrEmpty(ModNames);
             DoShowNotesButton = !string.IsNullOrEmpty(exerciseHistory.Notes);
+            ExerciseType = exerciseHistory.ExerciseType;
 
+            CalculateMetricsEffort();
             return Task.CompletedTask;
+        }
+
+        private void CalculateMetricsEffort()
+        {
+            var calculator = new EffortCalculator();
+            calculator.Calculate(exerciseHistory.Sets);
+
+            var formatter = new EffortFormatter();
+            formatter.FormatEffort(calculator);
+
+            RWVolume = formatter.RWVolume;
+            DWVolume = formatter.DWVolume;
+            DWDuration = formatter.DWDuration;
+            ROReps = formatter.ROReps;
+            CDuration = formatter.CDuration;
+            CMiles = formatter.CMiles;
+            AverageBpm = formatter.CBpm;
         }
 
         [RelayCommand]
@@ -78,6 +125,5 @@ namespace TatterFitness.App.ViewModels.History.ExHistory
                 await HandleExceptionAsync(ex);
             }
         }
-
     }
 }

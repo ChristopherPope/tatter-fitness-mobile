@@ -112,11 +112,8 @@
                                         CMiles="{Binding TotalEffort.TotalCMiles}"
                                         DWDuration="{Binding TotalEffort.TotalDWDuration}"
                                         DWVolume="{Binding TotalEffort.TotalDWVolume}"
+                                        ExerciseType="{Binding ExerciseType}"
                                         HorizontalOptions="End"
-                                        IsCardioGridVisible="{Binding IsCardioGridVisible}"
-                                        IsDurationAndWeightGridVisible="{Binding IsDurationAndWeightGridVisible}"
-                                        IsRepsAndWeightGridVisible="{Binding IsRepsAndWeightGridVisible}"
-                                        IsRepsOnlyGridVisible="{Binding IsRepsOnlyGridVisible}"
                                         ROReps="{Binding TotalEffort.TotalROReps}"
                                         RWVolume="{Binding TotalEffort.TotalRWVolume}" />
 

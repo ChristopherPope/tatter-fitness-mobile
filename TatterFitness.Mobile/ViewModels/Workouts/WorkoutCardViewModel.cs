@@ -6,6 +6,7 @@ using TatterFitness.App.Interfaces.Services.API;
 using TatterFitness.App.Interfaces.Services.SelectorModals;
 using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.ViewModels;
+using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
@@ -51,6 +52,9 @@ namespace TatterFitness.App.ViewModels.Workouts
         private string exerciseName;
 
         [ObservableProperty]
+        private ExerciseTypes exerciseType;
+
+        [ObservableProperty]
         private string setsCompletedTitle = string.Empty;
 
         [ObservableProperty]
@@ -72,6 +76,8 @@ namespace TatterFitness.App.ViewModels.Workouts
             this.mapper = mapper;
             this.modsSelectorModal = modsSelectorModal;
             this.modsSvc = modsSvc;
+
+            ExerciseType = workoutExercise.ExerciseType;
 
             WeakReferenceMessenger.Default.Register(this as IRecipient<ExerciseModsChangedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);

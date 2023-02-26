@@ -1,3 +1,4 @@
+using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
@@ -83,56 +84,17 @@ public partial class ExerciseEffort : Grid
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay);
 
-    public readonly static BindableProperty IsRepsAndWeightGridVisibleProperty = BindableProperty.Create(
-        propertyName: nameof(IsRepsAndWeightGridVisible),
-        returnType: typeof(bool),
+    public readonly static BindableProperty ExerciseTypeProperty = BindableProperty.Create(
+        propertyName: nameof(ExerciseType),
+        returnType: typeof(ExerciseTypes),
         declaringType: typeof(ExerciseEffort),
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay);
 
-    public readonly static BindableProperty IsRepsOnlyGridVisibleProperty = BindableProperty.Create(
-        propertyName: nameof(IsRepsOnlyGridVisible),
-        returnType: typeof(bool),
-        declaringType: typeof(ExerciseEffort),
-        defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay);
-
-    public readonly static BindableProperty IsDurationAndWeightGridVisibleProperty = BindableProperty.Create(
-        propertyName: nameof(IsDurationAndWeightGridVisible),
-        returnType: typeof(bool),
-        declaringType: typeof(ExerciseEffort),
-        defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay);
-
-    public readonly static BindableProperty IsCardioGridVisibleProperty = BindableProperty.Create(
-        propertyName: nameof(IsCardioGridVisible),
-        returnType: typeof(bool),
-        declaringType: typeof(ExerciseEffort),
-        defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay);
-
-    public bool IsRepsAndWeightGridVisible
+    public ExerciseTypes ExerciseType
     {
-        get { return (bool)GetValue(IsRepsAndWeightGridVisibleProperty); }
-        set { SetValue(IsRepsAndWeightGridVisibleProperty, value); }
-    }
-
-    public bool IsRepsOnlyGridVisible
-    {
-        get { return (bool)GetValue(IsRepsOnlyGridVisibleProperty); }
-        set { SetValue(IsRepsOnlyGridVisibleProperty, value); }
-    }
-
-    public bool IsDurationAndWeightGridVisible
-    {
-        get { return (bool)GetValue(IsDurationAndWeightGridVisibleProperty); }
-        set { SetValue(IsDurationAndWeightGridVisibleProperty, value); }
-    }
-
-    public bool IsCardioGridVisible
-    {
-        get { return (bool)GetValue(IsCardioGridVisibleProperty); }
-        set { SetValue(IsCardioGridVisibleProperty, value); }
+        get { return (ExerciseTypes)GetValue(ExerciseTypeProperty); }
+        set { SetValue(ExerciseTypeProperty, value); }
     }
 
     public string RWVolume
@@ -180,30 +142,17 @@ public partial class ExerciseEffort : Grid
     public ExerciseEffort()
     {
         InitializeComponent();
-        IsRepsAndWeightGridVisible = true;
-        IsRepsOnlyGridVisible = true;
-        IsDurationAndWeightGridVisible = true;
-        IsCardioGridVisible = true;
     }
 
     protected override void OnPropertyChanged(string propertyName = null)
     {
         base.OnPropertyChanged(propertyName);
-        if (propertyName == IsRepsAndWeightGridVisibleProperty.PropertyName)
+        if (propertyName == ExerciseTypeProperty.PropertyName)
         {
-            rwEffortGrid.IsVisible = IsRepsAndWeightGridVisible;
-        }
-        else if (propertyName == IsRepsOnlyGridVisibleProperty.PropertyName)
-        {
-            roEffortGrid.IsVisible = IsRepsOnlyGridVisible;
-        }
-        else if (propertyName == IsDurationAndWeightGridVisibleProperty.PropertyName)
-        {
-            dwEffortGrid.IsVisible = IsDurationAndWeightGridVisible;
-        }
-        else if (propertyName == IsCardioGridVisibleProperty.PropertyName)
-        {
-            cEffortGrid.IsVisible = IsCardioGridVisible;
+            rwEffortGrid.IsVisible = ExerciseType == ExerciseTypes.RepsAndWeight;
+            roEffortGrid.IsVisible = ExerciseType == ExerciseTypes.RepsOnly;
+            dwEffortGrid.IsVisible = ExerciseType == ExerciseTypes.DurationAndWeight;
+            cEffortGrid.IsVisible = ExerciseType == ExerciseTypes.Cardio;
         }
         else if (propertyName == RWVolumeProperty.PropertyName)
         {
