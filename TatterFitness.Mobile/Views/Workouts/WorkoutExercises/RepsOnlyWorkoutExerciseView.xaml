@@ -100,9 +100,9 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Reps" />
 
-                                                <controls:MetricInput
+                                                <!--<controls:MetricInput
                                                     MetricValue="{Binding Reps}"
-                                                    Set="{Binding Set}" />
+                                                    Set="{Binding Set}" />-->
                                             </StackLayout>
                                         </Grid>
                                     </Grid>

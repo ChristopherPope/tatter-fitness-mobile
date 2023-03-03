@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sfCore:SfTextInputLayout
+    x:Class="TatterFitness.App.Controls.WorkoutExercises.MetricInput"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:TatterFitness.App.Controls.WorkoutExercises"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:sfCore="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:sfInput="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+    x:DataType="controls:MetricInput"
+    ContainerBackground="{AppThemeBinding Dark={StaticResource CardBackgroundColorDarkPrimary},
+                                          Light={StaticResource CardBackgroundColorPrimary}}"
+    ContainerType="Outlined"
+    InputViewPadding="5,5,5,5"
+    Stroke="{AppThemeBinding Dark={StaticResource SetNumBackgroundDark},
+                             Light={StaticResource SetNumBackground}}"
+    VerticalOptions="Start">
+
+    <Entry
+        x:Name="metricEntry"
+        FontSize="Medium"
+        HorizontalTextAlignment="End"
+        Keyboard="Numeric"
+        TextColor="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary},
+                                    Light={StaticResource CardTextColorPrimary}}" />
+</sfCore:SfTextInputLayout>
+
