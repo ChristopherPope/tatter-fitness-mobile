@@ -1,2 +1,0 @@
-To connect to debug API, must run 
-	iisexpress-proxy 50662 to 88
