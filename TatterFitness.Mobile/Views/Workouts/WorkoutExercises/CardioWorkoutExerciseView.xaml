@@ -103,9 +103,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Duration (secs)" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding DurationInSeconds}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding DurationInSeconds}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -116,9 +114,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Miles" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding MilesDistance}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding MilesDistance}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -129,9 +125,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Machine Intensity" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding MachineIntensity}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding MachineIntensity}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -142,9 +136,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Machine Watts" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding MachineWatts}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding MachineWatts}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -155,9 +147,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Max BPM" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding MaxBpm}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding MaxBpm}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -168,9 +158,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Calories" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding Calories}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding Calories}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -181,9 +169,7 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Machine Incline" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding MachineIncline}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput MetricValue="{Binding MachineIncline}" />
                                             </StackLayout>
                                         </Grid>
                                     </Grid>

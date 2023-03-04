@@ -101,9 +101,8 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Duration (secs)1" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding DurationInSeconds}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput
+                                                    MetricValue="{Binding DurationInSeconds}" />
                                             </StackLayout>
 
                                             <StackLayout
@@ -114,9 +113,8 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Weight (lbs)" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding Weight}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput
+                                                    MetricValue="{Binding Weight}" />
                                             </StackLayout>
                                         </Grid>
                                     </Grid>

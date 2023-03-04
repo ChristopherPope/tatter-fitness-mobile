@@ -103,9 +103,8 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Weight (lbs)" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding Weight}"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput
+                                                    MetricValue="{Binding Weight}" />
                                             </StackLayout>
 
                                             <Label
@@ -128,10 +127,8 @@
                                                     Style="{StaticResource MetricTitle}"
                                                     Text="Reps" />
 
-                                                <controls:MetricInput
-                                                    MetricValue="{Binding Reps}"
-                                                    MinimumWidthRequest="35"
-                                                    Set="{Binding Set}" />
+                                                <weControls:MetricInput
+                                                    MetricValue="{Binding Reps}" />
                                             </StackLayout>
 
                                             <StackLayout
