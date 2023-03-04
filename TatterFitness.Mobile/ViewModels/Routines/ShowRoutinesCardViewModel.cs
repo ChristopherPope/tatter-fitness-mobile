@@ -1,7 +1,7 @@
-﻿using TatterFitness.App.Interfaces.Services;
+﻿using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Models;
 
-namespace TatterFitness.App.ViewModels.Routines
+namespace TatterFitness.Mobile.ViewModels.Routines
 {
     public partial class ShowRoutinesCardViewModel : ViewModelBase
     {

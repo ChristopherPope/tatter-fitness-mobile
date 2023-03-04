@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.WorkoutSnapshot;
+using TatterFitness.Mobile.ViewModels.WorkoutSnapshot;
 
-namespace TatterFitness.App.Views.Workouts;
+namespace TatterFitness.Mobile.Views.Workouts;
 
 public partial class WorkoutSnapshotView : ContentPageBase<WorkoutSnapshotViewModel>
 {

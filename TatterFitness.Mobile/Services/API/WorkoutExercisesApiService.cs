@@ -1,11 +1,11 @@
 ﻿using Flurl.Http.Configuration;
 using TatterFitness.Models.Workouts;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Enums;
-using TatterFitness.App.Models;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Enums;
+using TatterFitness.Mobile.Models;
 
-namespace TatterFitness.App.Services.API
+namespace TatterFitness.Mobile.Services.API
 {
     public class WorkoutExercisesApiService : ApiServiceBase, IWorkoutExercisesApiService
     {

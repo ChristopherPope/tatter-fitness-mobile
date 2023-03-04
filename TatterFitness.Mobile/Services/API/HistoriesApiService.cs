@@ -1,11 +1,11 @@
 ﻿using Flurl.Http.Configuration;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Models;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.Services.API
+namespace TatterFitness.Mobile.Services.API
 {
     public class HistoriesApiService : ApiServiceBase, IHistoriesApiService
     {

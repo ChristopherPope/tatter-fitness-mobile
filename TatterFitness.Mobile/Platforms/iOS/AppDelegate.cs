@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

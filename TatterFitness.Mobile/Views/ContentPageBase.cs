@@ -1,6 +1,6 @@
-﻿using TatterFitness.App.ViewModels;
+﻿using TatterFitness.Mobile.ViewModels;
 
-namespace TatterFitness.App.Views
+namespace TatterFitness.Mobile.Views
 {
     public abstract class ContentPageBase<T> : ContentPage where T : ViewModelBase
     {

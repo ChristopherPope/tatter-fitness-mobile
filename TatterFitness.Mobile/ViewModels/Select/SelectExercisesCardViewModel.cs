@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using TatterFitness.Models.Exercises;
-using TatterFitness.App.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services;
 
-namespace TatterFitness.App.ViewModels.Select
+namespace TatterFitness.Mobile.ViewModels.Select
 {
     public partial class SelectExercisesCardViewModel : ViewModelBase
     {

@@ -2,9 +2,9 @@
 using Android.Util;
 #endif
 
-using TatterFitness.App.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services;
 
-namespace TatterFitness.App.Services
+namespace TatterFitness.Mobile.Services
 {
     internal class LoggingService : ILoggingService
     {

@@ -2,7 +2,7 @@ using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     internal class Program : MauiApplication
     {

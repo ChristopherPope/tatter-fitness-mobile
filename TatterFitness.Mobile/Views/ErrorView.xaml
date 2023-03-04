@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<views:ContentPageBase x:Class="TatterFitness.App.Views.ErrorView"
+<views:ContentPageBase x:Class="TatterFitness.Mobile.Views.ErrorView"
                        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:TatterFitness.App.Views"
-                       xmlns:vm="clr-namespace:TatterFitness.App.ViewModels"
+                       xmlns:views="clr-namespace:TatterFitness.Mobile.Views"
+                       xmlns:vm="clr-namespace:TatterFitness.Mobile.ViewModels"
                        Title="{Binding Title}"
                        x:DataType="vm:ErrorViewModel"
                        x:TypeArguments="vm:ErrorViewModel"

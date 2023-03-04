@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Interfaces.Services.ContextMenu;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views.History;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views.History;
 using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.ViewModels.WorkoutSnapshot
+namespace TatterFitness.Mobile.ViewModels.WorkoutSnapshot
 {
     public partial class WorkoutSnapshotViewModel : ViewModelBase, IQueryAttributable
     {

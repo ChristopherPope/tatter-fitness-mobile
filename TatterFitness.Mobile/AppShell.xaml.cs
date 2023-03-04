@@ -1,11 +1,11 @@
-﻿using TatterFitness.App.Views;
-using TatterFitness.App.Views.History;
-using TatterFitness.App.Views.Routines;
-using TatterFitness.App.Views.Select;
-using TatterFitness.App.Views.Workouts;
-using TatterFitness.App.Views.Workouts.WorkoutExercises;
+﻿using TatterFitness.Mobile.Views;
+using TatterFitness.Mobile.Views.History;
+using TatterFitness.Mobile.Views.Routines;
+using TatterFitness.Mobile.Views.Select;
+using TatterFitness.Mobile.Views.Workouts;
+using TatterFitness.Mobile.Views.Workouts.WorkoutExercises;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     public partial class AppShell : Shell
     {

@@ -1,7 +1,7 @@
 ﻿using Syncfusion.Licensing;
 using System.Reflection;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     public partial class App : Application
     {

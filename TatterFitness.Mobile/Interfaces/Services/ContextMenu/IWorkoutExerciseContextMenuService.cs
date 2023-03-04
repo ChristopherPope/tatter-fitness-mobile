@@ -1,6 +1,6 @@
-﻿using TatterFitness.App.ViewModels.Workouts;
+﻿using TatterFitness.Mobile.ViewModels.Workouts;
 
-namespace TatterFitness.App.Interfaces.Services.ContextMenu
+namespace TatterFitness.Mobile.Interfaces.Services.ContextMenu
 {
     public interface IWorkoutExerciseContextMenuService : IContextMenuService
     {

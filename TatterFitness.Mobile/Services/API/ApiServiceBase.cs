@@ -1,11 +1,11 @@
 ﻿using Flurl.Http;
 using Flurl.Http.Configuration;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Models;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Models;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views;
 
-namespace TatterFitness.App.Services.API
+namespace TatterFitness.Mobile.Services.API
 {
     public abstract class ApiServiceBase
     {

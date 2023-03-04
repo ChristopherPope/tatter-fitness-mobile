@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.Interfaces.Services.ContextMenu
+﻿namespace TatterFitness.Mobile.Interfaces.Services.ContextMenu
 {
     public interface IContextMenuService
     {

@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using Syncfusion.Maui.Core.Hosting;
-using TatterFitness.App.Extensions;
+using TatterFitness.Mobile.Extensions;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     public static class MauiProgram
     {

@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.NavData.Select
+﻿namespace TatterFitness.Mobile.NavData.Select
 {
     public class SelectExercisesNavData : NavDataBase
     {

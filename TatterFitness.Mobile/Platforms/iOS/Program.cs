@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     public class Program
     {

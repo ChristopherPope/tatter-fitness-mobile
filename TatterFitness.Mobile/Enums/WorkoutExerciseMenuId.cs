@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.Enums
+﻿namespace TatterFitness.Mobile.Enums
 {
     public enum WorkoutExerciseMenuId
     {

@@ -1,7 +1,7 @@
 ﻿using TatterFitness.Models.Enums;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.NavData
+namespace TatterFitness.Mobile.NavData
 {
     public class WorkoutExerciseNavData : NavDataBase
     {

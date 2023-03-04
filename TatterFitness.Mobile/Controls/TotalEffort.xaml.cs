@@ -1,4 +1,4 @@
-namespace TatterFitness.App.Controls;
+namespace TatterFitness.Mobile.Controls;
 
 public partial class TotalEffort : Grid
 {

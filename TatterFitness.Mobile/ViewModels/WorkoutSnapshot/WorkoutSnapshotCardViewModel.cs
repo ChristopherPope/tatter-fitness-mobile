@@ -2,16 +2,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Controls.Popups;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Models;
-using TatterFitness.App.Models.Popups;
-using TatterFitness.App.Utils;
+using TatterFitness.Mobile.Controls.Popups;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Models;
+using TatterFitness.Mobile.Models.Popups;
+using TatterFitness.Mobile.Utils;
 using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.ViewModels.WorkoutSnapshot
+namespace TatterFitness.Mobile.ViewModels.WorkoutSnapshot
 {
     public partial class WorkoutSnapshotCardViewModel : ViewModelBase
     {

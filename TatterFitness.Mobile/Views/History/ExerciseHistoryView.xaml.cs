@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.History.ExHistory;
+using TatterFitness.Mobile.ViewModels.History.ExHistory;
 
-namespace TatterFitness.App.Views.History;
+namespace TatterFitness.Mobile.Views.History;
 
 public partial class ExerciseHistoryView : ContentPageBase<ExerciseHistoryViewModel>
 {

@@ -1,10 +1,10 @@
 using CommunityToolkit.Maui.Converters;
 using CommunityToolkit.Maui.Views;
-using TatterFitness.App.Models;
-using TatterFitness.App.Models.Popups;
+using TatterFitness.Mobile.Models;
+using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.Controls.Popups;
+namespace TatterFitness.Mobile.Controls.Popups;
 
 public partial class Exercise531Popup : Popup
 {

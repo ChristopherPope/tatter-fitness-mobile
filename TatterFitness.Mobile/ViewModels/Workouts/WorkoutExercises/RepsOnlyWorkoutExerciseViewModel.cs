@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
 using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
+namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
     public partial class RepsOnlyWorkoutExerciseViewModel : BaseWorkoutExerciseViewModel<RepsOnlySetViewModel>
     {

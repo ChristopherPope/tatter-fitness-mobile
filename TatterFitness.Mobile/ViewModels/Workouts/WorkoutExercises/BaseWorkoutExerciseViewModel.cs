@@ -4,13 +4,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Controls.Popups;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Interfaces.Services.SelectorModals;
-using TatterFitness.App.Models.Popups;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views.History;
+using TatterFitness.Mobile.Controls.Popups;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.Models.Popups;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views.History;
 using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.Messages.MessageArgs;
 using TatterFitness.Mobile.ViewModels;
@@ -18,7 +18,7 @@ using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
+namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
     public abstract partial class BaseWorkoutExerciseViewModel<T> :
         ViewModelBase,

@@ -1,6 +1,6 @@
-﻿using TatterFitness.App.ViewModels.Routines;
+﻿using TatterFitness.Mobile.ViewModels.Routines;
 
-namespace TatterFitness.App.Interfaces.Services.ContextMenu
+namespace TatterFitness.Mobile.Interfaces.Services.ContextMenu
 { // todo: look at removing these explicit context menu services and replacing them with a dynamic one
     public interface IRoutineExerciseContextMenuService : IContextMenuService
     {

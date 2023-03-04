@@ -1,6 +1,6 @@
 ﻿using TatterFitness.Models.Exercises;
 
-namespace TatterFitness.App.EventArguments
+namespace TatterFitness.Mobile.EventArguments
 {
     public class SelectExercisesModalClosedEventArgs : EventArgs
     {

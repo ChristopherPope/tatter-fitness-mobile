@@ -1,8 +1,8 @@
-﻿using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views;
+﻿using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views;
 
-namespace TatterFitness.App.Services.SelectorModals
+namespace TatterFitness.Mobile.Services.SelectorModals
 {
     public abstract class SelectorModalBase
     {

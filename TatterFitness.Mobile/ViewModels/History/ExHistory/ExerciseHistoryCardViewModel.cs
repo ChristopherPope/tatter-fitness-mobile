@@ -2,15 +2,15 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Controls.Popups;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Models;
-using TatterFitness.App.Models.Popups;
-using TatterFitness.App.Utils;
+using TatterFitness.Mobile.Controls.Popups;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Models;
+using TatterFitness.Mobile.Models.Popups;
+using TatterFitness.Mobile.Utils;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 
-namespace TatterFitness.App.ViewModels.History.ExHistory
+namespace TatterFitness.Mobile.ViewModels.History.ExHistory
 {
     public partial class ExerciseHistoryCardViewModel : ViewModelBase
     {

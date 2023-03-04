@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Maui.Views;
-using TatterFitness.App.Controls.Popups;
-using TatterFitness.App.Interfaces.Services.ContextMenu;
-using TatterFitness.App.Models.Popups;
+using TatterFitness.Mobile.Controls.Popups;
+using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
+using TatterFitness.Mobile.Models.Popups;
 
-namespace TatterFitness.App.Services.ContextMenu
+namespace TatterFitness.Mobile.Services.ContextMenu
 {
     public class ContextMenuServiceBaseBase : IContextMenuService
     {

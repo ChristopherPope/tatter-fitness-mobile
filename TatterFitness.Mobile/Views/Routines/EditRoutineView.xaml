@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase
-    x:Class="TatterFitness.App.Views.Routines.EditRoutineView"
+    x:Class="TatterFitness.Mobile.Views.Routines.EditRoutineView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fontAwesome="clr-namespace:FontAwesome"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:TatterFitness.Models;assembly=TatterFitness.Models"
-    xmlns:views="clr-namespace:TatterFitness.App.Views"
-    xmlns:vm="clr-namespace:TatterFitness.App.ViewModels.Routines"
+    xmlns:views="clr-namespace:TatterFitness.Mobile.Views"
+    xmlns:vm="clr-namespace:TatterFitness.Mobile.ViewModels.Routines"
     x:DataType="vm:EditRoutineViewModel"
     x:TypeArguments="vm:EditRoutineViewModel"
     BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},

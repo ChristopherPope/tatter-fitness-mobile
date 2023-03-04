@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Shell
-    x:Class="TatterFitness.App.AppShell"
+    x:Class="TatterFitness.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:fontAwesome="clr-namespace:FontAwesome"
-    xmlns:historyViews="clr-namespace:TatterFitness.App.Views.History"
-    xmlns:routineViews="clr-namespace:TatterFitness.App.Views.Routines"
-    xmlns:selectViews="clr-namespace:TatterFitness.App.Views.Select"
-    xmlns:views="clr-namespace:TatterFitness.App.Views"
-    xmlns:workoutViews="clr-namespace:TatterFitness.App.Views.Workouts"
+    xmlns:historyViews="clr-namespace:TatterFitness.Mobile.Views.History"
+    xmlns:routineViews="clr-namespace:TatterFitness.Mobile.Views.Routines"
+    xmlns:selectViews="clr-namespace:TatterFitness.Mobile.Views.Select"
+    xmlns:views="clr-namespace:TatterFitness.Mobile.Views"
+    xmlns:workoutViews="clr-namespace:TatterFitness.Mobile.Views.Workouts"
     Title="AppShell"
     BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},
                                       Light={StaticResource WindowBackgroundColorPrimary}}"

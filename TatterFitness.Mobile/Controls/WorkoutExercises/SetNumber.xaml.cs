@@ -1,4 +1,4 @@
-namespace TatterFitness.App.Controls.WorkoutExercises;
+namespace TatterFitness.Mobile.Controls.WorkoutExercises;
 
 public partial class SetNumber : Border
 {

@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.Input;
 
-namespace TatterFitness.App.Controls.WorkoutExercises;
+namespace TatterFitness.Mobile.Controls.WorkoutExercises;
 
 public partial class WorkoutExerciseToolbar : StackLayout
 {

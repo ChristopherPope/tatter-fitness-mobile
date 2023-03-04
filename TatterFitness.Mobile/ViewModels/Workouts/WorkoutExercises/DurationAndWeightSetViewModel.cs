@@ -1,6 +1,6 @@
 ﻿using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
+namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
     public partial class DurationAndWeightSetViewModel : BaseSetViewModel
     {

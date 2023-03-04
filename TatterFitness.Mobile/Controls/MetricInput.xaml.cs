@@ -1,10 +1,10 @@
 using CommunityToolkit.Mvvm.Messaging;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views;
 using TatterFitness.Mobile.Messages;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.Controls;
+namespace TatterFitness.Mobile.Controls;
 
 public partial class MetricInput : Entry
 {

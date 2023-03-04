@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flurl.Http;
 using System.ComponentModel;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views;
 
-namespace TatterFitness.App.ViewModels
+namespace TatterFitness.Mobile.ViewModels
 {
     [INotifyPropertyChanged]
     public abstract partial class ViewModelBase

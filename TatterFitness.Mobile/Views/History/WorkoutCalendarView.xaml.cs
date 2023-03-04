@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.History.EventCalendar;
+using TatterFitness.Mobile.ViewModels.History.EventCalendar;
 
-namespace TatterFitness.App.Views.History;
+namespace TatterFitness.Mobile.Views.History;
 
 public partial class WorkoutCalendarView : ContentPageBase<WorkoutCalendarViewModel>
 {

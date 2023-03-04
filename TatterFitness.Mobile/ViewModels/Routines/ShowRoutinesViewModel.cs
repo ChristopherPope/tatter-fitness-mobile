@@ -2,17 +2,17 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Controls.Popups;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Interfaces.Services.ContextMenu;
-using TatterFitness.App.Models.Popups;
-using TatterFitness.App.NavData;
-using TatterFitness.App.Views.Routines;
-using TatterFitness.App.Views.Workouts;
+using TatterFitness.Mobile.Controls.Popups;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
+using TatterFitness.Mobile.Models.Popups;
+using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Views.Routines;
+using TatterFitness.Mobile.Views.Workouts;
 using TatterFitness.Models;
 
-namespace TatterFitness.App.ViewModels.Routines
+namespace TatterFitness.Mobile.ViewModels.Routines
 {
     public partial class ShowRoutinesViewModel : ViewModelBase
     {

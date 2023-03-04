@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using TatterFitness.App.Utils;
+using TatterFitness.Mobile.Utils;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels

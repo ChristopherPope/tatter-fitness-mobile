@@ -1,12 +1,12 @@
-﻿using TatterFitness.App.EventArguments;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.SelectorModals;
-using TatterFitness.App.NavData.Select;
-using TatterFitness.App.ViewModels.Select;
-using TatterFitness.App.Views.Select;
-using static TatterFitness.App.Utils.SelectorModalDelegates;
+﻿using TatterFitness.Mobile.EventArguments;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.NavData.Select;
+using TatterFitness.Mobile.ViewModels.Select;
+using TatterFitness.Mobile.Views.Select;
+using static TatterFitness.Mobile.Utils.SelectorModalDelegates;
 
-namespace TatterFitness.App.Services.SelectorModals
+namespace TatterFitness.Mobile.Services.SelectorModals
 {
     public class ExercisesSelectorModal : SelectorModalBase, IExercisesSelectorModal
     {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mct:Popup
-    x:Class="TatterFitness.App.Controls.Popups.Exercise531Popup"
+    x:Class="TatterFitness.Mobile.Controls.Popups.Exercise531Popup"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    xmlns:popups="clr-namespace:TatterFitness.App.Controls.Popups"
+    xmlns:popups="clr-namespace:TatterFitness.Mobile.Controls.Popups"
     x:DataType="popups:Exercise531Popup">
     <Border StrokeShape="Rectangle" Style="{StaticResource PopupWindowBorder}">
         <VerticalStackLayout Style="{StaticResource PopupWindow}">

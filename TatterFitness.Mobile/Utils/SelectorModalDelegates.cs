@@ -1,6 +1,6 @@
 ﻿using TatterFitness.Models.Exercises;
 
-namespace TatterFitness.App.Utils
+namespace TatterFitness.Mobile.Utils
 {
     public class SelectorModalDelegates
     {

@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.Workouts.WorkoutExercises;
+using TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises;
 
-namespace TatterFitness.App.Views.Workouts.WorkoutExercises;
+namespace TatterFitness.Mobile.Views.Workouts.WorkoutExercises;
 
 public partial class RepsOnlyWorkoutExerciseView : ContentPageBase<RepsOnlyWorkoutExerciseViewModel>
 {

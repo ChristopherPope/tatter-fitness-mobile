@@ -1,8 +1,8 @@
 using CommunityToolkit.Maui.Views;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Models.Popups;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Models.Popups;
 
-namespace TatterFitness.App.Controls.Popups;
+namespace TatterFitness.Mobile.Controls.Popups;
 
 public partial class NotesPopup : Popup
 {

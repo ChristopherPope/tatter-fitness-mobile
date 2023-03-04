@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.Interfaces.Services
+﻿namespace TatterFitness.Mobile.Interfaces.Services
 {
     public interface ILoggingService
     {

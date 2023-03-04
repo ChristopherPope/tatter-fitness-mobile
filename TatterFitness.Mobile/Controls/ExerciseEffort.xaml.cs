@@ -2,7 +2,7 @@ using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.Controls;
+namespace TatterFitness.Mobile.Controls;
 
 public partial class ExerciseEffort : Grid
 {

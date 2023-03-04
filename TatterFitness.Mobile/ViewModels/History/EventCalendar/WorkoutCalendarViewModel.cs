@@ -2,11 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using Syncfusion.Maui.Scheduler;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Views.Workouts;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Views.Workouts;
 
-namespace TatterFitness.App.ViewModels.History.EventCalendar
+namespace TatterFitness.Mobile.ViewModels.History.EventCalendar
 {
     public partial class WorkoutCalendarViewModel : ViewModelBase
     {

@@ -1,8 +1,8 @@
-﻿using TatterFitness.App.Interfaces.Services.ContextMenu;
-using TatterFitness.App.Models.Popups;
-using TatterFitness.App.ViewModels.Workouts;
+﻿using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
+using TatterFitness.Mobile.Models.Popups;
+using TatterFitness.Mobile.ViewModels.Workouts;
 
-namespace TatterFitness.App.Services.ContextMenu
+namespace TatterFitness.Mobile.Services.ContextMenu
 {
     public class WorkoutExerciseContextMenuService : ContextMenuServiceBaseBase, IWorkoutExerciseContextMenuService
     {

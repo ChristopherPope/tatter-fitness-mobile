@@ -1,6 +1,6 @@
-﻿using TatterFitness.App.Enums;
+﻿using TatterFitness.Mobile.Enums;
 
-namespace TatterFitness.App.Models
+namespace TatterFitness.Mobile.Models
 {
     public class PatchOperation
     {

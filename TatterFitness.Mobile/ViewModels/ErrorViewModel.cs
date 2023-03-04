@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.NavData;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.NavData;
 
-namespace TatterFitness.App.ViewModels
+namespace TatterFitness.Mobile.ViewModels
 {
     public partial class ErrorViewModel : ViewModelBase, IQueryAttributable
     {

@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.Select;
+using TatterFitness.Mobile.ViewModels.Select;
 
-namespace TatterFitness.App.Views.Select;
+namespace TatterFitness.Mobile.Views.Select;
 
 public partial class SelectModsView : ContentPageBase<SelectModsViewModel>
 {

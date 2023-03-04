@@ -2,7 +2,7 @@
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.Interfaces.Services.API
+namespace TatterFitness.Mobile.Interfaces.Services.API
 {
     public interface IHistoriesApiService
     {

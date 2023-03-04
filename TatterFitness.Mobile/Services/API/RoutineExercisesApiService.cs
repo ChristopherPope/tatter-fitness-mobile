@@ -1,9 +1,9 @@
 ﻿using Flurl.Http.Configuration;
 using TatterFitness.Models.Exercises;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
 
-namespace TatterFitness.App.Services.API
+namespace TatterFitness.Mobile.Services.API
 {
     public class RoutineExercisesApiService : ApiServiceBase, IRoutineExercisesApiService
     {

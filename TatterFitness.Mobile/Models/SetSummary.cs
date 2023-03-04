@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.Models
+﻿namespace TatterFitness.Mobile.Models
 {
     public class SetSummary
     {

@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TatterFitness.App.Interfaces.Services;
-using TatterFitness.App.Interfaces.Services.API;
-using TatterFitness.App.Interfaces.Services.SelectorModals;
-using TatterFitness.App.NavData;
+using TatterFitness.Mobile.Interfaces.Services;
+using TatterFitness.Mobile.Interfaces.Services.API;
+using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.NavData;
 using TatterFitness.Models.Exercises;
 
-namespace TatterFitness.App.ViewModels.History.ExHistory
+namespace TatterFitness.Mobile.ViewModels.History.ExHistory
 {
     public partial class ExerciseHistoryViewModel : ViewModelBase, IQueryAttributable
     {

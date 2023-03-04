@@ -1,6 +1,6 @@
 ﻿using TatterFitness.Models;
 
-namespace TatterFitness.App.NavData
+namespace TatterFitness.Mobile.NavData
 {
     public class WorkoutSnapshotNavData : NavDataBase
     {

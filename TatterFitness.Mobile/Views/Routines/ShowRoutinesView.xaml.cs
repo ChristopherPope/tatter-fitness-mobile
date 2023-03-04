@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.Routines;
+using TatterFitness.Mobile.ViewModels.Routines;
 
-namespace TatterFitness.App.Views.Routines;
+namespace TatterFitness.Mobile.Views.Routines;
 
 public partial class ShowRoutinesView : ContentPageBase<ShowRoutinesViewModel>
 {

@@ -1,6 +1,6 @@
-using TatterFitness.App.ViewModels.Home;
+using TatterFitness.Mobile.ViewModels.Home;
 
-namespace TatterFitness.App.Views;
+namespace TatterFitness.Mobile.Views;
 
 public partial class HomeView : ContentPageBase<HomeViewModel>
 {

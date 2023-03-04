@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.Utils
+﻿namespace TatterFitness.Mobile.Utils
 {
     public class EffortFormatter
     {

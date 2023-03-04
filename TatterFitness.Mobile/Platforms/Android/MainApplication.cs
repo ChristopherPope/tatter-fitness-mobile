@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace TatterFitness.App
+namespace TatterFitness.Mobile
 {
     [Application]
     public class MainApplication : MauiApplication

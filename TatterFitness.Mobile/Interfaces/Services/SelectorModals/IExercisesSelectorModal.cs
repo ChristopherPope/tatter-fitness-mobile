@@ -1,6 +1,6 @@
-﻿using static TatterFitness.App.Utils.SelectorModalDelegates;
+﻿using static TatterFitness.Mobile.Utils.SelectorModalDelegates;
 
-namespace TatterFitness.App.Interfaces.Services.SelectorModals
+namespace TatterFitness.Mobile.Interfaces.Services.SelectorModals
 {
     public interface IExercisesSelectorModal
     {

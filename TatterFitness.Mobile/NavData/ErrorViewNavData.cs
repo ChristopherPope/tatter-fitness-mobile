@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.NavData
+﻿namespace TatterFitness.Mobile.NavData
 {
     public class ErrorViewNavData : NavDataBase
     {

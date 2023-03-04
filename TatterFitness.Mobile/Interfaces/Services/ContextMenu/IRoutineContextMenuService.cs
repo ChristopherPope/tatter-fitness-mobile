@@ -1,6 +1,6 @@
-﻿using TatterFitness.App.ViewModels.Routines;
+﻿using TatterFitness.Mobile.ViewModels.Routines;
 
-namespace TatterFitness.App.Interfaces.Services.ContextMenu
+namespace TatterFitness.Mobile.Interfaces.Services.ContextMenu
 {
     public interface IRoutineContextMenuService : IContextMenuService
     {

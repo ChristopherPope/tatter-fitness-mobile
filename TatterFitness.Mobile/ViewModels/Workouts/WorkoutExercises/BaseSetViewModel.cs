@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using TatterFitness.Mobile.Messages;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.ViewModels.Workouts.WorkoutExercises
+namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
     [INotifyPropertyChanged]
     public abstract partial class BaseSetViewModel :

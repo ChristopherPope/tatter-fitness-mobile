@@ -2,7 +2,7 @@
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
 
-namespace TatterFitness.App.Mapping
+namespace TatterFitness.Mobile.Mapping
 {
     public class ModelMapping : Profile
     {

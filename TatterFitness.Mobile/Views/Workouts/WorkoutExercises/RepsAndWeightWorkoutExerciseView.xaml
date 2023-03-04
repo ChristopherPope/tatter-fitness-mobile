@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase
-    x:Class="TatterFitness.App.Views.Workouts.WorkoutExercises.RepsAndWeightWorkoutExerciseView"
+    x:Class="TatterFitness.Mobile.Views.Workouts.WorkoutExercises.RepsAndWeightWorkoutExerciseView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:TatterFitness.App.Controls"
-    xmlns:views="clr-namespace:TatterFitness.App.Views"
+    xmlns:controls="clr-namespace:TatterFitness.Mobile.Controls"
+    xmlns:views="clr-namespace:TatterFitness.Mobile.Views"
     xmlns:fontAwesome="clr-namespace:FontAwesome"
-    xmlns:vm="clr-namespace:TatterFitness.App.ViewModels.Workouts.WorkoutExercises"
-    xmlns:weControls="clr-namespace:TatterFitness.App.Controls.WorkoutExercises"
+    xmlns:vm="clr-namespace:TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises"
+    xmlns:weControls="clr-namespace:TatterFitness.Mobile.Controls.WorkoutExercises"
     x:DataType="vm:RepsAndWeightWorkoutExerciseViewModel"
     x:TypeArguments="vm:RepsAndWeightWorkoutExerciseViewModel"
     BackgroundColor="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkPrimary},

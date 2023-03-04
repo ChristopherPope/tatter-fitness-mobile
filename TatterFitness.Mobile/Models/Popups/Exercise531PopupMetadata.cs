@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.Models.Popups
+﻿namespace TatterFitness.Mobile.Models.Popups
 {
     public class Exercise531PopupMetadata
     {

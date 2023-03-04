@@ -1,4 +1,4 @@
-﻿namespace TatterFitness.App.NavData
+﻿namespace TatterFitness.Mobile.NavData
 {
     public abstract class NavDataBase
     {

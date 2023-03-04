@@ -1,6 +1,6 @@
-﻿using TatterFitness.App.Interfaces.Services;
+﻿using TatterFitness.Mobile.Interfaces.Services;
 
-namespace TatterFitness.App.Utils
+namespace TatterFitness.Mobile.Utils
 {
     public class StopWatch
     {
