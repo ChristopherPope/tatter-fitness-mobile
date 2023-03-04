@@ -6,7 +6,6 @@ using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
 using TatterFitness.Mobile.NavData;
 using TatterFitness.Mobile.Views.History;
-using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels.WorkoutSnapshot
@@ -58,7 +57,7 @@ namespace TatterFitness.Mobile.ViewModels.WorkoutSnapshot
             foreach (var workoutExercise in workout.Exercises)
             {
                 var vm = new WorkoutSnapshotCardViewModel(logger, workoutExercise);
-                cardVms.Add(vm);
+                CardVms.Add(vm);
                 await vm.LoadViewData();
             }
 

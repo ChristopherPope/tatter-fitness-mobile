@@ -5,8 +5,8 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
-    [INotifyPropertyChanged]
     public abstract partial class BaseSetViewModel :
+        ObservableObject,
         IRecipient<SetDeletedMessage>,
         IRecipient<SetCompletedMessage>,
         IRecipient<SetCountChangedMessage>

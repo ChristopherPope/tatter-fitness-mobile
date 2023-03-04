@@ -24,7 +24,7 @@ namespace TatterFitness.Mobile.ViewModels.Home
 
         protected override async Task PerformLoadViewData()
         {
-            if (homeCardVms.Any())
+            if (HomeCardVms.Any())
             {
                 return;
             }
@@ -40,7 +40,7 @@ namespace TatterFitness.Mobile.ViewModels.Home
                 var workout = workouts.Where(wo => wo.Date.Date == day).FirstOrDefault();
                 HomeCardViewModel cardVm = new(logger, workoutsApi, day.ToString("ddd"), workout);
                 await cardVm.LoadViewData();
-                homeCardVms.Add(cardVm);
+                HomeCardVms.Add(cardVm);
                 day = day.AddDays(-1);
             }
         }

@@ -76,7 +76,7 @@ namespace TatterFitness.Mobile.ViewModels.History.ExHistory
             var setSummarizer = new SetSummariesMaker();
             foreach (var summary in setSummarizer.MakeSummaries(exerciseHistory.Sets, exerciseHistory.ExerciseType))
             {
-                setSummaries.Add(new SetSummary { Summary = summary });
+                SetSummaries.Add(new SetSummary { Summary = summary });
             }
 
             WorkoutName = $"{exerciseHistory.WorkoutName}";

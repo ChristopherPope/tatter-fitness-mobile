@@ -95,7 +95,7 @@ namespace TatterFitness.Mobile.ViewModels.Select
         {
             try
             {
-                if(requiredExerciseIds.Contains(cardVm.Exercise.Id))
+                if (requiredExerciseIds.Contains(cardVm.Exercise.Id))
                 {
                     return;
                 }
@@ -149,11 +149,11 @@ namespace TatterFitness.Mobile.ViewModels.Select
             var exerciseIdsToCreate = selectedExerciseIds.Except(originalExerciseIds);
             var exerciseIdsToRemove = originalExerciseIds.Except(selectedExerciseIds);
 
-            var exercisesToCreate = cardVms
+            var exercisesToCreate = CardVms
                 .Where(vm => exerciseIdsToCreate.Contains(vm.Exercise.Id))
                 .Select(vm => vm.Exercise);
 
-            var exercisesToRemove = cardVms
+            var exercisesToRemove = CardVms
                 .Where(vm => exerciseIdsToRemove.Contains(vm.Exercise.Id))
                 .Select(vm => vm.Exercise);
 

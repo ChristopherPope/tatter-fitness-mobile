@@ -1,14 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Flurl.Http;
-using System.ComponentModel;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.NavData;
 using TatterFitness.Mobile.Views;
 
 namespace TatterFitness.Mobile.ViewModels
 {
-    [INotifyPropertyChanged]
-    public abstract partial class ViewModelBase
+    public abstract partial class ViewModelBase : ObservableObject
     {
         protected readonly ILoggingService logger;
         [ObservableProperty]
@@ -48,11 +46,6 @@ namespace TatterFitness.Mobile.ViewModels
         protected ViewModelBase(ILoggingService logger)
         {
             this.logger = logger;
-        }
-
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected async Task HandleExceptionAsync(Exception ex)

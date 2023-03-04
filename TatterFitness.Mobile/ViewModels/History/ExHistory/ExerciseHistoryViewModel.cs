@@ -52,7 +52,7 @@ namespace TatterFitness.Mobile.ViewModels.History.ExHistory
             foreach (var history in histories)
             {
                 var cardVm = new ExerciseHistoryCardViewModel(logger, history);
-                cardVms.Add(cardVm);
+                CardVms.Add(cardVm);
 
                 await cardVm.LoadViewData();
             }
@@ -83,7 +83,7 @@ namespace TatterFitness.Mobile.ViewModels.History.ExHistory
                 var exercise = exercisesToAdd.First();
                 Title = exercise.Name;
                 exerciseId = exercise.Id;
-                cardVms.Clear();
+                CardVms.Clear();
                 await PerformLoadViewData();
             }
             catch (Exception ex)

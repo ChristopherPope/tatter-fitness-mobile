@@ -9,12 +9,11 @@ using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
 using TatterFitness.Mobile.Views.History;
 using TatterFitness.Mobile.Views.Workouts.WorkoutExercises;
-using TatterFitness.Mobile.Messages;
-using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
@@ -93,7 +92,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             Title = workout.Name;
 
             await PopulateWorkoutExercises(routine.Exercises);
-            totalEffort.ShowTotalEffort(exerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets));
+            TotalEffort.ShowTotalEffort(ExerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets));
         }
 
         private async Task PopulateWorkoutExercises(IEnumerable<RoutineExercise> routineExercises)
@@ -240,7 +239,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
                 var requiredExerciseIds = workout.Exercises
                     .Where(e => e.Sets.Any(s => s.Id > 0))
                     .Select(e => e.ExerciseId);
-                await exercisesSelectorModal.ShowModal(exerciseVms.Select(vm => vm.WorkoutExercise.ExerciseId), requiredExerciseIds, ExercisesModalClosed);
+                await exercisesSelectorModal.ShowModal(ExerciseVms.Select(vm => vm.WorkoutExercise.ExerciseId), requiredExerciseIds, ExercisesModalClosed);
             }
             catch (Exception ex)
             {
@@ -304,14 +303,14 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
             foreach (var exerciseId in exerciseIds)
             {
-                var exerciseVm = exerciseVms.First(vm => vm.WorkoutExercise.ExerciseId == exerciseId);
+                var exerciseVm = ExerciseVms.First(vm => vm.WorkoutExercise.ExerciseId == exerciseId);
 
                 if (exerciseVm.WorkoutExercise.Id > 0)
                 {
                     await workoutExercisesApi.Delete(exerciseVm.WorkoutExercise.Id);
                 }
 
-                exerciseVms.Remove(exerciseVm);
+                ExerciseVms.Remove(exerciseVm);
             }
         }
 
@@ -362,12 +361,12 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
         public void Receive(CompletedSetMetricsChangedMessage message)
         {
-            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
+            MainThread.BeginInvokeOnMainThread(() => TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
         }
 
         public void Receive(SetCompletedMessage message)
         {
-            MainThread.BeginInvokeOnMainThread(() => totalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
+            MainThread.BeginInvokeOnMainThread(() => TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
         }
     }
 }

@@ -5,7 +5,6 @@ using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
 using TatterFitness.Mobile.Messages;
-using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
@@ -206,7 +205,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
         private void UpdateMetrics()
         {
-            totalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
             CalculateSetsCompleted();
         }
     }
