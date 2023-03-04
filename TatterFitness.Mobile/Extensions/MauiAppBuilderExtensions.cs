@@ -24,7 +24,6 @@ using TatterFitness.Mobile.Views.Routines;
 using TatterFitness.Mobile.Views.Select;
 using TatterFitness.Mobile.Views.Workouts;
 using TatterFitness.Mobile.Views.Workouts.WorkoutExercises;
-using TatterFitness.Mobile.ViewModels;
 
 namespace TatterFitness.Mobile.Extensions
 {
