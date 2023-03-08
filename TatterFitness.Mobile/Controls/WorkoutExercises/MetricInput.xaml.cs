@@ -1,115 +1,136 @@
 using CommunityToolkit.Mvvm.Messaging;
+using Syncfusion.Maui.Core;
+using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Messages;
-using TatterFitness.Mobile.NavData;
-using TatterFitness.Mobile.Views;
-using TatterFitness.Models.Workouts;
+using TatterFitness.Mobile.Services;
 
 namespace TatterFitness.Mobile.Controls.WorkoutExercises;
 
-public partial class MetricInput : Entry
+public partial class MetricInput : SfTextInputLayout
 {
+    private readonly ILoggingService logger = new LoggingService();
+    private bool isDirty = false;
+
     public readonly static BindableProperty MetricValueProperty = BindableProperty.Create(
         propertyName: nameof(MetricValue),
-        returnType: typeof(double),
+        returnType: typeof(string),
         declaringType: typeof(MetricInput),
-        defaultValue: null,
+        defaultValue: string.Empty,
+        propertyChanged: OnMetricValuePropertyChanged,
         defaultBindingMode: BindingMode.TwoWay);
 
-    public readonly static BindableProperty SetProperty = BindableProperty.Create(
-        propertyName: nameof(Set),
-        returnType: typeof(WorkoutExerciseSet),
+    public readonly static BindableProperty SetIdProperty = BindableProperty.Create(
+        propertyName: nameof(SetId),
+        returnType: typeof(int),
         declaringType: typeof(MetricInput),
-        defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay);
+        defaultValue: 0,
+        propertyChanged: OnSetIdPropertyChanged,
+        defaultBindingMode: BindingMode.OneWay);
 
-    public WorkoutExerciseSet Set
+    public readonly static BindableProperty SetNumberProperty = BindableProperty.Create(
+        propertyName: nameof(SetNumber),
+        returnType: typeof(int),
+        declaringType: typeof(MetricInput),
+        defaultValue: 0,
+        propertyChanged: OnSetNumberPropertyChanged,
+        defaultBindingMode: BindingMode.OneWay);
+
+    public string MetricValue
     {
-        get { return (WorkoutExerciseSet)GetValue(SetProperty); }
-        set { SetValue(SetProperty, value); }
+        get => (string)GetValue(MetricValueProperty);
+        set => SetValue(MetricValueProperty, value);
     }
 
-    public double MetricValue
+    public int SetNumber
     {
-        get
-        {
-            return (double)GetValue(MetricValueProperty);
-        }
-
-        set
-        {
-            if (!originalValue.HasValue)
-            {
-                originalValue = value;
-            }
-            SetValue(MetricValueProperty, value);
-        }
+        get => (int)GetValue(SetNumberProperty);
+        set => SetValue(SetNumberProperty, value);
     }
 
-    private double? originalValue = null;
+    public int SetId
+    {
+        get => (int)GetValue(SetIdProperty);
+        set => SetValue(SetIdProperty, value);
+    }
 
     public MetricInput()
     {
         InitializeComponent();
-        TextChanged += OnTextChanged;
-        Unfocused += OnUnfocused;
-        Focused += OnFocused;
-    }
-
-    private bool IsDirty => (originalValue.HasValue && originalValue.Value != MetricValue);
-
-    private void OnFocused(object sender, FocusEventArgs e)
-    {
-        CursorPosition = 0;
-        if (Text != null)
+        metric.TextChanged += OnTextChanged;
+        metric.Behaviors.Add(new UserStoppedTypingBehavior
         {
-            SelectionLength = Text.Length;
-        }
-    }
-
-    private async void OnUnfocused(object sender, FocusEventArgs e)
-    {
-        if (!IsDirty)
-        {
-            return;
-        }
-
-        try
-        {
-            if (Set.Id > 0)
-            {
-                WeakReferenceMessenger.Default.Send(new CompletedSetMetricsChangedMessage(Set));
-            }
-
-            originalValue = MetricValue;
-        }
-        catch (Exception ex)
-        {
-            var error = $"{ex.Message}{Environment.NewLine}";
-            error += FormatCallStack(ex);
-            var navData = new ErrorViewNavData(error);
-            await Shell.Current.GoToAsync(nameof(ErrorView), true, navData.ToNavDataDictionary());
-        }
+            StoppedTypingTimeThreshold = 1000,
+            MinimumLengthThreshold = 3,
+            ShouldDismissKeyboardAutomatically = true,
+            Command = new Command(UserStoppedTyping)
+        });
     }
 
     private void OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        double.TryParse(Text, out double val);
-        MetricValue = val;
+        if (!IsEnabled)
+        {
+            return;
+        }
+
+        MetricValue = e.NewTextValue;
+        isDirty = true;
+        LogAction($"OnTextChanged Old='{e.OldTextValue}', New='{e.NewTextValue}'");
     }
 
-    protected override void OnPropertyChanged(string propertyName = null)
+    private void UserStoppedTyping()
     {
-        base.OnPropertyChanged(propertyName);
-
-        if (propertyName == MetricValueProperty.PropertyName)
+        LogAction("UserStoppedTyping");
+        if (!IsEnabled || SetId == 0)
         {
-            Text = MetricValue.ToString();
+            return;
+        }
+
+        if (isDirty)
+        {
+            LogAction("Will Send CompletedSetMetricsChangedMessage");
+            WeakReferenceMessenger.Default.Send(new CompletedSetMetricsChangedMessage(SetId));
+            isDirty = false;
         }
     }
 
-    private string FormatCallStack(Exception ex)
+    public override string ToString()
     {
-        var callStack = ex.ToString().Replace("at ", $"{Environment.NewLine}at ");
-        return $"{Environment.NewLine}{callStack}{Environment.NewLine}";
+        return $"{SetNumber}: {Hint} = {metric.Text}, SetId = {SetId}, IsDirty? = {isDirty}";
+    }
+
+    private static void OnSetNumberPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var me = bindable as MetricInput;
+        me.SetNumber = Convert.ToInt32(newValue);
+
+        me.LogAction("OnSetNumberPropertyChanged");
+    }
+
+    private static void OnSetIdPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var me = bindable as MetricInput;
+        me.SetId = Convert.ToInt32(newValue);
+
+        me.LogAction("OnSetIdPropertyChanged");
+    }
+
+    private static void OnMetricValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var me = bindable as MetricInput;
+        me.metric.Text = newValue.ToString();
+        me.isDirty = false;
+
+        me.LogAction("OnMetricValuePropertyChanged");
+    }
+
+    private void LogAction(string action)
+    {
+        if (!IsEnabled)
+        {
+            return;
+        }
+
+        //logger.Info($"{action} - {ToString()}");
     }
 }

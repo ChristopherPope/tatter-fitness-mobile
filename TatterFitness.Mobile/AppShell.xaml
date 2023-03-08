@@ -117,7 +117,7 @@
         </Grid>
     </Shell.FlyoutHeader>
 
-    <FlyoutItem Title="Exercise History">
+    <FlyoutItem Title="Workout">
         <FlyoutItem.Icon>
             <FontImageSource
                 FontFamily="FAS"
@@ -128,7 +128,7 @@
 
         <ShellContent
             Title="Light"
-            ContentTemplate="{DataTemplate historyViews:ExerciseHistoryView}" />
+            ContentTemplate="{DataTemplate workoutViews:WorkoutView}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Home">
@@ -173,5 +173,18 @@
             ContentTemplate="{DataTemplate historyViews:WorkoutCalendarView}" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Exercise History">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Dumbbell}"
+                Color="{AppThemeBinding Dark=White,
+                                        Light=Black}" />
+        </FlyoutItem.Icon>
+
+        <ShellContent
+            Title="Light"
+            ContentTemplate="{DataTemplate historyViews:ExerciseHistoryView}" />
+    </FlyoutItem>
 
 </Shell>

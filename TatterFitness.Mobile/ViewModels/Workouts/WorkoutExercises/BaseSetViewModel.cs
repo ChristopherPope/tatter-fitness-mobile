@@ -22,6 +22,9 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         [ObservableProperty]
         private int totalSets;
 
+        [ObservableProperty]
+        private int setId;
+
         public WorkoutExerciseSet Set { get; set; }
 
         public BaseSetViewModel(int exerciseId, WorkoutExerciseSet set, int totalSets)
@@ -31,6 +34,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             SetNumber = set.SetNumber;
             TotalSets = totalSets;
             IsCompleted = set.Id > 0;
+            SetId = set.Id;
 
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
             WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
@@ -51,6 +55,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         public void Receive(SetCompletedMessage message)
         {
             IsCompleted = Set.Id > 0;
+            SetId = Set.Id;
         }
 
         public void Receive(SetCountChangedMessage message)

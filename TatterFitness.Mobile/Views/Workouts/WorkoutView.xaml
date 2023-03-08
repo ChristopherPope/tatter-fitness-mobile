@@ -158,8 +158,8 @@
                                             CMiles="{Binding TotalEffort.TotalCMiles}"
                                             DWDuration="{Binding TotalEffort.TotalDWDuration}"
                                             DWVolume="{Binding TotalEffort.TotalDWVolume}"
-                                            HorizontalOptions="End"
                                             ExerciseType="{Binding ExerciseType}"
+                                            HorizontalOptions="End"
                                             ROReps="{Binding TotalEffort.TotalROReps}"
                                             RWVolume="{Binding TotalEffort.TotalRWVolume}" />
                                     </Grid>

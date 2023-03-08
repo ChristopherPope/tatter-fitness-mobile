@@ -16,6 +16,7 @@ using TatterFitness.Mobile.Views.History;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
+using static Android.Icu.Text.Transliterator;
 
 namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
@@ -287,10 +288,12 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 if (Position == WorkoutExercise.Sets.Count - 1)
                 {
+                    logger.Info("Resetting Position to 0");
                     Position = 0;
                 }
                 else
                 {
+                    logger.Info($"Incrementing Position from {Position}");
                     Position++;
                 }
             }
@@ -329,7 +332,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         {
             try
             {
-                logger.Info($"PositionChanged({position})");
+                logger.Info($"PositionChanged - {position} - {Position}");
                 currentPosition = position;
                 SetButtonAvailability();
             }
@@ -381,22 +384,23 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
         public void Receive(CompletedSetMetricsChangedMessage message)
         {
-            var set = message.Value;
-            if (set.Id < 1)
+            var setId = message.Value;
+            logger.Info($"Received CompletedSetMetricsChangedMessage - {setId}");
+            var setVm = SetVms.FirstOrDefault(vm => vm.Set.Id == setId);
+            if (setVm == null || setId == 0)
             {
                 return;
             }
+            var set = setVm.Set;
 
             var exerciseType = set.ExerciseType;
-            var asyncResult = Task.Run(async () =>
+            var updatedSet = Task.Run(async () =>
             {
                 return await setsApi.Update(set);
-            });
+            }).Result;
 
-            var updatedSet = asyncResult.Result;
             mapper.Map(updatedSet, set);
             set.ExerciseType = exerciseType;
-
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
         }
     }
