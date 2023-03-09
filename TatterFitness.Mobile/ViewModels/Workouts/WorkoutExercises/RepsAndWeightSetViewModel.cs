@@ -1,9 +1,18 @@
-﻿using TatterFitness.Models.Workouts;
+﻿using CommunityToolkit.Mvvm.Input;
+using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
     public partial class RepsAndWeightSetViewModel : BaseSetViewModel
     {
+        public IAsyncRelayCommand<int> UpdateTheMetricCommand { get; private set; }
+
+        public Task UpdateTheMetric(int setId)
+        {
+            return Task.CompletedTask;
+        }
+
+
         public double Weight
         {
             get => Set.Weight;
@@ -35,6 +44,9 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             Weight = set.Weight;
             Volume = set.Volume;
             Reps = set.RepCount;
+
+            UpdateTheMetricCommand = new AsyncRelayCommand<int>(UpdateTheMetric);
         }
+
     }
 }

@@ -17,7 +17,7 @@
 
     <Entry
         x:Name="metric"
-        VerticalTextAlignment="End">
+        HorizontalTextAlignment="End">
     </Entry>
 
 </sfCore:SfTextInputLayout>

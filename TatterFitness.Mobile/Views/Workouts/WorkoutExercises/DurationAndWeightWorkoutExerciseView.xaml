@@ -89,33 +89,25 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="0"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Duration (secs)1" />
+                                                Hint="Duration (secs)"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:DurationAndWeightWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding DurationInSeconds}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput
-                                                    MetricValue="{Binding DurationInSeconds}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="1"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Weight (lbs)" />
-
-                                                <weControls:MetricInput
-                                                    MetricValue="{Binding Weight}" />
-                                            </StackLayout>
+                                                Hint="Weight (lbs)"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:DurationAndWeightWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Weight}"
+                                                SetId="{Binding SetId}" />
                                         </Grid>
                                     </Grid>
                                 </StackLayout>

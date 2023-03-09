@@ -91,86 +91,65 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="0"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Duration (secs)" />
+                                                Hint="Duration (secs)"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding DurationInSeconds}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput MetricValue="{Binding DurationInSeconds}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="1"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Miles" />
+                                                Hint="Miles"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding MilesDistance}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput MetricValue="{Binding MilesDistance}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="1"
                                                 Grid.Column="0"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Machine Intensity" />
+                                                Hint="Machine Intensity"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding MachineIntensity}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput MetricValue="{Binding MachineIntensity}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="1"
                                                 Grid.Column="1"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Machine Watts" />
+                                                Hint="Machine Watts"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding MachineWatts}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput MetricValue="{Binding MachineWatts}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="2"
                                                 Grid.Column="0"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Max BPM" />
+                                                Hint="Max BPM"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding MaxBpm}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput MetricValue="{Binding MaxBpm}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="2"
                                                 Grid.Column="1"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Calories" />
+                                                Hint="Calories"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Calories}"
+                                                SetId="{Binding SetId}" />
 
-                                                <weControls:MetricInput MetricValue="{Binding Calories}" />
-                                            </StackLayout>
-
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="3"
                                                 Grid.Column="0"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Machine Incline" />
-
-                                                <weControls:MetricInput MetricValue="{Binding MachineIncline}" />
-                                            </StackLayout>
+                                                Hint="Machine Incline"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:CardioWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding MachineIncline}"
+                                                SetId="{Binding SetId}" />
                                         </Grid>
                                     </Grid>
                                 </StackLayout>

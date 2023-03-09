@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:TatterFitness.Mobile.Controls"
     xmlns:fontAwesome="clr-namespace:FontAwesome"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:sfCore="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
     xmlns:views="clr-namespace:TatterFitness.Mobile.Views"
     xmlns:vm="clr-namespace:TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises"
     xmlns:weControls="clr-namespace:TatterFitness.Mobile.Controls.WorkoutExercises"
@@ -99,9 +101,9 @@
                                                 Grid.Row="0"
                                                 Grid.Column="0"
                                                 Hint="Weight (lbs)"
-                                                SetNumber="{Binding SetNumber}"
-                                                SetId="{Binding SetId}"
-                                                MetricValue="{Binding Weight}" />
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:RepsAndWeightWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Weight}"
+                                                SetId="{Binding SetId}" />
 
                                             <Label
                                                 Grid.Row="0"
@@ -120,18 +122,18 @@
                                                 Grid.Row="0"
                                                 Grid.Column="2"
                                                 Hint="Reps"
-                                                SetNumber="{Binding SetNumber}"
-                                                SetId="{Binding SetId}"
-                                                MetricValue="{Binding Reps}" />
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:RepsAndWeightWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Reps}"
+                                                SetId="{Binding SetId}" />
 
                                             <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="3"
                                                 Hint="Volume"
                                                 IsEnabled="False"
-                                                SetNumber="{Binding SetNumber}"
+                                                MetricValue="{Binding Volume}"
                                                 SetId="{Binding SetId}"
-                                                MetricValue="{Binding Volume}" />
+                                                SetNumber="{Binding SetNumber}" />
                                         </Grid>
                                     </Grid>
                                 </StackLayout>
@@ -147,6 +149,41 @@
                 IndicatorColor="LightGray"
                 IndicatorsShape="Square"
                 SelectedIndicatorColor="DarkGray" />
+
+
+            <!--<CarouselView
+                x:Name="Sets2List"
+                EmptyView="No sets, create a new set."
+                ItemsSource="{Binding SetVms}"
+                PositionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=Position}">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="5"
+                            x:DataType="vm:RepsAndWeightSetViewModel">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+
+                            <Frame Style="{x:StaticResource Card}" Grid.Row="0">
+                                <sfCore:SfTextInputLayout
+                                    ContainerBackground="{AppThemeBinding Dark={StaticResource CardBackgroundColorDarkPrimary},
+                                                                          Light={StaticResource CardBackgroundColorPrimary}}"
+                                    ContainerType="Outlined"
+                                    Hint="Weight (lbs)"
+                                    Stroke="{AppThemeBinding Dark={StaticResource CardTextColorDarkPrimary},
+                                                             Light={StaticResource CardTextColorPrimary}}">
+                                    <Entry Text="{Binding Weight}" />
+                                </sfCore:SfTextInputLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>-->
+
         </StackLayout>
 
         <weControls:WorkoutExerciseToolbar

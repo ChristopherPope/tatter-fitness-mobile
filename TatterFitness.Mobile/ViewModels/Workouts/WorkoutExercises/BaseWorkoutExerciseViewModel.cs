@@ -16,14 +16,12 @@ using TatterFitness.Mobile.Views.History;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
-using static Android.Icu.Text.Transliterator;
 
 namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
     public abstract partial class BaseWorkoutExerciseViewModel<T> :
         ViewModelBase,
-        IQueryAttributable,
-        IRecipient<CompletedSetMetricsChangedMessage>
+        IQueryAttributable
         where T : BaseSetViewModel
     {
         private readonly IWorkoutExercisesApiService workoutExercisesApi;
@@ -75,8 +73,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             this.mapper = mapper;
             this.modsSelectorModal = modsSelectorModal;
             this.totalEffort = totalEffort;
-
-            WeakReferenceMessenger.Default.Register(this);
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -263,6 +259,29 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         }
 
         [RelayCommand]
+        private Task MetricUpdated(int setId)
+        {
+            var setVm = SetVms.FirstOrDefault(vm => vm.Set.Id == setId);
+            if (setVm == null || setId == 0)
+            {
+                return Task.CompletedTask;
+            }
+            var set = setVm.Set;
+
+            var exerciseType = set.ExerciseType;
+            var updatedSet = Task.Run(async () =>
+            {
+                return await setsApi.Update(set);
+            }).Result;
+
+            mapper.Map(updatedSet, set);
+            set.ExerciseType = exerciseType;
+            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
         private async Task CompleteSet()
         {
             try
@@ -380,28 +399,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             DoShowCompleteSetButton = (SetVms.Any() &&
                 (!CurrentSetVm.IsCompleted) &&
                 (currentPosition == 0 || SetVms[currentPosition - 1].IsCompleted));
-        }
-
-        public void Receive(CompletedSetMetricsChangedMessage message)
-        {
-            var setId = message.Value;
-            logger.Info($"Received CompletedSetMetricsChangedMessage - {setId}");
-            var setVm = SetVms.FirstOrDefault(vm => vm.Set.Id == setId);
-            if (setVm == null || setId == 0)
-            {
-                return;
-            }
-            var set = setVm.Set;
-
-            var exerciseType = set.ExerciseType;
-            var updatedSet = Task.Run(async () =>
-            {
-                return await setsApi.Update(set);
-            }).Result;
-
-            mapper.Map(updatedSet, set);
-            set.ExerciseType = exerciseType;
-            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
         }
     }
 }
