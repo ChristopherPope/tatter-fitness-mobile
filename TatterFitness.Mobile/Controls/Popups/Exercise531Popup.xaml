@@ -5,57 +5,65 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:popups="clr-namespace:TatterFitness.Mobile.Controls.Popups"
+    xmlns:sfCore="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:sfInputs="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
     x:DataType="popups:Exercise531Popup">
-    <Border StrokeShape="Rectangle" Style="{StaticResource PopupWindowBorder}">
+
+    <Border
+        StrokeShape="Rectangle"
+        Style="{StaticResource PopupWindowBorder}">
         <VerticalStackLayout Style="{StaticResource PopupWindow}">
-            <!--<Label Style="{StaticResource PopupTitle}" Text="531 Calculations for" />-->
-            <Label Style="{StaticResource PopupTitle}" Text="{Binding Title}" />
+            <Label
+                Style="{StaticResource PopupTitle}"
+                Text="{Binding Title}" />
 
             <BoxView Style="{StaticResource PopupDivider}" />
 
             <Grid Margin="0,0,0,25">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <Label
+                <Grid.Resources>
+                    <Style
+                        x:Key="inputStyle"
+                        TargetType="sfCore:SfTextInputLayout">
+                        <Setter Property="ContainerType" Value="Outlined" />
+                        <Setter Property="ContainerBackground" Value="{AppThemeBinding Dark={StaticResource WindowBackgroundColorDarkSecondary}, Light={StaticResource WindowBackgroundColorSecondary}}" />
+                        <Setter Property="Stroke" Value="{AppThemeBinding Dark={StaticResource TextColorDarkSecondary}, Light={StaticResource TextColorPrimary}}" />
+                    </Style>
+                </Grid.Resources>
+
+                <sfCore:SfTextInputLayout
+                    Grid.Row="0"
                     Grid.Column="0"
-                    Style="{StaticResource LabelMedium}"
-                    Text="TM"
-                    VerticalTextAlignment="Center" />
+                    Margin="5,5,5,5"
+                    Hint="Train Max"
+                    Style="{StaticResource inputStyle}">
 
-                <Entry
-                    Grid.Column="1"
-                    Margin="5,0,0,0"
-                    Keyboard="Numeric"
-                    Placeholder="Training Max"
-                    Text="{Binding TrainingMax}" />
+                    <Entry
+                        Margin="5,0,0,0"
+                        Keyboard="Numeric"
+                        Text="{Binding TrainingMax}"
+                        TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
+                                                    Light={StaticResource TextColorPrimary}}" />
+                </sfCore:SfTextInputLayout>
 
-                <Label
-                    Grid.Column="2"
-                    Style="{StaticResource LabelMedium}"
-                    Text="Week Number"
-                    VerticalTextAlignment="Center" />
+                <sfCore:SfTextInputLayout
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Hint="Week Num"
+                    Style="{StaticResource inputStyle}">
 
-                <Picker
-                    Grid.Column="3"
-                    Margin="5,0,0,0"
-                    HorizontalTextAlignment="Center"
-                    SelectedIndex="{Binding SelectedWeekIndex}"
-                    TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkPrimary},
-                                                Light={StaticResource TextColorPrimary}}">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>1</x:String>
-                            <x:String>2</x:String>
-                            <x:String>3</x:String>
-                            <x:String>4</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                    <sfInputs:SfComboBox
+                        ItemsSource="{Binding WeekNumbers}"
+                        SelectedIndex="{Binding SelectedWeekIndex}" />
+
+                </sfCore:SfTextInputLayout>
             </Grid>
 
             <HorizontalStackLayout Style="{StaticResource PopupButtonGroup}">

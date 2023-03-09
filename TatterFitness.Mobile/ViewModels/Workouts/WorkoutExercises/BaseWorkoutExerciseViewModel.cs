@@ -10,6 +10,7 @@ using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
 using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.Messages.MessageArgs;
+using TatterFitness.Mobile.Models;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
 using TatterFitness.Mobile.Views.History;
@@ -89,7 +90,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
         abstract protected T CreateSetVm(int exerciseId, WorkoutExerciseSet set, int totalSets);
 
-        protected override Task PerformLoadViewData()
+        protected override async Task PerformLoadViewData()
         {
             Title = WorkoutExercise.ExerciseName;
             FormModNames();
@@ -99,8 +100,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             }
             SetButtonAvailability();
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+            await Calculate531();
 
-            return Task.CompletedTask;
         }
 
         private void FormModNames()
@@ -125,13 +126,15 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                     ExerciseName = WorkoutExercise.ExerciseName
                 };
                 var exercise531Popup = new Exercise531Popup(metadata);
-                if (await Shell.Current.ShowPopupAsync(exercise531Popup) is not List<WorkoutExerciseSet> sets)
+                if (await Shell.Current.ShowPopupAsync(exercise531Popup) is not FTOResults ftoResults)
                 {
                     return;
                 }
 
                 IsBusy = true;
-                WorkoutExercise.Sets = sets;
+                Remove531Notes();
+                WorkoutExercise.Notes = $"{WorkoutExercise.Notes}{Environment.NewLine}531 - Training Max: {ftoResults.TrainingMax}, Week: {ftoResults.WeekNumber}";
+                WorkoutExercise.Sets = ftoResults.ExerciseSets;
                 SetVms.Clear();
                 foreach (var set in WorkoutExercise.Sets)
                 {
@@ -143,6 +146,26 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             catch (Exception ex)
             {
                 await HandleExceptionAsync(ex);
+            }
+        }
+
+        private void Remove531Notes()
+        {
+            try
+            {
+                if (WorkoutExercise.Notes == null ||
+                    WorkoutExercise.Notes.IndexOf("531 - ") < 0)
+                {
+                    return;
+                }
+
+                var startIdx = WorkoutExercise.Notes.IndexOf("531 - ");
+                var len = WorkoutExercise.Notes.IndexOf("Week: ", startIdx) + 6;
+
+                WorkoutExercise.Notes = WorkoutExercise.Notes.Remove(startIdx, len);
+            }
+            catch
+            {
             }
         }
 
