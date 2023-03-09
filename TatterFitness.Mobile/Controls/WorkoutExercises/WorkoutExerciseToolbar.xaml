@@ -84,6 +84,7 @@
     <Button
         x:Name="calculate531Button"
         Clicked="OnCalculate531"
+        IsVisible="false"
         Style="{StaticResource BottomToolbarButton}"
         Text="531">
         <Button.ImageSource>

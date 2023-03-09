@@ -100,8 +100,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             }
             SetButtonAvailability();
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
-            await Calculate531();
-
         }
 
         private void FormModNames()
