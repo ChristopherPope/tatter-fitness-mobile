@@ -2,14 +2,12 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using TatterFitness.Mobile.Controls.Popups;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.ContextMenu;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
-using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
 using TatterFitness.Mobile.Views.History;
@@ -22,9 +20,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 {
     public partial class WorkoutViewModel :
         ViewModelBase,
-        IQueryAttributable,
-        IRecipient<CompletedSetMetricsChangedMessage>,
-        IRecipient<SetCompletedMessage>
+        IQueryAttributable
     {
         private int routineId;
         private Workout workout;
@@ -70,9 +66,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             this.exercisesSelectorModal = exercisesSelectorModal;
             this.contextMenu = contextMenu;
             this.totalEffort = totalEffort;
-
-            WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -83,7 +76,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
         protected override async Task PerformLoadViewData()
         {
-            routineId = 1029;
             var routine = await routinesApi.Read(routineId);
             if (routine == null)
             {
@@ -94,8 +86,13 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
             await PopulateWorkoutExercises(routine.Exercises);
             TotalEffort.ShowTotalEffort(ExerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets));
+        }
 
-            await PerformWorkout(ExerciseVms.First());
+        public override Task RefreshView()
+        {
+            TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets));
+
+            return Task.CompletedTask;
         }
 
         private async Task PopulateWorkoutExercises(IEnumerable<RoutineExercise> routineExercises)
@@ -362,14 +359,5 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             await Shell.Current.GoToAsync(nameof(ExerciseHistoryView), true, navData.ToNavDataDictionary());
         }
 
-        public void Receive(CompletedSetMetricsChangedMessage message)
-        {
-            MainThread.BeginInvokeOnMainThread(() => TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
-        }
-
-        public void Receive(SetCompletedMessage message)
-        {
-            MainThread.BeginInvokeOnMainThread(() => TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets)));
-        }
     }
 }

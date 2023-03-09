@@ -90,7 +90,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
         abstract protected T CreateSetVm(int exerciseId, WorkoutExerciseSet set, int totalSets);
 
-        protected override async Task PerformLoadViewData()
+        protected override Task PerformLoadViewData()
         {
             Title = WorkoutExercise.ExerciseName;
             FormModNames();
@@ -100,6 +100,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             }
             SetButtonAvailability();
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+
+            return Task.CompletedTask;
         }
 
         private void FormModNames()
