@@ -1,16 +1,11 @@
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using Syncfusion.Maui.Core;
-using TatterFitness.Mobile.Interfaces.Services;
-using TatterFitness.Mobile.Messages;
-using TatterFitness.Mobile.Services;
 
 namespace TatterFitness.Mobile.Controls.WorkoutExercises;
 
 public partial class MetricInput : SfTextInputLayout
 {
-    private readonly ILoggingService logger = new LoggingService();
     private bool isDirty = false;
 
     public readonly static BindableProperty MetricValueProperty = BindableProperty.Create(
@@ -39,20 +34,6 @@ public partial class MetricInput : SfTextInputLayout
     {
         get => (int)GetValue(SetIdProperty);
         set => SetValue(SetIdProperty, value);
-    }
-
-    public readonly static BindableProperty SetNumberProperty = BindableProperty.Create(
-         propertyName: nameof(SetNumber),
-         returnType: typeof(int),
-         declaringType: typeof(MetricInput),
-         defaultValue: 0,
-         propertyChanged: OnSetNumberPropertyChanged,
-         defaultBindingMode: BindingMode.OneWay);
-
-    public int SetNumber
-    {
-        get => (int)GetValue(SetNumberProperty);
-        set => SetValue(SetNumberProperty, value);
     }
 
     public readonly static BindableProperty MetricUpdatedCommandProperty = BindableProperty.Create(
@@ -100,17 +81,11 @@ public partial class MetricInput : SfTextInputLayout
             return;
         }
 
-        if (isDirty)
+        if (isDirty && MetricUpdatedCommand != null)
         {
-            WeakReferenceMessenger.Default.Send(new CompletedSetMetricsChangedMessage(SetId));
-            isDirty = false;
+            MetricUpdatedCommand.Execute(SetId);
         }
-    }
-
-    private static void OnSetNumberPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var me = bindable as MetricInput;
-        me.SetNumber = Convert.ToInt32(newValue);
+        isDirty = false;
     }
 
     private static void OnSetIdPropertyChanged(BindableObject bindable, object oldValue, object newValue)
