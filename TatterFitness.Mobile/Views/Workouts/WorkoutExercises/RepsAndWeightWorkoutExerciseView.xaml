@@ -99,7 +99,6 @@
                                                 Grid.Row="0"
                                                 Grid.Column="0"
                                                 Hint="Weight (lbs)"
-                                                SetNumber="{Binding SetNumber}"
                                                 SetId="{Binding SetId}"
                                                 MetricValue="{Binding Weight}" />
 
@@ -120,7 +119,6 @@
                                                 Grid.Row="0"
                                                 Grid.Column="2"
                                                 Hint="Reps"
-                                                SetNumber="{Binding SetNumber}"
                                                 SetId="{Binding SetId}"
                                                 MetricValue="{Binding Reps}" />
 
@@ -129,7 +127,6 @@
                                                 Grid.Column="3"
                                                 Hint="Volume"
                                                 IsEnabled="False"
-                                                SetNumber="{Binding SetNumber}"
                                                 SetId="{Binding SetId}"
                                                 MetricValue="{Binding Volume}" />
                                         </Grid>
