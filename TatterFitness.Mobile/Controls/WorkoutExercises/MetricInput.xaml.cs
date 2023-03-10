@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Syncfusion.Maui.Core;
 using TatterFitness.Mobile.Interfaces.Services;
@@ -19,6 +21,12 @@ public partial class MetricInput : SfTextInputLayout
         propertyChanged: OnMetricValuePropertyChanged,
         defaultBindingMode: BindingMode.TwoWay);
 
+    public string MetricValue
+    {
+        get => (string)GetValue(MetricValueProperty);
+        set => SetValue(MetricValueProperty, value);
+    }
+
     public readonly static BindableProperty SetIdProperty = BindableProperty.Create(
         propertyName: nameof(SetId),
         returnType: typeof(int),
@@ -27,19 +35,19 @@ public partial class MetricInput : SfTextInputLayout
         propertyChanged: OnSetIdPropertyChanged,
         defaultBindingMode: BindingMode.OneWay);
 
-    public readonly static BindableProperty SetNumberProperty = BindableProperty.Create(
-        propertyName: nameof(SetNumber),
-        returnType: typeof(int),
-        declaringType: typeof(MetricInput),
-        defaultValue: 0,
-        propertyChanged: OnSetNumberPropertyChanged,
-        defaultBindingMode: BindingMode.OneWay);
-
-    public string MetricValue
+    public int SetId
     {
-        get => (string)GetValue(MetricValueProperty);
-        set => SetValue(MetricValueProperty, value);
+        get => (int)GetValue(SetIdProperty);
+        set => SetValue(SetIdProperty, value);
     }
+
+    public readonly static BindableProperty SetNumberProperty = BindableProperty.Create(
+         propertyName: nameof(SetNumber),
+         returnType: typeof(int),
+         declaringType: typeof(MetricInput),
+         defaultValue: 0,
+         propertyChanged: OnSetNumberPropertyChanged,
+         defaultBindingMode: BindingMode.OneWay);
 
     public int SetNumber
     {
@@ -47,10 +55,18 @@ public partial class MetricInput : SfTextInputLayout
         set => SetValue(SetNumberProperty, value);
     }
 
-    public int SetId
+    public readonly static BindableProperty MetricUpdatedCommandProperty = BindableProperty.Create(
+        propertyName: nameof(MetricUpdatedCommand),
+        returnType: typeof(IAsyncRelayCommand<int>),
+        declaringType: typeof(MetricInput),
+        defaultValue: null,
+        propertyChanged: OnMetricUpdatedCommandPropertyChanged,
+        defaultBindingMode: BindingMode.OneWay);
+
+    public IAsyncRelayCommand<int> MetricUpdatedCommand
     {
-        get => (int)GetValue(SetIdProperty);
-        set => SetValue(SetIdProperty, value);
+        get => (IAsyncRelayCommand<int>)GetValue(MetricUpdatedCommandProperty);
+        set => SetValue(MetricUpdatedCommandProperty, value);
     }
 
     public MetricInput()
@@ -61,7 +77,7 @@ public partial class MetricInput : SfTextInputLayout
         {
             StoppedTypingTimeThreshold = 1000,
             MinimumLengthThreshold = 3,
-            ShouldDismissKeyboardAutomatically = true,
+            ShouldDismissKeyboardAutomatically = false,
             Command = new Command(UserStoppedTyping)
         });
     }
@@ -75,12 +91,10 @@ public partial class MetricInput : SfTextInputLayout
 
         MetricValue = e.NewTextValue;
         isDirty = true;
-        LogAction($"OnTextChanged Old='{e.OldTextValue}', New='{e.NewTextValue}'");
     }
 
     private void UserStoppedTyping()
     {
-        LogAction("UserStoppedTyping");
         if (!IsEnabled || SetId == 0)
         {
             return;
@@ -88,31 +102,21 @@ public partial class MetricInput : SfTextInputLayout
 
         if (isDirty)
         {
-            LogAction("Will Send CompletedSetMetricsChangedMessage");
             WeakReferenceMessenger.Default.Send(new CompletedSetMetricsChangedMessage(SetId));
             isDirty = false;
         }
-    }
-
-    public override string ToString()
-    {
-        return $"{SetNumber}: {Hint} = {metric.Text}, SetId = {SetId}, IsDirty? = {isDirty}";
     }
 
     private static void OnSetNumberPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var me = bindable as MetricInput;
         me.SetNumber = Convert.ToInt32(newValue);
-
-        me.LogAction("OnSetNumberPropertyChanged");
     }
 
     private static void OnSetIdPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         var me = bindable as MetricInput;
         me.SetId = Convert.ToInt32(newValue);
-
-        me.LogAction("OnSetIdPropertyChanged");
     }
 
     private static void OnMetricValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -120,17 +124,11 @@ public partial class MetricInput : SfTextInputLayout
         var me = bindable as MetricInput;
         me.metric.Text = newValue.ToString();
         me.isDirty = false;
-
-        me.LogAction("OnMetricValuePropertyChanged");
     }
 
-    private void LogAction(string action)
+    private static void OnMetricUpdatedCommandPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (!IsEnabled)
-        {
-            return;
-        }
-
-        //logger.Info($"{action} - {ToString()}");
+        var me = bindable as MetricInput;
+        me.MetricUpdatedCommand = newValue as IAsyncRelayCommand<int>;
     }
 }
