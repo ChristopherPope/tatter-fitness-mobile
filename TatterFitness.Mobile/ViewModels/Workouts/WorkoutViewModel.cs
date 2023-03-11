@@ -115,7 +115,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
                     Sequence = sequence++,
                     ExerciseName = routineExercise.ExerciseName,
                     ExerciseType = routineExercise.ExerciseType,
-                    Sets = GetDefaultSets(routineExercise.ExerciseType),
+                    Sets = (mostRecentWorkoutExercise == null ? GetDefaultSets(routineExercise.ExerciseType) : GetSetsFromWorkoutExercise(mostRecentWorkoutExercise)),
 
                     Mods = (mostRecentWorkoutExercise == null ? Enumerable.Empty<WorkoutExerciseModifier>().ToList() : GetModsFromWorkoutExercise(mostRecentWorkoutExercise))
                 };
@@ -139,7 +139,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             return mods;
         }
 
-        private List<WorkoutExerciseSet> GetSetsFromWorkoutExercise(WorkoutExercise mostRecentExercise, ExerciseTypes exerciseType)
+        private List<WorkoutExerciseSet> GetSetsFromWorkoutExercise(WorkoutExercise mostRecentExercise)
         {
             List<WorkoutExerciseSet> sets = mostRecentExercise.Sets;
             var setNumber = 1;
