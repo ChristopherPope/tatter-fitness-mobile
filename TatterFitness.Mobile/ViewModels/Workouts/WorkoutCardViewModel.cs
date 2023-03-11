@@ -11,8 +11,7 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels.Workouts
 {
-    public partial class WorkoutCardViewModel :
-        ViewModelBase
+    public partial class WorkoutCardViewModel : ViewModelBase
     {
         private readonly IWorkoutExerciseModifiersApiService modsSvc;
         private readonly IMapper mapper;
