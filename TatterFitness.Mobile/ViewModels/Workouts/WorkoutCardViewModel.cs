@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
-using TatterFitness.Mobile.Messages;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
 using TatterFitness.Models.Workouts;
@@ -112,8 +110,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             {
                 await AddModifiers(modsToAdd);
                 await RemoveModifiers(modsToRemove);
-
-                WeakReferenceMessenger.Default.Send(new ExerciseModsChangedMessage(WorkoutExercise));
             }
             catch (Exception ex)
             {

@@ -7,7 +7,6 @@ using TatterFitness.Mobile.Controls.Popups;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
-using TatterFitness.Mobile.Messages.MessageArgs;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
 using TatterFitness.Mobile.Views.History;
@@ -194,8 +193,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 newSet.WorkoutExerciseId = WorkoutExercise.Id;
                 WorkoutExercise.Sets.Add(newSet);
-
-                var args = new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count);
 
                 SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, newSet, WorkoutExercise.Sets.Count));
                 RefreshSetVms();
