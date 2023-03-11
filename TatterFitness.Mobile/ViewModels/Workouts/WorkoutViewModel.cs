@@ -101,6 +101,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
         public override Task RefreshView()
         {
             TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets));
+            ExerciseVms.ToList().ForEach(vm => vm.RefreshView());
 
             return Task.CompletedTask;
         }

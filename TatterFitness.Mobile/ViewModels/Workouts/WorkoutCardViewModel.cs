@@ -12,12 +12,7 @@ using TatterFitness.Models.Workouts;
 namespace TatterFitness.Mobile.ViewModels.Workouts
 {
     public partial class WorkoutCardViewModel :
-        ViewModelBase,
-        IRecipient<CompletedSetMetricsChangedMessage>,
-        IRecipient<SetCountChangedMessage>,
-        IRecipient<SetDeletedMessage>,
-        IRecipient<ExerciseModsChangedMessage>,
-        IRecipient<SetCompletedMessage>
+        ViewModelBase
     {
         private readonly IWorkoutExerciseModifiersApiService modsSvc;
         private readonly IMapper mapper;
@@ -77,12 +72,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             this.modsSvc = modsSvc;
 
             ExerciseType = workoutExercise.ExerciseType;
-
-            WeakReferenceMessenger.Default.Register(this as IRecipient<ExerciseModsChangedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<CompletedSetMetricsChangedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCountChangedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetDeletedMessage>);
-            WeakReferenceMessenger.Default.Register(this as IRecipient<SetCompletedMessage>);
         }
 
         public bool HasCompletedSets()
@@ -95,31 +84,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             await modsSelectorModal.ShowModal(WorkoutExercise.Mods.Select(m => m.ExerciseModifierId), OnSelectModsModalClosed);
         }
 
-        public void Receive(ExerciseModsChangedMessage message)
-        {
-            FormModNames();
-        }
-
-        public void Receive(CompletedSetMetricsChangedMessage message)
-        {
-            UpdateMetrics();
-        }
-
-        public void Receive(SetCompletedMessage message)
-        {
-            UpdateMetrics();
-        }
-
-        public void Receive(SetCountChangedMessage message)
-        {
-            UpdateMetrics();
-        }
-
-        public void Receive(SetDeletedMessage message)
-        {
-            UpdateMetrics();
-        }
-
         protected override Task PerformLoadViewData()
         {
             CalculateSetsCompleted();
@@ -130,6 +94,15 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             IsRepsOnlyGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.RepsOnly;
             IsRepsAndWeightGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.RepsAndWeight;
             IsDurationAndWeightGridVisible = WorkoutExercise.ExerciseType == TatterFitness.Models.Enums.ExerciseTypes.DurationAndWeight;
+
+            return Task.CompletedTask;
+        }
+
+        public override Task RefreshView()
+        {
+            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+            CalculateSetsCompleted();
+            FormModNames();
 
             return Task.CompletedTask;
         }
@@ -201,12 +174,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             }
 
             FormModNames();
-        }
-
-        private void UpdateMetrics()
-        {
-            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
-            CalculateSetsCompleted();
         }
     }
 }
