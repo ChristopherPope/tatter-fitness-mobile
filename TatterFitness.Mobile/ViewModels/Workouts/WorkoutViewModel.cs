@@ -345,7 +345,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
         {
             try
             {
-                var navData = new WorkoutExerciseNavData(cardVm.WorkoutExercise);
+                var navData = new WorkoutExerciseNavData(cardVm.WorkoutExercise, workout);
                 var viewName = cardVm.WorkoutExercise.ExerciseType switch
                 {
                     ExerciseTypes.Cardio => nameof(CardioWorkoutExerciseView),

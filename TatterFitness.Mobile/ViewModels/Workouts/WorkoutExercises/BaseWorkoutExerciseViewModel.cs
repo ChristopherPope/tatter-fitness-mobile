@@ -55,6 +55,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         [ObservableProperty]
         private ObservableCollection<T> setVms = new();
 
+        private Workout workout = null;
         private WorkoutExerciseSet CurrentSet => WorkoutExercise.Sets[currentPosition];
         private T CurrentSetVm => SetVms[currentPosition];
 
@@ -77,13 +78,13 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            if (WorkoutExercise != null)
+            if (workout != null)
             {
                 return;
             }
 
             var navData = NavDataBase.FromNavDataDictionary<WorkoutExerciseNavData>(query);
-
+            workout = navData.Workout;
             WorkoutExercise = navData.WorkoutExercise;
         }
 
@@ -98,7 +99,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, set, WorkoutExercise.Sets.Count));
             }
             SetButtonAvailability();
-            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+            TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
 
             return Task.CompletedTask;
         }
@@ -274,7 +275,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 CurrentSet.ExerciseType = exerciseType;
 
                 WeakReferenceMessenger.Default.Send(new SetCompletedMessage(updatedSet));
-                TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+                TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
                 SetButtonAvailability();
 
                 if (WorkoutExercise.Sets.Count == 1)
@@ -352,7 +353,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 WorkoutExercise.Sets.Remove(setVmToDelete.Set);
 
-                TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+                TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
                 SetButtonAvailability();
 
                 WeakReferenceMessenger.Default.Send(
@@ -398,7 +399,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 mapper.Map(updatedSet, set);
                 set.ExerciseType = exerciseType;
-                TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
+                TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
             }
             catch (Exception ex)
             {
