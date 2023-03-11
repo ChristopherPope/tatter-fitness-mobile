@@ -198,14 +198,26 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 WorkoutExercise.Sets.Add(newSet);
 
                 var args = new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count);
-                WeakReferenceMessenger.Default.Send(new SetCountChangedMessage(args));
 
                 SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, newSet, WorkoutExercise.Sets.Count));
+                RefreshSetVms();
             }
             catch (Exception ex)
             {
                 await HandleExceptionAsync(ex);
             }
+        }
+
+        private void RefreshSetVms()
+        {
+            var setNumber = 1;
+            SetVms
+                .ToList()
+                .ForEach(vm =>
+                {
+                    vm.Set.SetNumber = setNumber++;
+                    vm.Refresh(WorkoutExercise.Sets.Count);
+                });
         }
 
         [RelayCommand]
@@ -274,8 +286,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 mapper.Map(updatedSet, CurrentSet);
                 CurrentSet.ExerciseType = exerciseType;
 
-                WeakReferenceMessenger.Default.Send(new SetCompletedMessage(updatedSet));
                 TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
+                RefreshSetVms();
                 SetButtonAvailability();
 
                 if (WorkoutExercise.Sets.Count == 1)
@@ -285,12 +297,10 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 if (Position == WorkoutExercise.Sets.Count - 1)
                 {
-                    logger.Info("Resetting Position to 0");
                     Position = 0;
                 }
                 else
                 {
-                    logger.Info($"Incrementing Position from {Position}");
                     Position++;
                 }
             }
@@ -329,7 +339,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         {
             try
             {
-                logger.Info($"PositionChanged - {position} - {Position}");
                 currentPosition = position;
                 SetButtonAvailability();
             }
@@ -355,14 +364,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
                 SetButtonAvailability();
-
-                WeakReferenceMessenger.Default.Send(
-                    new SetDeletedMessage(
-                        new SetDeletedArgs(WorkoutExercise.ExerciseId, setVmToDelete.SetNumber)));
-
-                WeakReferenceMessenger.Default.Send(
-                    new SetCountChangedMessage(
-                        new SetCountChangedArgs(WorkoutExercise.ExerciseId, WorkoutExercise.Sets.Count)));
+                RefreshSetVms();
             }
             catch (Exception ex)
             {
