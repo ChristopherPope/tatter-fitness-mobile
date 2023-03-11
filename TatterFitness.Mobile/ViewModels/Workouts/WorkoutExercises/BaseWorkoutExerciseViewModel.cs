@@ -7,8 +7,10 @@ using TatterFitness.Mobile.Controls.Popups;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
+using TatterFitness.Mobile.Models;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
+using TatterFitness.Mobile.Utils;
 using TatterFitness.Mobile.Views.History;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
@@ -123,13 +125,17 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                     ExerciseName = WorkoutExercise.ExerciseName
                 };
                 var exercise531Popup = new Exercise531Popup(metadata);
-                if (await Shell.Current.ShowPopupAsync(exercise531Popup) is not List<WorkoutExerciseSet> sets)
+                if (await Shell.Current.ShowPopupAsync(exercise531Popup) is not FTOResults ftoResults)
                 {
                     return;
                 }
 
                 IsBusy = true;
-                WorkoutExercise.Sets = sets;
+
+                var ftoNotes = new FTONotes(WorkoutExercise);
+                ftoNotes.AddFTONotes(ftoResults.TrainingMax, ftoResults.WeekNumber);
+
+                WorkoutExercise.Sets = ftoResults.ExerciseSets;
                 SetVms.Clear();
                 foreach (var set in WorkoutExercise.Sets)
                 {
