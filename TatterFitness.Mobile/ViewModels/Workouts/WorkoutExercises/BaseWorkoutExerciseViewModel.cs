@@ -379,26 +379,31 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         }
 
         [RelayCommand]
-        private Task MetricUpdated(int setId)
+        private async Task MetricUpdated(int setId)
         {
-            var setVm = SetVms.FirstOrDefault(vm => vm.Set.Id == setId);
-            if (setVm == null || setId == 0)
+            try
             {
-                return Task.CompletedTask;
+                var setVm = SetVms.FirstOrDefault(vm => vm.Set.Id == setId);
+                if (setVm == null || setId == 0)
+                {
+                    return;
+                }
+                var set = setVm.Set;
+
+                var exerciseType = set.ExerciseType;
+                var updatedSet = Task.Run(async () =>
+                {
+                    return await setsApi.Update(set);
+                }).Result;
+
+                mapper.Map(updatedSet, set);
+                set.ExerciseType = exerciseType;
+                TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
             }
-            var set = setVm.Set;
-
-            var exerciseType = set.ExerciseType;
-            var updatedSet = Task.Run(async () =>
+            catch (Exception ex)
             {
-                return await setsApi.Update(set);
-            }).Result;
-
-            mapper.Map(updatedSet, set);
-            set.ExerciseType = exerciseType;
-            TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
-
-            return Task.CompletedTask;
+                await HandleExceptionAsync(ex);
+            }
         }
     }
 }

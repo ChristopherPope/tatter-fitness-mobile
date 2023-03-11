@@ -98,6 +98,13 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             await PerformWorkout(ExerciseVms.First());
         }
 
+        public override Task RefreshView()
+        {
+            TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(e => e.Sets));
+
+            return Task.CompletedTask;
+        }
+
         private async Task PopulateWorkoutExercises(IEnumerable<RoutineExercise> routineExercises)
         {
             var mostRecentWorkoutExercises = await workoutExercisesApi.ReadMostRecent(routineExercises.Select(e => e.ExerciseId));
