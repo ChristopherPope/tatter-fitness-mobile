@@ -99,8 +99,9 @@
                                                 Grid.Row="0"
                                                 Grid.Column="0"
                                                 Hint="Weight (lbs)"
-                                                SetId="{Binding SetId}"
-                                                MetricValue="{Binding Weight}" />
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:RepsAndWeightWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Weight}"
+                                                SetId="{Binding SetId}" />
 
                                             <Label
                                                 Grid.Row="0"
@@ -119,16 +120,17 @@
                                                 Grid.Row="0"
                                                 Grid.Column="2"
                                                 Hint="Reps"
-                                                SetId="{Binding SetId}"
-                                                MetricValue="{Binding Reps}" />
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:RepsAndWeightWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Reps}"
+                                                SetId="{Binding SetId}" />
 
                                             <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="3"
                                                 Hint="Volume"
                                                 IsEnabled="False"
-                                                SetId="{Binding SetId}"
-                                                MetricValue="{Binding Volume}" />
+                                                MetricValue="{Binding Volume}"
+                                                SetId="{Binding SetId}" />
                                         </Grid>
                                     </Grid>
                                 </StackLayout>
