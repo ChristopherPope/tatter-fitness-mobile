@@ -2,13 +2,11 @@
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using TatterFitness.Mobile.Controls.Popups;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
 using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
-using TatterFitness.Mobile.Messages;
 using TatterFitness.Mobile.Messages.MessageArgs;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
@@ -263,7 +261,6 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 }
 
                 FormModNames();
-                WeakReferenceMessenger.Default.Send(new ExerciseModsChangedMessage(WorkoutExercise));
             }
             catch (Exception ex)
             {

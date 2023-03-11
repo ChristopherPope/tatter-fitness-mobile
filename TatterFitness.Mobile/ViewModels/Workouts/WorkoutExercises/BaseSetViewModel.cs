@@ -3,8 +3,7 @@ using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 {
-    public abstract partial class BaseSetViewModel :
-        ObservableObject
+    public abstract partial class BaseSetViewModel : ObservableObject
     {
         protected readonly int exerciseId;
 
