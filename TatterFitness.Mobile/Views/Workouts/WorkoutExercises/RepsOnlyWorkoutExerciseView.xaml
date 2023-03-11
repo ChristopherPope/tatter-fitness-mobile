@@ -89,20 +89,16 @@
                                             </Grid.RowDefinitions>
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
-                                            <StackLayout
+                                            <weControls:MetricInput
                                                 Grid.Row="0"
                                                 Grid.Column="0"
-                                                Orientation="Vertical">
-                                                <Label
-                                                    Style="{StaticResource MetricTitle}"
-                                                    Text="Reps" />
-
-                                                <weControls:MetricInput
-                                                    MetricValue="{Binding Reps}" />
-                                            </StackLayout>
+                                                Hint="Reps"
+                                                MetricUpdatedCommand="{Binding Path=MetricUpdatedCommand, Source={RelativeSource AncestorType={x:Type vm:RepsOnlyWorkoutExerciseViewModel}}}"
+                                                MetricValue="{Binding Reps}"
+                                                SetId="{Binding SetId}" />
                                         </Grid>
                                     </Grid>
                                 </StackLayout>
