@@ -67,6 +67,7 @@
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
@@ -83,6 +84,16 @@
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
+                                    HorizontalTextAlignment="Start"
+                                    Style="{StaticResource LabelMicro}"
+                                    Text="{Binding FtoInfo}"
+                                    TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
+                                                                Light={StaticResource TextColorTertiary}}"
+                                    VerticalTextAlignment="Center" />
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="2"
                                     HorizontalTextAlignment="End"
                                     Style="{StaticResource LabelMedium}"
                                     Text="{Binding WorkoutDate}"
@@ -102,7 +113,7 @@
 
                                 <controls:ExerciseEffort
                                     Grid.Row="1"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     AverageBpm="{Binding AverageBpm}"
                                     CDuration="{Binding CDuration}"
                                     CMiles="{Binding CMiles}"

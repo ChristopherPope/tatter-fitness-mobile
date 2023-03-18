@@ -65,6 +65,9 @@ namespace TatterFitness.Mobile.ViewModels.History.ExHistory
         [ObservableProperty]
         private bool doShowNotesButton = false;
 
+        [ObservableProperty]
+        private string ftoInfo;
+
         public ExerciseHistoryCardViewModel(ILoggingService logger, ExerciseHistory exerciseHistory)
             : base(logger)
         {
@@ -85,6 +88,11 @@ namespace TatterFitness.Mobile.ViewModels.History.ExHistory
             DoShowModNames = !string.IsNullOrEmpty(ModNames);
             DoShowNotesButton = !string.IsNullOrEmpty(exerciseHistory.Notes);
             ExerciseType = exerciseHistory.ExerciseType;
+
+            if (exerciseHistory.FtoWeekNumber > 0 || exerciseHistory.FtoTrainingMax > 0)
+            {
+                FtoInfo = $"531 - Week Number: {exerciseHistory.FtoWeekNumber}, Training Max: {exerciseHistory.FtoTrainingMax:#,0}";
+            }
 
             CalculateMetricsEffort();
             return Task.CompletedTask;
