@@ -10,7 +10,6 @@ using TatterFitness.Mobile.Interfaces.Services.SelectorModals;
 using TatterFitness.Mobile.Models;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.NavData;
-using TatterFitness.Mobile.Utils;
 using TatterFitness.Mobile.Views.History;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Exercises;
@@ -141,13 +140,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 IsBusy = true;
 
-                var ftoNotes = new FTONotes(WorkoutExercise);
-                ftoNotes.AddFTONotes(ftoResults.TrainingMax, ftoResults.WeekNumber);
-
                 WorkoutExercise.FtoTrainingMax = ftoResults.TrainingMax;
                 WorkoutExercise.FtoWeekNumber = ftoResults.WeekNumber;
-                FtoTrainingMax = 0;
-                FtoWeekNumber = 0;
                 FtoTrainingMax = WorkoutExercise.FtoTrainingMax;
                 FtoWeekNumber = WorkoutExercise.FtoWeekNumber;
 

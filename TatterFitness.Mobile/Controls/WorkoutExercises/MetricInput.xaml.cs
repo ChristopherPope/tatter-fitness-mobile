@@ -113,12 +113,22 @@ public partial class MetricInput : SfTextInputLayout
 
     private static void OnSetIdPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as MetricInput;
         me.SetId = Convert.ToInt32(newValue);
     }
 
     private static void OnMetricValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as MetricInput;
         me.metric.Text = newValue.ToString();
         me.isDirty = false;
@@ -126,6 +136,11 @@ public partial class MetricInput : SfTextInputLayout
 
     private static void OnMetricUpdatedCommandPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as MetricInput;
         me.MetricUpdatedCommand = newValue as IAsyncRelayCommand<int>;
     }

@@ -141,6 +141,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnRwVolumeChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.RWVolume = newValue.ToString();
         me.rwVolume.Text = me.RWVolume;
@@ -148,6 +153,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnRoRepsChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.ROReps = newValue.ToString();
         me.roReps.Text = me.ROReps;
@@ -155,6 +165,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnDwVolumeChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.DWVolume = newValue.ToString();
         me.dwVolume.Text = me.DWVolume;
@@ -162,6 +177,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnCDurationChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.RWVolume = newValue.ToString();
         me.rwVolume.Text = me.RWVolume;
@@ -169,6 +189,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnCMilesChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.CMiles = newValue.ToString();
         me.cMiles.Text = me.CMiles;
@@ -176,6 +201,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnAverageBpmChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.AverageBpm = newValue.ToString();
         me.cBpm.Text = me.AverageBpm;
@@ -183,6 +213,11 @@ public partial class ExerciseEffort : Grid
 
     private static void OnDwDurationChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as ExerciseEffort;
         me.DWDuration = newValue.ToString();
         me.dwDuration.Text = me.DWDuration;

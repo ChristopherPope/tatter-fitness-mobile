@@ -38,6 +38,11 @@ public partial class FtoInfo : StackLayout
 
     private static void OnWeekNumberChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as FtoInfo;
         me.WeekNumber = Convert.ToInt32(newValue);
         me.UpdateUi();
@@ -45,6 +50,11 @@ public partial class FtoInfo : StackLayout
 
     private static void OnTrainingMaxChanged(BindableObject bindable, object oldValue, object newValue)
     {
+        if (newValue is null)
+        {
+            return;
+        }
+
         var me = bindable as FtoInfo;
         me.TrainingMax = Convert.ToInt32(newValue);
         me.UpdateUi();
@@ -52,7 +62,7 @@ public partial class FtoInfo : StackLayout
 
     private void UpdateUi()
     {
-        //ftoInfo.IsVisible = TrainingMax == 0 && WeekNumber == 0;
+        ftoInfo.IsVisible = TrainingMax > 0 || WeekNumber > 0;
 
         ftoText.Text = $"531 - Week Number: {WeekNumber}, Training Max: {TrainingMax:#,0}";
     }

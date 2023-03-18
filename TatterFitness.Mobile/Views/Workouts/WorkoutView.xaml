@@ -185,7 +185,7 @@
                                         Command="{Binding Source={x:Reference ExercisesList}, Path=BindingContext.ShowContextMenuCommand}"
                                         CommandParameter="{Binding .}"
                                         FontFamily="FAS"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="End"
                                         Style="{StaticResource LabelMedium}"
                                         Text="{Static fontAwesome:FontAwesomeIcons.EllipsisV}"
                                         TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
