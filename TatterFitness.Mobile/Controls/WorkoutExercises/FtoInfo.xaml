@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout
+    x:Class="TatterFitness.Mobile.Controls.WorkoutExercises.FtoInfo"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="ftoInfo"
+    BackgroundColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
+                                      Light={StaticResource TextColorTertiary}}"
+    Orientation="Horizontal">
+
+    <Label
+        x:Name="ftoText"
+        Margin="5,5,0,0"
+        FontAttributes="Bold"
+        HorizontalOptions="Center"
+        TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkSecondary},
+                                    Light={StaticResource TextColorSecondary}}" />
+</StackLayout>

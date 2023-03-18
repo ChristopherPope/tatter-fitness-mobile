@@ -1,9 +1,9 @@
 ﻿using Flurl.Http.Configuration;
-using TatterFitness.Models.Workouts;
+using TatterFitness.Mobile.Enums;
 using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Interfaces.Services.API;
-using TatterFitness.Mobile.Enums;
 using TatterFitness.Mobile.Models;
+using TatterFitness.Models.Workouts;
 
 namespace TatterFitness.Mobile.Services.API
 {
@@ -12,13 +12,15 @@ namespace TatterFitness.Mobile.Services.API
         public WorkoutExercisesApiService(ILoggingService logger, IFlurlClientFactory flurlClientFactory)
             : base("WorkoutExercises", logger, flurlClientFactory)
         {
-        } 
+        }
 
         public async Task Update(WorkoutExercise workoutExercise)
         {
             var ops = new List<PatchOperation>
             {
-                new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.Notes)}", workoutExercise.Notes)
+                new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.Notes)}", workoutExercise.Notes),
+                new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.FtoWeekNumber)}", workoutExercise.FtoWeekNumber),
+                new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.FtoTrainingMax)}", workoutExercise.FtoTrainingMax)
             };
 
             await PerformPatch(CreateRequest(workoutExercise.Id), ops);

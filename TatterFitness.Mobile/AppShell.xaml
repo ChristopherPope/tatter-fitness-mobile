@@ -117,6 +117,20 @@
         </Grid>
     </Shell.FlyoutHeader>
 
+    <FlyoutItem Title="Workout">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                FontFamily="FAS"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.Home}"
+                Color="{AppThemeBinding Dark=White,
+                                        Light=Black}" />
+        </FlyoutItem.Icon>
+
+        <ShellContent
+            Title="Light"
+            ContentTemplate="{DataTemplate workoutViews:WorkoutView}" />
+    </FlyoutItem>
+
     <FlyoutItem Title="Home">
         <FlyoutItem.Icon>
             <FontImageSource

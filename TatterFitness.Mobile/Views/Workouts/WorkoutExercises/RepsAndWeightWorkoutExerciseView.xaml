@@ -26,6 +26,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -39,14 +40,19 @@
             ROReps="{Binding TotalEffort.TotalROReps}"
             RWVolume="{Binding TotalEffort.TotalRWVolume}" />
 
-        <ActivityIndicator
+        <weControls:FtoInfo
             Grid.Row="1"
+            TrainingMax="{Binding FtoTrainingMax}"
+            WeekNumber="{Binding FtoWeekNumber}" />
+
+        <ActivityIndicator
+            Grid.Row="2"
             Grid.Column="0"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}" />
 
         <StackLayout
-            Grid.Row="1"
+            Grid.Row="2"
             Orientation="Vertical">
             <CarouselView
                 x:Name="SetsList"
@@ -149,7 +155,7 @@
         </StackLayout>
 
         <weControls:WorkoutExerciseToolbar
-            Grid.Row="2"
+            Grid.Row="3"
             AddSetCommand="{Binding AddSetCommand}"
             Calculate531Command="{Binding Calculate531Command}"
             CompleteSetCommand="{Binding CompleteSetCommand}"
@@ -159,6 +165,5 @@
             IsCompleteSetButtonVisible="{Binding DoShowCompleteSetButton}"
             SelectModsCommand="{Binding SelectModsCommand}"
             ViewHistoryCommand="{Binding ViewHistoryCommand}" />
-
     </Grid>
 </views:ContentPageBase>

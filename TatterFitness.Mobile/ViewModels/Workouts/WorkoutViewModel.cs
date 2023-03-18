@@ -76,6 +76,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
         protected override async Task PerformLoadViewData()
         {
+            routineId = 1029;
+
             var routine = await routinesApi.Read(routineId);
             if (routine == null)
             {
@@ -86,6 +88,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
 
             await PopulateWorkoutExercises(routine.Exercises);
             TotalEffort.ShowTotalEffort(ExerciseVms.SelectMany(vm => vm.WorkoutExercise.Sets));
+
+            await PerformWorkout(ExerciseVms.First());
         }
 
         public override Task RefreshView()

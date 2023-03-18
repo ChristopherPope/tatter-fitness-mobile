@@ -40,6 +40,12 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         private bool doShowCompleteSetButton = true;
 
         [ObservableProperty]
+        private int ftoTrainingMax;
+
+        [ObservableProperty]
+        private int ftoWeekNumber;
+
+        [ObservableProperty]
         private int position;
 
         [ObservableProperty]
@@ -89,9 +95,12 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
         abstract protected T CreateSetVm(int exerciseId, WorkoutExerciseSet set, int totalSets);
 
-        protected override Task PerformLoadViewData()
+        protected override async Task PerformLoadViewData()
         {
             Title = WorkoutExercise.ExerciseName;
+            FtoTrainingMax = WorkoutExercise.FtoTrainingMax;
+            FtoWeekNumber = WorkoutExercise.FtoWeekNumber;
+
             FormModNames();
             foreach (var set in WorkoutExercise.Sets)
             {
@@ -100,7 +109,9 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             SetButtonAvailability();
             TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
 
-            return Task.CompletedTask;
+            await Calculate531();
+
+            //return Task.CompletedTask;
         }
 
         private void FormModNames()
@@ -137,6 +148,12 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 WorkoutExercise.FtoTrainingMax = ftoResults.TrainingMax;
                 WorkoutExercise.FtoWeekNumber = ftoResults.WeekNumber;
+                FtoTrainingMax = 0;
+                FtoWeekNumber = 0;
+                FtoTrainingMax = WorkoutExercise.FtoTrainingMax;
+                FtoWeekNumber = WorkoutExercise.FtoWeekNumber;
+
+                ftoResults.ExerciseSets.ForEach(s => s.WorkoutExerciseId = WorkoutExercise.Id);
                 WorkoutExercise.Sets = ftoResults.ExerciseSets;
                 SetVms.Clear();
                 foreach (var set in WorkoutExercise.Sets)
@@ -278,11 +295,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
         {
             try
             {
-                if (WorkoutExercise.Id == 0)
-                {
-                    await CreateWorkout();
-                }
-
+                await CreateOrUpdateWorkoutExercise();
                 var updatedSet = await setsApi.Create(CurrentSet);
                 var exerciseType = CurrentSet.ExerciseType;
                 mapper.Map(updatedSet, CurrentSet);
@@ -312,11 +325,20 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             }
         }
 
-        private async Task CreateWorkout()
+        private async Task CreateOrUpdateWorkoutExercise()
         {
             WorkoutExercise.Sets.Clear();
-            var newWorkoutExercise = await workoutExercisesApi.Create(WorkoutExercise);
-            mapper.Map(newWorkoutExercise, WorkoutExercise);
+
+            if (WorkoutExercise.Id == 0)
+            {
+                var newWorkoutExercise = await workoutExercisesApi.Create(WorkoutExercise);
+                mapper.Map(newWorkoutExercise, WorkoutExercise);
+            }
+            else
+            {
+                await workoutExercisesApi.Update(WorkoutExercise);
+            }
+
 
             WorkoutExercise.Sets.AddRange(SetVms.Select(vm => vm.Set).OrderBy(s => s.SetNumber));
             WorkoutExercise.Sets.ForEach(set => set.WorkoutExerciseId = WorkoutExercise.Id);
