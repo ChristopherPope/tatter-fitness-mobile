@@ -46,6 +46,9 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
         private ExerciseTypes exerciseType;
 
         [ObservableProperty]
+        private string ftoInfo;
+
+        [ObservableProperty]
         private string setsCompletedTitle = string.Empty;
 
         [ObservableProperty]
@@ -100,6 +103,11 @@ namespace TatterFitness.Mobile.ViewModels.Workouts
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
             CalculateSetsCompleted();
             FormModNames();
+
+            if (WorkoutExercise.FtoWeekNumber > 0 || WorkoutExercise.FtoTrainingMax > 0)
+            {
+                FtoInfo = $"531 - Week Number: {WorkoutExercise.FtoWeekNumber}, Training Max: {WorkoutExercise.FtoTrainingMax:#,0} lbs.";
+            }
 
             return Task.CompletedTask;
         }
