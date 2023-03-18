@@ -95,7 +95,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
         abstract protected T CreateSetVm(int exerciseId, WorkoutExerciseSet set, int totalSets);
 
-        protected override async Task PerformLoadViewData()
+        protected override Task PerformLoadViewData()
         {
             Title = WorkoutExercise.ExerciseName;
             FtoTrainingMax = WorkoutExercise.FtoTrainingMax;
@@ -109,9 +109,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
             SetButtonAvailability();
             TotalEffort.ShowTotalEffort(workout.Exercises.SelectMany(we => we.Sets));
 
-            await Calculate531();
-
-            //return Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         private void FormModNames()

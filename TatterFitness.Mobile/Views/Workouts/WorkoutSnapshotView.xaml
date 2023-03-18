@@ -94,15 +94,28 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Label
+                                    <StackLayout
                                         Grid.Row="0"
                                         Grid.Column="0"
-                                        HorizontalTextAlignment="Start"
-                                        Style="{StaticResource LabelMedium}"
-                                        Text="{Binding ExerciseName}"
-                                        TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
-                                                                    Light={StaticResource TextColorTertiary}}"
-                                        VerticalTextAlignment="End" />
+                                        Orientation="Horizontal">
+
+                                        <Label
+                                            HorizontalTextAlignment="Start"
+                                            Style="{StaticResource LabelMedium}"
+                                            Text="{Binding ExerciseName}"
+                                            TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
+                                                                        Light={StaticResource TextColorTertiary}}"
+                                            VerticalTextAlignment="End" />
+
+                                        <Label
+                                            HorizontalTextAlignment="Start"
+                                            Style="{StaticResource LabelMicro}"
+                                            Text="{Binding FtoInfo}"
+                                            Margin="10,0,0,0"
+                                            TextColor="{AppThemeBinding Dark={StaticResource TextColorDarkTertiary},
+                                                                        Light={StaticResource TextColorTertiary}}"
+                                            VerticalTextAlignment="End" />
+                                    </StackLayout>
 
                                     <controls:ExerciseEffort
                                         Grid.Row="0"

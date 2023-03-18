@@ -91,7 +91,7 @@ namespace TatterFitness.Mobile.ViewModels.History.ExHistory
 
             if (exerciseHistory.FtoWeekNumber > 0 || exerciseHistory.FtoTrainingMax > 0)
             {
-                FtoInfo = $"531 - Week Number: {exerciseHistory.FtoWeekNumber}, Training Max: {exerciseHistory.FtoTrainingMax:#,0}";
+                FtoInfo = $"531 - Week Number: {exerciseHistory.FtoWeekNumber}, Training Max: {exerciseHistory.FtoTrainingMax:#,0} lbs.";
             }
 
             CalculateMetricsEffort();

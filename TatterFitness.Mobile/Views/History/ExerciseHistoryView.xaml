@@ -119,7 +119,6 @@
                                     CMiles="{Binding CMiles}"
                                     DWDuration="{Binding DWDuration}"
                                     DWVolume="{Binding DWVolume}"
-                                    ExerciseHistory="{Binding ExerciseHistory}"
                                     ExerciseType="{Binding ExerciseType}"
                                     ROReps="{Binding ROReps}"
                                     RWVolume="{Binding RWVolume}" />

@@ -7,7 +7,6 @@ using TatterFitness.Mobile.Interfaces.Services;
 using TatterFitness.Mobile.Models;
 using TatterFitness.Mobile.Models.Popups;
 using TatterFitness.Mobile.Utils;
-using TatterFitness.Mobile.ViewModels;
 using TatterFitness.Models.Enums;
 using TatterFitness.Models.Workouts;
 
@@ -19,6 +18,9 @@ namespace TatterFitness.Mobile.ViewModels.WorkoutSnapshot
 
         [ObservableProperty]
         public bool doShowModNames;
+
+        [ObservableProperty]
+        private string ftoInfo;
 
         [ObservableProperty]
         private string modNames;
@@ -62,9 +64,12 @@ namespace TatterFitness.Mobile.ViewModels.WorkoutSnapshot
             MakeModNames();
             DoShowNotesButton = !string.IsNullOrEmpty(WorkoutExercise.Notes);
             TotalEffort.ShowTotalEffort(WorkoutExercise.Sets);
-
             ExerciseType = WorkoutExercise.ExerciseType;
 
+            if (WorkoutExercise.FtoWeekNumber > 0 || WorkoutExercise.FtoTrainingMax > 0)
+            {
+                FtoInfo = $"531 - Week Number: {WorkoutExercise.FtoWeekNumber}, Training Max: {WorkoutExercise.FtoTrainingMax:#,0} lbs.";
+            }
             return Task.CompletedTask;
         }
 
