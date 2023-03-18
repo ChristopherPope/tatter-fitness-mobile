@@ -135,6 +135,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 var ftoNotes = new FTONotes(WorkoutExercise);
                 ftoNotes.AddFTONotes(ftoResults.TrainingMax, ftoResults.WeekNumber);
 
+                WorkoutExercise.FtoTrainingMax = ftoResults.TrainingMax;
+                WorkoutExercise.FtoWeekNumber = ftoResults.WeekNumber;
                 WorkoutExercise.Sets = ftoResults.ExerciseSets;
                 SetVms.Clear();
                 foreach (var set in WorkoutExercise.Sets)

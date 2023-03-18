@@ -21,14 +21,15 @@ namespace TatterFitness.Mobile.Services.API
             this.flurlClientFactory = flurlClientFactory;
 
 #if DEBUG
-// To connect to debug API, must run 
-//	 iisexpress-proxy 50662 to 88
+            // To connect to debug API, must run 
+            //	 iisexpress-proxy 50662 to 88
 
-            flurlClient = flurlClientFactory.Get("http://10.0.2.2:88/api/");
+            flurlClient = flurlClientFactory.Get("http://10.0.2.2:88/api/"); // DEBUG DB on emulator
+            //flurlClient = flurlClientFactory.Get("http://192.168.1.10/api/"); // PROD DB on device
 #else
-            //flurlClient = flurlClientFactory.Get("http://192.168.1.10:88/api/");
-            flurlClient = flurlClientFactory.Get("http://192.168.1.10/api/");
-            //flurlClient = flurlClientFactory.Get("http://10.0.2.2:88/api/"); // emulator
+            //flurlClient = flurlClientFactory.Get("http://192.168.1.10:88/api/"); // DEBUG DB on device
+            flurlClient = flurlClientFactory.Get("http://192.168.1.10/api/"); // PROD DB on device
+            //flurlClient = flurlClientFactory.Get("http://10.0.2.2:88/api/"); // DEBUG DB on emulator
 #endif
         }
 
