@@ -43,9 +43,6 @@ namespace TatterFitness.Mobile.ViewModels.Home
                 HomeCardVms.Add(cardVm);
                 day = day.AddDays(-1);
             }
-
-            var navData = new NavData.WorkoutSnapshotNavData(Convert.ToInt32(18817));
-            await Shell.Current.GoToAsync(nameof(WorkoutSnapshotView), true, navData.ToNavDataDictionary());
         }
 
         [RelayCommand]
