@@ -18,10 +18,14 @@ namespace TatterFitness.Mobile.Services.API
         {
             var ops = new List<PatchOperation>
             {
-                new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.Notes)}", workoutExercise.Notes),
                 new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.FtoWeekNumber)}", workoutExercise.FtoWeekNumber),
                 new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.FtoTrainingMax)}", workoutExercise.FtoTrainingMax)
             };
+
+            if (workoutExercise.Notes != null)
+            {
+                ops.Add(new PatchOperation(PatchOpCommand.Replace, $"/{nameof(WorkoutExercise.FtoWeekNumber)}", workoutExercise.FtoWeekNumber));
+            }
 
             await PerformPatch(CreateRequest(workoutExercise.Id), ops);
         }

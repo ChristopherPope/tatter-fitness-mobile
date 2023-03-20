@@ -1,4 +1,5 @@
-﻿using TatterFitness.Mobile.Enums;
+﻿using Ardalis.GuardClauses;
+using TatterFitness.Mobile.Enums;
 
 namespace TatterFitness.Mobile.Models
 {
@@ -10,9 +11,12 @@ namespace TatterFitness.Mobile.Models
 
         public PatchOperation(PatchOpCommand operation, string path, object value)
         {
+            path = Guard.Against.Null(path, nameof(path));
+            value = Guard.Against.Null(value, nameof(value));
+
             Op = operation.ToString("g");
             Path = path;
-            Value = value.ToString();
+            Value = value?.ToString();
         }
     }
 }
