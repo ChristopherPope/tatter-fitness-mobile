@@ -213,6 +213,7 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
 
                 SetVms.Add(CreateSetVm(WorkoutExercise.ExerciseId, newSet, WorkoutExercise.Sets.Count));
                 RefreshSetVms();
+                SetButtonAvailability();
             }
             catch (Exception ex)
             {
