@@ -130,7 +130,8 @@ namespace TatterFitness.Mobile.ViewModels.Workouts.WorkoutExercises
                 var metadata = new Exercise531PopupMetadata
                 {
                     ExerciseId = WorkoutExercise.ExerciseId,
-                    ExerciseName = WorkoutExercise.ExerciseName
+                    ExerciseName = WorkoutExercise.ExerciseName,
+                    ExerciseType = WorkoutExercise.ExerciseType
                 };
                 var exercise531Popup = new Exercise531Popup(metadata);
                 if (await Shell.Current.ShowPopupAsync(exercise531Popup) is not FTOResults ftoResults)

@@ -183,8 +183,8 @@ public partial class ExerciseEffort : Grid
         }
 
         var me = bindable as ExerciseEffort;
-        me.RWVolume = newValue.ToString();
-        me.rwVolume.Text = me.RWVolume;
+        me.CDuration = newValue.ToString();
+        me.cDuration.Text = me.CDuration;
     }
 
     private static void OnCMilesChanged(BindableObject bindable, object oldValue, object newValue)

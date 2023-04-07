@@ -49,6 +49,7 @@ public partial class Exercise531Popup : Popup
         foreach (var set in sets)
         {
             set.SetNumber = setNumber++;
+            set.ExerciseType = metadata.ExerciseType;
         }
 
         var results = new FTOResults
